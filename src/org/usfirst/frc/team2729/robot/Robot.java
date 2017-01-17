@@ -1,6 +1,11 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
+import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
+import org.usfirst.frc.team2729.robot.subsystems.IntakeSystem;
+import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -12,86 +17,73 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrain;
-	//public static IntakeSystem intake;
-	//public static ShootingSystem shoot;
-	//public static HangingSystem hang;
+	public static GearSystem gear;
+	public static HangingSystem hang;
+	public static IntakeSystem intake;
+	public static ShootingSystem shoot;
 	public static OI oi;
-	private Compressor compressor;
-
-	Command autonomousCommand;
+	public static Compressor compressor;
+//	public static VisionSystem vision;
+	Command teleop;
+	Command selectedAutoMode;
 	SendableChooser chooser;
 
 	@Override
 	public void robotInit() {
-		Command autoCommand;
+		
 		String[] autoModeNames;
 		Command[] autoModes;
 		driveTrain = new DriveTrain();
-		//intake = new IntakeSystem();
-		//shoot = new ShootingSystem();
-		
-		//hang = new HangingSystem();
+		gear = new GearSystem();
+		hang = new HangingSystem();
+		intake = new IntakeSystem();
+		shoot = new ShootingSystem();
 		oi = new OI();
 		//vision = new VisionSystem();
 		compressor = new Compressor();
 		compressor.start();
 		chooser = new SendableChooser();
 
-		autoModeNames = new String[]{"Do Nothing","MAX MANUAL","40% MANUAL","MANUAL LOW BAR","Drive for 4 Seconds","LOW BAR AUTO","TURN 90","Drive To Defense", "Drive to Defense Backwards","Position Center Left", "Position Left", "Position Center", "Position Center Right", "Position Right" };
-		//autoModes = new Command[]{new DoNothing(), new ManualDriveAuto(-1,5, true),new ManualDriveAuto(-.4,5, true),new ManualDriveLowBar(),new PIDDriveAuto(-.75, 4, true),new BreachLowBarAuto(), new Turn(90.0, .4) ,new BreachDefenseAuto(3000,.4, true), new BreachDefenseAuto(-3000, .4, true), new PositionCenterLeft(), new PositionLeft(), new PositionCenter(), new PositionCenterRight(), new PositionRight()};
+		autoModeNames = new String[]{};
+		autoModes = new Command[]{};
 
-		//configure and send the sendableChooser, which allows the modes
-		//to be chosen via radio button on the SmartDashboard
-	//	for(int i = 0; i < autoModes.length; ++i){
-		//	chooser.addObject(autoModeNames[i], autoModes[i]);
+	//	configure and send the sendableChooser, which allows the modes
+	//	to be chosen via radio button on the SmartDashboard
+		for(int i = 0; i < autoModes.length; ++i){
+			chooser.addObject(autoModeNames[i], autoModes[i]);
 		}
-		//SmartDashboard.putData("Auto mode", chooser);
-	//	SmartDashboard.putNumber("Encoder", driveTrain.getRightSpeedEnc());
-	//}
+		
+		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData(Scheduler.getInstance());
+		SmartDashboard.putNumber("Encoder", driveTrain.getRightSpeedEnc());
+	}
 
-	/*@Override
+	@Override
 	public void disabledInit(){
-		Robot.shoot.setTargetSpeed(0);
-		Robot.shoot.setTargetTilt(Robot.shoot.getShooterPotRAW());
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		Robot.shoot.setTargetTilt(Robot.shoot.getShooterPotRAW());
 		//Robot.vision.addCrosshairs();
-	}*/
+	}
 
 	public void sendSensorData() {
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
-		//SmartDashboard.putNumber("Rot Pot", intake.getPot());
-		//SmartDashboard.putNumber("Motor", intake.getTiltPower());
-		//Robot.shoot.getShooterAnglePR();
-
 		SmartDashboard.putBoolean("High Gear", Robot.driveTrain.getHighGear());
 		SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 
 	}
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = (Command) chooser.getSelected();
-
-		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		switch(autoSelected) {
-		case "My Auto":
-			autonomousCommand = new MyAutoCommand();
-			break;
-		case "Default Auto":
-		default:
-			autonomousCommand = new ExampleCommand();
-			break;
-		} */
-
-		// schedule the autonomous command (example)
-		if (autonomousCommand != null) {
-			autonomousCommand.start();
+		if (teleop != null) {
+			teleop.cancel();
+		}
+		selectedAutoMode = (Command) chooser.getSelected();
+		if (selectedAutoMode != null) {
+			selectedAutoMode.start();
 		}
 	}
 
@@ -104,11 +96,12 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
+		if (selectedAutoMode != null) {
+			selectedAutoMode.cancel();
 		}
-		//Robot.shoot.unStall();
-		//Robot.shoot.setTiltEStopped(false);
+		if (teleop != null) {
+			teleop.start();
+		}
 	}
 
 	@Override

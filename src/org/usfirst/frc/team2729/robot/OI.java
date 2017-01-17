@@ -1,11 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-
 import org.usfirst.frc.team2729.robot.commands.PIDDrive;
-
+import org.usfirst.frc.team2729.robot.commands.Shift;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -37,26 +33,14 @@ public class OI {
 	public OI(){
 		//Driver Commands
 
-		/*shiftHighDrive.whenPressed(new Shift(true));
+		shiftHighDrive.whenPressed(new Shift(true));
 		shiftLowDrive.whenPressed(new Shift(false));
-		 */
+		 
 		driveForward.whileHeld(new PIDDrive(1, true));
 		driveBackward.whileHeld(new PIDDrive(1, true));
 
-		/*Operator Commands
-		shooterSpinUP.whenPressed(new ShooterSpinUp());
-		shooterSpinDOWN.whenPressed(new ShooterSpinDown());
-
-		IntakeUP.whenPressed(new IntakeTilt(true));
-		IntakeDOWN.whenPressed(new IntakeTilt(false));
-
-		ShootFire.whenPressed(new Shoot());
-
-		shooterTiltMax.whenPressed(new ShooterSetTilt(Robot.shoot.TILT_TARGET_MAX));
-		shooterTiltMin.whenPressed(new ShooterSetTilt(Robot.shoot.TILT_TARGET_MIN));
-
-		HangSafety.whileHeld(new EnableHanging());
-		 */
+		//Operator Commands
+		
 		//Special Commands
 		halveOne.whileHeld(new Command() {
 			@Override
@@ -84,22 +68,5 @@ public class OI {
 			protected void interrupted() { end(); }
 		});
 
-		/*Timer _timer = new Timer();
-		_timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				switch(armJoystick.getPOV()){
-				case 0: Robot.shoot.setTargetTilt(Robot.shoot.TILT_TARGET_HIGH);
-				break;
-				case 90:Robot.shoot.setTargetTilt(Robot.shoot.TILT_TARGET_INTAKE);
-				break;
-				case 180:Robot.shoot.setTargetTilt(Robot.shoot.TILT_TARGET_LOW);
-				break;
-				case 270:Robot.shoot.setTargetTilt(Robot.shoot.TILT_TARGET_MED);
-				break;
-				};
-			}
-		}, 50, 50);
-	} */
 	}
 }

@@ -21,14 +21,18 @@ public class RobotMap {
 	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 5;
 
 
-	//PWM Ports
+	//CAN Ports
 	public static final int
-	PORT_MOTOR_DRIVE_LEFT_1 			= 20,
+	PORT_MOTOR_DRIVE_LEFT_MAIN 			= 20,
 	PORT_MOTOR_DRIVE_LEFT_2 			= 21,
 	PORT_MOTOR_DRIVE_LEFT_3 			= 22,
-	PORT_MOTOR_DRIVE_RIGHT_1 			= 10,
+	PORT_MOTOR_DRIVE_RIGHT_MAIN 		= 10,
 	PORT_MOTOR_DRIVE_RIGHT_2 			= 11,
-	PORT_MOTOR_DRIVE_RIGHT_3 			= 12;
+	PORT_MOTOR_DRIVE_RIGHT_3 			= 12,
+	PORT_MOTOR_HANG 					= 1,//Ambiguous port numbers
+	PORT_MOTOR_GEAR						= 2,
+	PORT_MOTOR_INTAKE		 			= 3,
+	PORT_MOTOR_SHOOT		 			= 4;
 	// Analog ports
 	public static final int  PORT_STRINGPOT		  = 0;
 
@@ -40,13 +44,14 @@ public class RobotMap {
 	PORT_ENCODER_DRIVE_LEFT_2       =  5;
 
 	//Relay
-	public static final int PORT_RELAY_COMPRESSOR = 0;
+	public static final int
+	PORT_RELAY_COMPRESSOR = 0;
 
 	//Solenoids
 	public static final int
-	PORT_SHIFT_DRIVE_HIGH	  		= 0,
-	PORT_SHIFT_DRIVE_LOW			= 1,
-	PORT_SHIFT_HANG_ON		 	 	= 2,
-	PORT_SHIFT_HANG_OFF				= 3;
+    PORT_SHIFT_DRIVE_HIGH			= 0,
+    PORT_SHIFT_DRIVE_LOW			= 1,
+	PORT_SHIFT_GEAR_ON		  		= 2,
+	PORT_SHIFT_GEAR_OFF				= 3;
 
 }
