@@ -55,7 +55,8 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
-		SmartDashboard.putNumber("Encoder", driveTrain.getRightSpeedEnc());
+		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftSpeedEnc());
+		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightSpeedEnc());
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
 		SmartDashboard.putBoolean("High Gear", Robot.driveTrain.getHighGear());
-		SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
+//		SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 
 	}
 	@Override

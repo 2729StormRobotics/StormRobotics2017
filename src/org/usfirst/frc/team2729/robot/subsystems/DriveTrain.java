@@ -18,13 +18,11 @@ public class DriveTrain extends Subsystem {
 			_right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2),
 			_right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
 	
-	private final Encoder _leftEncoder = new Encoder(RobotMap.PORT_ENCODER_DRIVE_LEFT_1, RobotMap.PORT_ENCODER_DRIVE_LEFT_2),
-			_rightEncoder = new Encoder(RobotMap.PORT_ENCODER_DRIVE_RIGHT_1, RobotMap.PORT_ENCODER_DRIVE_RIGHT_2);
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_DRIVE_HIGH, RobotMap.PORT_SHIFT_DRIVE_LOW);
 	
 	private boolean _isHighGear = false;
 	private boolean _halfOne = false, _halfTwo = false;
-	private boolean _isPTOEnabled = false;
+//	private boolean _isPTOEnabled = false;
 
 			
 	public DriveTrain(){
@@ -38,6 +36,10 @@ public class DriveTrain extends Subsystem {
 		_right2.set(_rightMain.getDeviceID());
 		_right3.changeControlMode(CANTalon.TalonControlMode.Follower);
 		_right3.set(_rightMain.getDeviceID());
+		_leftMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		_rightMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		resetLeftEnc();
+		resetRightEnc();
 	}
 
 	@Override
@@ -64,35 +66,27 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftDistance(){
-		return _leftEncoder.get();
+		return _leftMain.getEncPosition();
 	}
 
 	public double getRightDistance(){
-		return -_rightEncoder.get();
+		return -_rightMain.getEncPosition();
 	}
 
 	public double getLeftSpeedEnc() {
-		return _leftEncoder.getRate();
+		return _leftMain.getEncVelocity();
 	}
-
+	
+	public double getRightSpeedEnc() {
+		return _rightMain.getEncVelocity();
+	}
+	
 	public void resetLeftEnc() {
-		_leftEncoder.reset();
+		_leftMain.setEncPosition(0);
 	}
 
 	public void resetRightEnc() {
-		_rightEncoder.reset();
-	}
-
-	public double getRightSpeedEnc() {
-		return -_rightEncoder.getRate();
-	}
-
-	public double getLeftSpeed() {
-		return _leftMain.get();
-	}
-
-	public double getRightSpeed() {
-		return _rightMain.get();
+		_rightMain.setEncPosition(0);
 	}
 
 	public void setHighGear(boolean enabled) {
@@ -105,7 +99,7 @@ public class DriveTrain extends Subsystem {
 		return _isHighGear;
 	}
 
-	public boolean getPTO(){
-		return _isPTOEnabled;
-	}
+//	public boolean getPTO(){
+//		return _isPTOEnabled;
+//	}
 }
