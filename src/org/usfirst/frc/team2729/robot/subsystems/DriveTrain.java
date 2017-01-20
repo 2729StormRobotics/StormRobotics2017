@@ -61,7 +61,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void tankDrive(double left, double right){
-		_leftMain.set((left) - (_halfOne ? (left/3) : 0) - (_halfTwo ? (left/3) : 0));
+		_leftMain.set(-((left) - (_halfOne ? (left/3) : 0) - (_halfTwo ? (left/3) : 0)));
 		_rightMain.set((right) - (_halfOne ? (right/3) : 0) - (_halfTwo ? (right/3) : 0));
 	}
 

@@ -24,7 +24,7 @@ public class OI {
 		return Math.abs(joyValue) > dead ? joyValue : 0;
 	}
 	public double getLeftDrive(){
-		return _zeroDeadzone(-driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_LEFT), 0.15);
+		return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_LEFT), 0.15);
 	}
 	public double getRightDrive(){
 		return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_RIGHT), 0.15);

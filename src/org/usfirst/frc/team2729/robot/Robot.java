@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
@@ -25,14 +26,12 @@ public class Robot extends IterativeRobot {
 	public static Compressor compressor;
 //	public static VisionSystem vision;
 	Command teleop;
-	Command selectedAutoMode;
+	Command autonomousCommand;
 	SendableChooser chooser;
 
 	@Override
 	public void robotInit() {
 		
-		String[] autoModeNames;
-		Command[] autoModes;
 		driveTrain = new DriveTrain();
 		gear = new GearSystem();
 		hang = new HangingSystem();
@@ -44,8 +43,9 @@ public class Robot extends IterativeRobot {
 		compressor.start();
 		chooser = new SendableChooser();
 
-		autoModeNames = new String[]{};
-		autoModes = new Command[]{};
+		//chooser.addDefault("Default", new DriveForward(0, 0));
+		String[] autoModeNames = new String[]{"Drive Forward", "Drive Forward 2"};
+		Command[] autoModes = new Command[]{new DriveForward(0.25, 5), new DriveForward(0.25, 10)};
 
 	//	configure and send the sendableChooser, which allows the modes
 	//	to be chosen via radio button on the SmartDashboard
@@ -55,8 +55,38 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
-		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftSpeedEnc());
-		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightSpeedEnc());
+		
+		new Command("Sensor feedback") {
+			@Override
+			protected void initialize() {
+			}
+
+			@Override
+			protected void execute() {
+				sendSensorData();
+			}
+
+			@Override
+			protected boolean isFinished() {
+				return false;
+			}
+
+			@Override
+			protected void end() {
+			}
+
+			@Override
+			protected void interrupted() {
+			}
+		}.start();
+		
+	}
+	
+	public void sendSensorData() {
+		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
+		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
+		SmartDashboard.putBoolean("High Gear", Robot.driveTrain.getHighGear());
+//		SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 	}
 
 	@Override
@@ -70,22 +100,15 @@ public class Robot extends IterativeRobot {
 		//Robot.vision.addCrosshairs();
 	}
 
-	public void sendSensorData() {
-		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
-		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
-		SmartDashboard.putBoolean("High Gear", Robot.driveTrain.getHighGear());
-//		SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
-
-	}
 	@Override
 	public void autonomousInit() {
-		if (teleop != null) {
+		if (teleop != null)
 			teleop.cancel();
+		autonomousCommand = (Command) chooser.getSelected();
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
 		}
-		selectedAutoMode = (Command) chooser.getSelected();
-		if (selectedAutoMode != null) {
-			selectedAutoMode.start();
-		}
+	
 	}
 
 	@Override
@@ -97,8 +120,8 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		if (selectedAutoMode != null) {
-			selectedAutoMode.cancel();
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
 		}
 		if (teleop != null) {
 			teleop.start();
