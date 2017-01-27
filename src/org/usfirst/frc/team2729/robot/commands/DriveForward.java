@@ -29,14 +29,14 @@ public class DriveForward extends Command {
 	}
 	
 	protected void execute() {
-		Robot.driveTrain.tankDrive(_power*1.1, _power);
-		SmartDashboard.putDouble("Timer", _timer.get());
-		SmartDashboard.putDouble("Time", _time);
+		Robot.driveTrain.tankDrive(_power*1.1, _power*1.05);
+		SmartDashboard.putNumber("Timer", _timer.get());
+		SmartDashboard.putNumber("Time", _time);
 	}
 	
 	protected boolean isFinished() {
 
-		if (_timer.get() > _time) {
+		if (_timer.get() >= _time) {
 			return true;
 		}
 		else {return false;}

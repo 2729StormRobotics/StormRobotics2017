@@ -18,4 +18,12 @@ public class IntakeSystem extends Subsystem {
 	public IntakeSystem() {
 		
 	}
+	
+	public void halt(){
+		_intake.set(0);
+	}
+	
+	public void intakeSpin(double power) {
+		_intake.set(power);
+	}
 }

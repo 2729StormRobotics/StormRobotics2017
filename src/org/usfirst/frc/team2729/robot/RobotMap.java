@@ -13,13 +13,19 @@ public class RobotMap {
 	JOYDRIVE_BUTTON_SHIFT_DRIVE_HIGH   = 4,
 	JOYDRIVE_BUTTON_SHIFT_DRIVE_LOW    = 2,
 	JOYDRIVE_BUTTON_FORWARD			   = 9,
-	JOYDRIVE_BUTTON_BACKWARDS		   = 10;
-
+	JOYDRIVE_BUTTON_BACKWARDS		   = 10,
+	JOYARM_BUTTON_SHOOT_SPIN_ON		   = 3,
+	JOYARM_BUTTON_SHOOT_SPIN_OFF	   = 2,
+	JOYARM_BUTTON_SHOOT_FIRE		   = 1,
+	JOYARM_BUTTON_SHIFT_GEAR_ON		   = 5,
+	JOYARM_BUTTON_SHIFT_GEAR_OFF	   = 6; 
+	
 	//Axes
 	public static final int
 	JOYDRIVE_AXIS_DRIVE_LEFT		 = 1,
-	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 5;
-
+	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 5,
+	JOYAXIS_AXIS_INTAKE				 = 1,
+	JOYAXIS_AXIS_HANG				 = 5;
 
 	//CAN Ports
 	public static final int
@@ -30,9 +36,9 @@ public class RobotMap {
 	PORT_MOTOR_DRIVE_RIGHT_2 			= 11,
 	PORT_MOTOR_DRIVE_RIGHT_3 			= 12,
 	PORT_MOTOR_HANG 					= 1,//Ambiguous port numbers
-	PORT_MOTOR_GEAR						= 2,
-	PORT_MOTOR_INTAKE		 			= 3,
-	PORT_MOTOR_SHOOT		 			= 4;
+	PORT_MOTOR_INTAKE		 			= 2,
+	PORT_MOTOR_SHOOT_FIRE		 		= 3,
+	PORT_MOTOR_SHOOT_SPIN				= 4;
 	// Analog ports
 	public static final int  PORT_STRINGPOT		  = 0;
 

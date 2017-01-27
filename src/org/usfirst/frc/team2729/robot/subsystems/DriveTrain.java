@@ -4,28 +4,27 @@ import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.TankDrive;
 
 import com.ctre.CANTalon;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 
-	private final CANTalon _leftMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_MAIN),
-			_left2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_2),
-			_left3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_3),
-			_rightMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_MAIN),
-			_right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2),
-			_right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
-	
-	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_DRIVE_HIGH, RobotMap.PORT_SHIFT_DRIVE_LOW);
-	
-	private boolean _isHighGear = false;
-	private boolean _halfOne = false, _halfTwo = false;
-//	private boolean _isPTOEnabled = false;
+	private final CANTalon _leftMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_MAIN);
+	private final CANTalon _left2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_2);
+	private final CANTalon _left3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_3);
+	private final CANTalon _rightMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_MAIN);
+	private final CANTalon _right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2);
+	private final CANTalon _right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
 
-			
-	public DriveTrain(){
+	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_DRIVE_HIGH,
+			RobotMap.PORT_SHIFT_DRIVE_LOW);
+
+	private boolean _isHighGear = false;
+	private boolean _halfOne = false;
+	private boolean _halfTwo = false;
+	// private boolean _isPTOEnabled = false;
+
+	public DriveTrain() {
 		_shifter.set(DoubleSolenoid.Value.kForward);
 		_isHighGear = false;
 		_left2.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -47,11 +46,11 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new TankDrive());
 	}
 
-	public void halveOne(boolean half){
+	public void halveOne(boolean half) {
 		_halfOne = half;
 	}
 
-	public void halveTwo(boolean half){
+	public void halveTwo(boolean half) {
 		_halfTwo = half;
 	}
 
@@ -60,29 +59,51 @@ public class DriveTrain extends Subsystem {
 		_rightMain.set(0);
 	}
 
-	public void tankDrive(double left, double right){
-		_leftMain.set(-((left) - (_halfOne ? (left/3) : 0) - (_halfTwo ? (left/3) : 0)));
-		_rightMain.set((right) - (_halfOne ? (right/3) : 0) - (_halfTwo ? (right/3) : 0));
+	public void tankDrive(double left, double right) {
+		_leftMain.set(-((left) - (_halfOne ? (left / 3) : 0) - (_halfTwo ? (left / 3) : 0)));
+		_rightMain.set((right) - (_halfOne ? (right / 3) : 0) - (_halfTwo ? (right / 3) : 0));
 	}
 
-	public double getLeftDistance(){
+	public double getLeftDistance() {
 		return _leftMain.getEncPosition();
 	}
 
-	public double getRightDistance(){
+	public double getRightDistance() {
 		return -_rightMain.getEncPosition();
 	}
 
-	public double getLeftSpeedEnc() {
+	public int getLeftSpeedEnc() {
 		return _leftMain.getEncVelocity();
 	}
-	
-	public double getRightSpeedEnc() {
+
+	public int getRightSpeedEnc() {
 		return _rightMain.getEncVelocity();
 	}
 	
+	public double getLeftSpeed() {
+		return _leftMain.getSpeed();
+	}
+	
+	public double getRightSpeed() {
+		return _rightMain.getSpeed();
+	}
+
 	public void resetLeftEnc() {
 		_leftMain.setEncPosition(0);
+	}
+
+	public void speedControl() {
+		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
+		_leftMain.set(0);
+		_rightMain.changeControlMode(CANTalon.TalonControlMode.Speed);
+		_rightMain.set(0);
+	}
+
+	public void percentVbusControl() {
+		_leftMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		_leftMain.set(0);
+		_rightMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		_rightMain.set(0);
 	}
 
 	public void resetRightEnc() {
@@ -90,16 +111,15 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setHighGear(boolean enabled) {
-		_isHighGear  = enabled;
-		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse
-				: DoubleSolenoid.Value.kForward);
+		_isHighGear = enabled;
+		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
 	}
-	
-	public boolean getHighGear(){
+
+	public boolean getHighGear() {
 		return _isHighGear;
 	}
 
-//	public boolean getPTO(){
-//		return _isPTOEnabled;
-//	}
+	// public boolean getPTO(){
+	// return _isPTOEnabled;
+	// }
 }

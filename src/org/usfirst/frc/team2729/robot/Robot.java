@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
+import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
@@ -24,38 +25,39 @@ public class Robot extends IterativeRobot {
 	public static ShootingSystem shoot;
 	public static OI oi;
 	public static Compressor compressor;
-//	public static VisionSystem vision;
+	// public static VisionSystem vision;
 	Command teleop;
 	Command autonomousCommand;
-	SendableChooser chooser;
+	SendableChooser<Command> chooser;
 
 	@Override
 	public void robotInit() {
-		
+
 		driveTrain = new DriveTrain();
 		gear = new GearSystem();
 		hang = new HangingSystem();
 		intake = new IntakeSystem();
 		shoot = new ShootingSystem();
 		oi = new OI();
-		//vision = new VisionSystem();
+		// vision = new VisionSystem();
 		compressor = new Compressor();
 		compressor.start();
-		chooser = new SendableChooser();
+		chooser = new SendableChooser<Command>();
 
-		//chooser.addDefault("Default", new DriveForward(0, 0));
-		String[] autoModeNames = new String[]{"Drive Forward", "Drive Forward 2"};
-		Command[] autoModes = new Command[]{new DriveForward(0.25, 5), new DriveForward(0.25, 10)};
+		// chooser.addDefault("Default", new DriveForward(0, 0));
+		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time" };
+		Command[] autoModes = new Command[] { new DriveForwardDistance(100, 1024 * 3, 1024 * 3),
+				new DriveForward(-0.25, 10) };
 
-	//	configure and send the sendableChooser, which allows the modes
-	//	to be chosen via radio button on the SmartDashboard
-		for(int i = 0; i < autoModes.length; ++i){
+		// configure and send the sendableChooser, which allows the modes
+		// to be chosen via radio button on the SmartDashboard
+		for (int i = 0; i < autoModes.length; ++i) {
 			chooser.addObject(autoModeNames[i], autoModes[i]);
 		}
-		
+
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
-		
+
 		new Command("Sensor feedback") {
 			@Override
 			protected void initialize() {
@@ -79,43 +81,43 @@ public class Robot extends IterativeRobot {
 			protected void interrupted() {
 			}
 		}.start();
-		
+
 	}
-	
+
 	public void sendSensorData() {
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
 		SmartDashboard.putBoolean("High Gear", Robot.driveTrain.getHighGear());
-//		SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
+		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 	}
 
 	@Override
-	public void disabledInit(){
+	public void disabledInit() {
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		//Robot.vision.addCrosshairs();
+		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void autonomousInit() {
-		if (teleop != null)
+		if (teleop != null) {
 			teleop.cancel();
+		}
 		autonomousCommand = (Command) chooser.getSelected();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
-	
 	}
 
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		//Robot.vision.addCrosshairs();
+		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
@@ -132,12 +134,12 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		//Robot.vision.addCrosshairs();
+		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
-		//Robot.vision.addCrosshairs();
+		// Robot.vision.addCrosshairs();
 	}
 }
