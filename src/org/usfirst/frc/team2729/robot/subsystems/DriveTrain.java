@@ -27,6 +27,10 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain() {
 		_shifter.set(DoubleSolenoid.Value.kForward);
 		_isHighGear = false;
+		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
+		_leftMain.set(0);
+		_rightMain.changeControlMode(CANTalon.TalonControlMode.Speed);
+		_rightMain.set(0);
 		_left2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		_left2.set(_leftMain.getDeviceID());
 		_left3.changeControlMode(CANTalon.TalonControlMode.Follower);
@@ -37,6 +41,22 @@ public class DriveTrain extends Subsystem {
 		_right3.set(_rightMain.getDeviceID());
 		_leftMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		_rightMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
+		_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
+		_leftMain.setProfile(0);
+		_leftMain.setF(0.1);
+		_leftMain.setP(0.2);
+		_leftMain.setI(0);
+		_leftMain.setD(0);
+		_rightMain.configNominalOutputVoltage(+0.0f, -0.0f);
+		_leftMain.configEncoderCodesPerRev(256);
+		_rightMain.configEncoderCodesPerRev(256);		
+		_rightMain.configPeakOutputVoltage(+12.0f, -12.0f);
+		_rightMain.setProfile(0);
+		_rightMain.setF(0.1);
+		_rightMain.setP(0.2);
+		_rightMain.setI(0);
+		_rightMain.setD(0);
 		resetLeftEnc();
 		resetRightEnc();
 	}

@@ -46,7 +46,7 @@ public class Robot extends IterativeRobot {
 
 		// chooser.addDefault("Default", new DriveForward(0, 0));
 		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time" };
-		Command[] autoModes = new Command[] { new DriveForwardDistance(100, 1024 * 3, 1024 * 3),
+		Command[] autoModes = new Command[] { new DriveForwardDistance(1000, 1024 * 3, 1024 * 3),
 				new DriveForward(-0.25, 10) };
 
 		// configure and send the sendableChooser, which allows the modes
@@ -87,7 +87,10 @@ public class Robot extends IterativeRobot {
 	public void sendSensorData() {
 		SmartDashboard.putNumber("Right Encoder", driveTrain.getRightDistance());
 		SmartDashboard.putNumber("Left Encoder", driveTrain.getLeftDistance());
-		SmartDashboard.putBoolean("High Gear", Robot.driveTrain.getHighGear());
+		SmartDashboard.putNumber("LeftEncVelocity", Robot.driveTrain.getLeftSpeedEnc());
+		SmartDashboard.putNumber("RightEncVelocity", Robot.driveTrain.getRightSpeedEnc());
+		SmartDashboard.putNumber("LeftSpeed", Robot.driveTrain.getLeftSpeed());
+		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 	}
 
