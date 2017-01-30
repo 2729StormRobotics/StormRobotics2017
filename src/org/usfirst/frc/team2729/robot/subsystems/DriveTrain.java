@@ -25,6 +25,11 @@ public class DriveTrain extends Subsystem {
 	// private boolean _isPTOEnabled = false;
 
 	public DriveTrain() {
+		
+		double valueP = 0.2,
+				valueI = 0.001,
+				valueD = 0,
+				valueF = 1;
 		_shifter.set(DoubleSolenoid.Value.kForward);
 		_isHighGear = false;
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
@@ -44,19 +49,21 @@ public class DriveTrain extends Subsystem {
 		_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
 		_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
 		_leftMain.setProfile(0);
-		_leftMain.setF(0.1);
-		_leftMain.setP(0.2);
-		_leftMain.setI(0);
-		_leftMain.setD(0);
+		_leftMain.setF(valueF);
+		_leftMain.setP(valueP);
+		_leftMain.setI(valueI);
+		_leftMain.setD(valueD);
 		_rightMain.configNominalOutputVoltage(+0.0f, -0.0f);
 		_leftMain.configEncoderCodesPerRev(256);
 		_rightMain.configEncoderCodesPerRev(256);		
 		_rightMain.configPeakOutputVoltage(+12.0f, -12.0f);
 		_rightMain.setProfile(0);
-		_rightMain.setF(0.1);
-		_rightMain.setP(0.2);
-		_rightMain.setI(0);
-		_rightMain.setD(0);
+		_rightMain.setF(valueF);
+		_rightMain.setP(valueP);
+		_rightMain.setI(valueI);
+		_rightMain.setD(valueD);
+		_leftMain.setVoltageRampRate(6.0);
+		_rightMain.setVoltageRampRate(5.0);		
 		resetLeftEnc();
 		resetRightEnc();
 	}
@@ -80,20 +87,22 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void tankDrive(double left, double right) {
-		_leftMain.set(-((left) - (_halfOne ? (left / 3) : 0) - (_halfTwo ? (left / 3) : 0)));
-		_rightMain.set((right) - (_halfOne ? (right / 3) : 0) - (_halfTwo ? (right / 3) : 0));
+//		_leftMain.set(-((left) - (_halfOne ? (left / 3) : 0) - (_halfTwo ? (left / 3) : 0)));
+//		_rightMain.set((right) - (_halfOne ? (right / 3) : 0) - (_halfTwo ? (right / 3) : 0));
+		_leftMain.set(-left);
+		_rightMain.set(right);
 	}
 
 	public double getLeftDistance() {
-		return _leftMain.getEncPosition();
+		return -_leftMain.getEncPosition();
 	}
 
 	public double getRightDistance() {
-		return -_rightMain.getEncPosition();
+		return _rightMain.getEncPosition();
 	}
 
 	public int getLeftSpeedEnc() {
-		return _leftMain.getEncVelocity();
+		return -_leftMain.getEncVelocity();
 	}
 
 	public int getRightSpeedEnc() {
@@ -101,7 +110,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getLeftSpeed() {
-		return _leftMain.getSpeed();
+		return -_leftMain.getSpeed();
 	}
 	
 	public double getRightSpeed() {

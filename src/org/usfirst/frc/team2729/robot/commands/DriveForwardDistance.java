@@ -31,7 +31,8 @@ public class DriveForwardDistance extends Command {
 	protected void execute() {
 		System.err.println("Execute drive forward distance");
 		// Robot.driveTrain.tankDrive(_powerLeft*1.1, _powerRight*1.05);
-		Robot.driveTrain.tankDrive(_leftSpeed, _rightSpeed);
+		Robot.driveTrain.tankDrive(-_leftSpeed, _rightSpeed);//negative sign for turning
+//		Robot.driveTrain.tankDrive(_distanceL, _distanceR);
 		SmartDashboard.putNumber("distance traveled",
 				Math.max(Robot.driveTrain.getLeftDistance(), Robot.driveTrain.getRightDistance()));
 		SmartDashboard.putNumber("Distance", _distanceL);
@@ -39,15 +40,15 @@ public class DriveForwardDistance extends Command {
 		// theoretically, this should print out current velocity of both wheels
 		SmartDashboard.putNumber("LeftEncVelocity", Robot.driveTrain.getLeftSpeedEnc());
 		SmartDashboard.putNumber("RightEncVelocity", Robot.driveTrain.getRightSpeedEnc());
-		SmartDashboard.putNumber("LeftSpeed", Robot.driveTrain.getLeftSpeed());
-		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());
 
+		SmartDashboard.putNumber("LeftSpeed", Robot.driveTrain.getLeftSpeed());
+		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());		
 		
-		if (Robot.driveTrain.getLeftDistance() >= _distanceL) {
+		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL)) {
 			System.err.println("Done left!");
 			_leftSpeed = 0;
 		}
-		if (Robot.driveTrain.getRightDistance() >= _distanceR) {
+		if (Math.abs(Robot.driveTrain.getRightDistance()) >= Math.abs(_distanceR)) {
 			System.err.println("Done right!");
 			_rightSpeed = 0;
 		}
@@ -56,7 +57,7 @@ public class DriveForwardDistance extends Command {
 
 	protected boolean isFinished() {
 
-		if (Robot.driveTrain.getLeftDistance() >= _distanceL && Robot.driveTrain.getRightDistance() >= _distanceR) {
+		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL) && Math.abs(Robot.driveTrain.getRightDistance()) >= Math.abs(_distanceR)) {
 			System.err.println("Done auto!");
 			return true;
 		} else {

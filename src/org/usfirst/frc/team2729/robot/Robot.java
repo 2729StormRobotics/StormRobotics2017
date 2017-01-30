@@ -43,12 +43,17 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		compressor.start();
 		chooser = new SendableChooser<Command>();
+		double encoderTicsPerRev = 1024;
 
 		// chooser.addDefault("Default", new DriveForward(0, 0));
 		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time" };
-		Command[] autoModes = new Command[] { new DriveForwardDistance(1000, 1024 * 3, 1024 * 3),
-				new DriveForward(-0.25, 10) };
+		Command[] autoModes = new Command[] { new DriveForwardDistance(50, encoderTicsPerRev * 6.00, encoderTicsPerRev * 6.00),
+				new DriveForward(-0.25, 10) };// Almost full turn
 
+//		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
+//				new DriveForward(-0.25, 10) };
+
+		
 		// configure and send the sendableChooser, which allows the modes
 		// to be chosen via radio button on the SmartDashboard
 		for (int i = 0; i < autoModes.length; ++i) {
