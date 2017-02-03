@@ -25,7 +25,7 @@ public class Right extends CommandGroup{
 		table = NetworkTable.getTable("Vision");
 		int defaultValue = 0;
 		while(table.getNumber("est_distance", 0) > 0.5) {
-			int LR = (int) table.getNumber("shift", defaultValue); // 1 = left shifted 0 = right shifted
+			int shift = (int) table.getNumber("shift", defaultValue); // 1 = left shifted 0 = right shifted
 			int centerX = (int) table.getNumber("midpoint_x", RESOLUTION/2); //half of x res
 			requires(Robot.driveTrain);
 			
