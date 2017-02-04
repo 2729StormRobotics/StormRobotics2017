@@ -24,6 +24,7 @@ public class CenterTurn extends Command{
 		while(true) {
 			int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
 			int centerX = (int) table.getNumber("midpoint_x", RESOLUTION/2); //half of x res
+			int rotation = (int) table.getNumber("p_angle", 0);
 			requires(Robot.driveTrain);
 			
 			if(centerX < (RESOLUTION/2) + 10 && centerX > (RESOLUTION/2) - 10) {
