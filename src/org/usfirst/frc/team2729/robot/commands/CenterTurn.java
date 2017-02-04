@@ -7,16 +7,19 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class CenterTurn extends Command{
 	public CenterTurn() {
+		requires(Robot.driveTrain);
 	}
 	
 	@Override
 	protected void initialize() {
+		
 		Robot.driveTrain.speedControl();
+		
 	}
 	
 	@Override
 	protected void execute() {
-		final int RESOLUTION = 544;
+		final int RESOLUTION = 320;
 		NetworkTable table;
 		table = NetworkTable.getTable("Vision");
 		int leftSpeed = 0;
@@ -26,20 +29,26 @@ public class CenterTurn extends Command{
 			int centerX = (int) table.getNumber("midpoint_x", RESOLUTION/2); //half of x res
 			int rotation = (int) table.getNumber("p_angle", 0);
 			requires(Robot.driveTrain);
-			
+
 			if(centerX < (RESOLUTION/2) + 10 && centerX > (RESOLUTION/2) - 10) {
 				leftSpeed = 0;
 				rightSpeed = 0;
 			}
-			else if(centerX > RESOLUTION/2 && leftSpeed < 300) {
-				leftSpeed+=10;
-				rightSpeed -=10;
+			else if(centerX > RESOLUTION/2 && leftSpeed < 30) {
+				leftSpeed+=1;
+				rightSpeed -=1;
 			}
-			else if(centerX < RESOLUTION/2 && rightSpeed < 300) {
-				rightSpeed +=10;
-				leftSpeed -=10;
+			else if(centerX < RESOLUTION/2 && rightSpeed < 30) {
+				rightSpeed +=1;
+				leftSpeed -=1;
 			}
-			Robot.driveTrain.tankDrive(leftSpeed, rightSpeed); //1500 max
+			Robot.driveTrain.tankDrive(-leftSpeed, -rightSpeed); //1500 max
+		/*	try {
+				Thread.sleep(33);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 		}
 	}
 	
