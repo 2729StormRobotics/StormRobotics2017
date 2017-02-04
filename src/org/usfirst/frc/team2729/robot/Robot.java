@@ -10,6 +10,7 @@ import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -48,7 +49,7 @@ public class Robot extends IterativeRobot {
 		// chooser.addDefault("Default", new DriveForward(0, 0));
 		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time" };
 		Command[] autoModes = new Command[] { new DriveForwardDistance(50, encoderTicsPerRev * 6.00, encoderTicsPerRev * 6.00),
-				new DriveForward(-0.25, 10) };// Almost full turn
+				new DriveForward(-0.25, 10)};// Almost full turn
 
 //		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
 //				new DriveForward(-0.25, 10) };
@@ -96,6 +97,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("RightEncVelocity", Robot.driveTrain.getRightSpeedEnc());
 		SmartDashboard.putNumber("LeftSpeed", Robot.driveTrain.getLeftSpeed());
 		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());
+		SmartDashboard.putNumber("ShootFire Amount Turned", Robot.shoot.getShootFireDistance());
+		SmartDashboard.putNumber("ShootFire EncVelocity", Robot.shoot.getShootFireSpeedEnc());
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 	}
 
@@ -135,6 +138,7 @@ public class Robot extends IterativeRobot {
 		}
 		if (teleop != null) {
 			teleop.start();
+			
 		}
 	}
 

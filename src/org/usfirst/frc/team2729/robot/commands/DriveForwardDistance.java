@@ -31,7 +31,7 @@ public class DriveForwardDistance extends Command {
 	protected void execute() {
 		System.err.println("Execute drive forward distance");
 		// Robot.driveTrain.tankDrive(_powerLeft*1.1, _powerRight*1.05);
-		Robot.driveTrain.tankDrive(-_leftSpeed, _rightSpeed);//negative sign for turning
+		Robot.driveTrain.tankDrive(_leftSpeed, _rightSpeed);//negative sign for turning
 //		Robot.driveTrain.tankDrive(_distanceL, _distanceR);
 		SmartDashboard.putNumber("distance traveled",
 				Math.max(Robot.driveTrain.getLeftDistance(), Robot.driveTrain.getRightDistance()));

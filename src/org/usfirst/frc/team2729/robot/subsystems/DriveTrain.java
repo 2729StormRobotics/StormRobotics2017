@@ -15,13 +15,14 @@ public class DriveTrain extends Subsystem {
 	private final CANTalon _rightMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_MAIN);
 	private final CANTalon _right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2);
 	private final CANTalon _right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
+	
 
 	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_DRIVE_HIGH,
 			RobotMap.PORT_SHIFT_DRIVE_LOW);
 
 	private boolean _isHighGear = false;
-	private boolean _halfOne = false;
-	private boolean _halfTwo = false;
+//	private boolean _halfOne = false;
+//	private boolean _halfTwo = false;
 	// private boolean _isPTOEnabled = false;
 
 	public DriveTrain() {
@@ -32,6 +33,7 @@ public class DriveTrain extends Subsystem {
 				valueF = 1;
 		_shifter.set(DoubleSolenoid.Value.kForward);
 		_isHighGear = false;
+		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_leftMain.set(0);
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.Speed);
@@ -39,13 +41,15 @@ public class DriveTrain extends Subsystem {
 		_left2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		_left2.set(_leftMain.getDeviceID());
 		_left3.changeControlMode(CANTalon.TalonControlMode.Follower);
-		_left3.set(_leftMain.getDeviceID());
+		_left3.set(_leftMain.getDeviceID());		
 		_right2.changeControlMode(CANTalon.TalonControlMode.Follower);
-		_right2.set(_rightMain.getDeviceID());
+		_right2.set(_rightMain.getDeviceID());		
 		_right3.changeControlMode(CANTalon.TalonControlMode.Follower);
 		_right3.set(_rightMain.getDeviceID());
+
 		_leftMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
 		_rightMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		
 		_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
 		_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
 		_leftMain.setProfile(0);
@@ -73,14 +77,14 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new TankDrive());
 	}
 
-	public void halveOne(boolean half) {
+/*	public void halveOne(boolean half) {
 		_halfOne = half;
 	}
 
 	public void halveTwo(boolean half) {
 		_halfTwo = half;
 	}
-
+*/
 	public void halt() {
 		_leftMain.set(0);
 		_rightMain.set(0);

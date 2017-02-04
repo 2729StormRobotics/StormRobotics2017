@@ -5,19 +5,21 @@ import org.usfirst.frc.team2729.robot.commands.PIDDrive;
 import org.usfirst.frc.team2729.robot.commands.Shift;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
+import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 
 	private final Joystick driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE),
 			armJoystick = new Joystick(RobotMap.PORT_JOYSTICK_ARMS);
 
-	private final Button halveOne = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_1),
-			halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
+	private final Button 
+//			halveOne = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_1),
+//			halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
 			shiftHighDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_DRIVE_HIGH),
 			shiftLowDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_DRIVE_LOW),
 			driveForward = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FORWARD),
@@ -26,7 +28,8 @@ public class OI {
 			shiftGearOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHIFT_GEAR_OFF),
 			shooterSpinOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_ON),
 			shooterSpinOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_OFF),
-			shootFire = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE);
+			shootFire = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE),
+			shootFireOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE_OFF);
 	
 	
 	private double _zeroDeadzone(double joyValue,double dead) {
@@ -55,15 +58,18 @@ public class OI {
 
 		//Operator Commands
 		
+		
+		
 		shiftGearOn.whenPressed(new Gear(true));
 		shiftGearOff.whenPressed(new Gear(false));	
-		shootFire.whileHeld(new ShootFire(0.5));
-		shooterSpinOn.whenPressed(new ShooterSpin(0.5));
+		shootFire.whenPressed(new ShootFire();
+		shootFireOff.whenPressed(new ShootFire(0));
+		shooterSpinOn.whenPressed(new ShooterSpin(0.3));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
 		
 		//Special Commands
 		
-		halveOne.whileHeld(new Command() {
+		/*halveOne.whileHeld(new Command() {
 			@Override
 			protected void initialize() { Robot.driveTrain.halveOne(true); }
 			@Override
@@ -87,7 +93,7 @@ public class OI {
 			protected void end() { Robot.driveTrain.halveTwo(false); }
 			@Override
 			protected void interrupted() { end(); }
-		});
+		});*/
 
 	}
 }
