@@ -12,7 +12,7 @@ public class Shift extends Command {
         _high = high;
     }
     
-    protected void initialize() {Robot.driveTrain.setHighGear(_high);}
+   // protected void initialize() {Robot.driveTrain.setHighGear(_high);}
     protected void execute() {}
     protected boolean isFinished() {return true;}
     protected void end() {}

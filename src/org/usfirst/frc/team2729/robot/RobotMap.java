@@ -24,7 +24,7 @@ public class RobotMap {
 	JOYDRIVE_AXIS_DRIVE_LEFT		 = 1,
 	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 5,
 	JOYAXIS_AXIS_INTAKE				 = 1,
-	JOYAXIS_AXIS_HANG				 = 5;
+	JOYAXIS_AXIS_HANG				 = 3;
 
 	//CAN Ports
 	public static final int
@@ -35,8 +35,8 @@ public class RobotMap {
 	PORT_MOTOR_DRIVE_RIGHT_2 			= 11,
 	PORT_MOTOR_DRIVE_RIGHT_3 			= 12,
 	PORT_MOTOR_HANG 					= 1,//Ambiguous port numbers
-	PORT_MOTOR_INTAKE		 			= 2,
-	PORT_MOTOR_SHOOT_FIRE		 		= 30,
+	PORT_MOTOR_INTAKE		 			= 30,
+	PORT_MOTOR_SHOOT_FIRE		 		= 13,
 	PORT_MOTOR_SHOOT_SPIN				= 0;
 	// Analog ports
 	public static final int  PORT_STRINGPOT		  = 0;

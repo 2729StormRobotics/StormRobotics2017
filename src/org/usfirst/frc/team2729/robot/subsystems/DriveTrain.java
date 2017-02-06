@@ -15,12 +15,7 @@ public class DriveTrain extends Subsystem {
 	private final CANTalon _rightMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_MAIN);
 	private final CANTalon _right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2);
 	private final CANTalon _right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
-	
 
-	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_DRIVE_HIGH,
-			RobotMap.PORT_SHIFT_DRIVE_LOW);
-
-	private boolean _isHighGear = false;
 //	private boolean _halfOne = false;
 //	private boolean _halfTwo = false;
 	// private boolean _isPTOEnabled = false;
@@ -31,8 +26,6 @@ public class DriveTrain extends Subsystem {
 				valueI = 0.001,
 				valueD = 0,
 				valueF = 1;
-		_shifter.set(DoubleSolenoid.Value.kForward);
-		_isHighGear = false;
 		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_leftMain.set(0);
@@ -141,15 +134,6 @@ public class DriveTrain extends Subsystem {
 
 	public void resetRightEnc() {
 		_rightMain.setEncPosition(0);
-	}
-
-	public void setHighGear(boolean enabled) {
-		_isHighGear = enabled;
-		_shifter.set(enabled ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
-	}
-
-	public boolean getHighGear() {
-		return _isHighGear;
 	}
 
 	// public boolean getPTO(){

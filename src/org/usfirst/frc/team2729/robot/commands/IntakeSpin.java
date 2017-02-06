@@ -17,7 +17,7 @@ public class IntakeSpin extends Command {
 	@Override
 	protected void execute() {
 		double power = Robot.oi.getIntake();
-		Robot.intake.intakeSpin(power);
+		Robot.intake.intakeSpinner(power);
 	}
 	
 	@Override

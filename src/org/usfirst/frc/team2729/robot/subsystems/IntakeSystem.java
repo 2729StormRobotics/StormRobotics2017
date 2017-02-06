@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
+import org.usfirst.frc.team2729.robot.commands.IntakeSpin;
 
 import com.ctre.CANTalon;
 
@@ -12,18 +13,18 @@ public class IntakeSystem extends Subsystem {
 	
 	@Override
 	protected void initDefaultCommand() {
-		
+		setDefaultCommand(new IntakeSpin());
 	}
 
 	public IntakeSystem() {
-		
+
+	}
+	
+	public void intakeSpinner(double power) {
+		_intake.set(power);
 	}
 	
 	public void halt(){
 		_intake.set(0);
-	}
-	
-	public void intakeSpin(double power) {
-		_intake.set(power);
 	}
 }
