@@ -15,7 +15,17 @@ public class HangingSystem extends Subsystem {
 		
 	}
 	
-	public HangingSystem() {
+	public  HangingSystem() {
 		
 	}
+	
+	public void halt() {
+		_hang.set(0);
+	
+	}
+	
+	
+	
+	
+	
 }

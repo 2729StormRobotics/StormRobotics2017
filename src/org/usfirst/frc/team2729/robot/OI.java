@@ -62,7 +62,7 @@ public class OI {
 		
 		shiftGearOn.whenPressed(new Gear(true));
 		shiftGearOff.whenPressed(new Gear(false));	
-		shootFire.whenPressed(new ShootFire();
+		shootFire.whenPressed(new ShootFire(.6));
 		shootFireOff.whenPressed(new ShootFire(0));
 		shooterSpinOn.whenPressed(new ShooterSpin(0.3));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
