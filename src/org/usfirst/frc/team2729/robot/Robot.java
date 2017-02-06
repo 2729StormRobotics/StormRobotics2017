@@ -102,6 +102,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());
 		SmartDashboard.putNumber("ShootFire Amount Turned", Robot.shoot.getShootFireDistance());
 		SmartDashboard.putNumber("ShootFire EncVelocity", Robot.shoot.getShootFireSpeedEnc());
+		SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 	}
 
