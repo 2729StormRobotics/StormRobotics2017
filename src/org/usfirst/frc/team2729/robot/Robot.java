@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.autoModes.Right;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
@@ -45,12 +46,14 @@ public class Robot extends IterativeRobot {
 		compressor.start();
 		chooser = new SendableChooser<Command>();
 		double encoderTicsPerRev = 1024;
+		double feetPerRev = 1.6875;//must determine
+		double encoderTicsPerFoot = encoderTicsPerRev/feetPerRev;
 
 		// chooser.addDefault("Default", new DriveForward(0, 0));
-		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time" };
-		Command[] autoModes = new Command[] { new DriveForwardDistance(50, encoderTicsPerRev * 6.00, encoderTicsPerRev * 6.00),
-				new DriveForward(-0.25, 10)};// Almost full turn
-
+		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right" };
+		Command[] autoModes = new Command[] { new DriveForwardDistance(50, encoderTicsPerFoot * 6.00, encoderTicsPerFoot * 6.00),
+				new DriveForward(-0.25, 10), new Right() };// Almost full turn
+		
 //		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
 //				new DriveForward(-0.25, 10) };
 
