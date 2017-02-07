@@ -46,7 +46,8 @@ public class RobotMap {
 	PORT_ENCODER_SHOOT_FIRE	        =  30,
 	PORT_ENCODER_DRIVE_RIGHT_2      =  7,
 	PORT_ENCODER_DRIVE_LEFT_1       =  4,
-	PORT_ENCODER_DRIVE_LEFT_2       =  5;
+	PORT_ENCODER_DRIVE_LEFT_2       =  5,
+	PORT_SENSOR_GYRO				=  0;
 
 	//Relay
 	public static final int
