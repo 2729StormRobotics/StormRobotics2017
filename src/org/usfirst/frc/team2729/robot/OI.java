@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.Gear;
-import org.usfirst.frc.team2729.robot.commands.Shift;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
 import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
@@ -48,8 +47,6 @@ public class OI {
 	public OI(){
 		//Driver Commands
 
-		shiftHighDrive.whenPressed(new Shift(true));
-		shiftLowDrive.whenPressed(new Shift(false));
 
 		//Operator Commands
 		

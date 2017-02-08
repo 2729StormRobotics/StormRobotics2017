@@ -12,6 +12,8 @@ import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -27,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static ShootingSystem shoot;
 	public static OI oi;
 	public static Compressor compressor;
+	public static SerialPort ledOut;
 	// public static VisionSystem vision;
 	Command teleop;
 	Command autonomousCommand;
@@ -36,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 
 		driveTrain = new DriveTrain();
+		
 		gear = new GearSystem();
 		hang = new HangingSystem();
 		intake = new IntakeSystem();
@@ -45,6 +49,8 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		compressor.start();
 		chooser = new SendableChooser<Command>();
+		ledOut = new SerialPort(9600, Port.kMXP);
+		
 		double encoderTicsPerRev = 1024;
 		double feetPerRev = 1.6875;//must determine
 		double encoderTicsPerFoot = encoderTicsPerRev/feetPerRev;
@@ -60,7 +66,7 @@ public class Robot extends IterativeRobot {
 		
 		// configure and send the sendableChooser, which allows the modes
 		// to be chosen via radio button on the SmartDashboard
-		for (int i = 0; i < autoModes.length; ++i) {
+		for (int i = 0; i < autoModes.length; i++) {
 			chooser.addObject(autoModeNames[i], autoModes[i]);
 		}
 
@@ -114,17 +120,20 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
+		
 		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void autonomousInit() {
+		
 		if (teleop != null) {
 			teleop.cancel();
 		}
 		autonomousCommand = (Command) chooser.getSelected();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
+			
 		}
 	}
 
@@ -137,6 +146,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
+		
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
@@ -150,6 +160,9 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
+		byte[] ff = new byte[1];
+		ff[0] = (byte) 255;
+		ledOut.write(ff, 1);
 		// Robot.vision.addCrosshairs();
 	}
 
