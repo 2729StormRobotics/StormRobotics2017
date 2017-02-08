@@ -1,15 +1,13 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.Gear;
-import org.usfirst.frc.team2729.robot.commands.Shift;
+import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
-import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class OI {
 
@@ -19,14 +17,13 @@ public class OI {
 	private final Button 
 //			halveOne = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_1),
 //			halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
-			shiftHighDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_DRIVE_HIGH),
-			shiftLowDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_SHIFT_DRIVE_LOW),
 			shiftGearOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHIFT_GEAR_ON),
 			shiftGearOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHIFT_GEAR_OFF),
 			shooterSpinOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_ON),
 			shooterSpinOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_OFF),
 			shootFire = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE),
-			shootFireOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE_OFF);
+			shootFireOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE_OFF),
+			driveTurnGyro = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_DRIVE_GYRO);
 	
 	
 	private double _zeroDeadzone(double joyValue,double dead) {
@@ -48,12 +45,7 @@ public class OI {
 	public OI(){
 		//Driver Commands
 
-		shiftHighDrive.whenPressed(new Shift(true));
-		shiftLowDrive.whenPressed(new Shift(false));
-
-		//Operator Commands
-		
-		
+		//Operator Commands	
 		
 		shiftGearOn.whenPressed(new Gear(true));
 		shiftGearOff.whenPressed(new Gear(false));	
@@ -61,6 +53,7 @@ public class OI {
 		shootFireOff.whenPressed(new ShootFire(0));
 		shooterSpinOn.whenPressed(new ShooterSpin(0.3));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
+		//driveTurnGyro.whenPressed(new GyroTurn(0.1, 5));
 		
 		//Special Commands
 		

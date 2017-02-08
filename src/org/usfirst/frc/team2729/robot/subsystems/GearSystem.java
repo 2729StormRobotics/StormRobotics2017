@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GearSystem extends Subsystem {
 	
-	private final DoubleSolenoid _gearShifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON, RobotMap.PORT_SHIFT_GEAR_OFF);
+	private final DoubleSolenoid _gearShifter1 = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON_1, RobotMap.PORT_SHIFT_GEAR_OFF_1);
+	private final DoubleSolenoid _gearShifter2 = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON_2, RobotMap.PORT_SHIFT_GEAR_OFF_2);
+	private final DoubleSolenoid _gearShifter3 = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON_3, RobotMap.PORT_SHIFT_GEAR_OFF_3);
 	
-	private boolean _isHighGear = false;
+	private boolean _isGearOn = false;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -18,18 +20,25 @@ public class GearSystem extends Subsystem {
 	}
 	
 	public GearSystem(){
-		_gearShifter.set(DoubleSolenoid.Value.kReverse);
-		_isHighGear = false;
+		_gearShifter1.set(DoubleSolenoid.Value.kReverse);
+		_gearShifter2.set(DoubleSolenoid.Value.kReverse);
+		_gearShifter3.set(DoubleSolenoid.Value.kReverse);
+		
+		_isGearOn = false;
 	}
 	
 	public void setHighGear(boolean enabled) {
-		_isHighGear  = enabled;
-		_gearShifter.set(enabled ? DoubleSolenoid.Value.kForward
+		_isGearOn = enabled;
+		_gearShifter1.set(enabled ? DoubleSolenoid.Value.kForward
+				: DoubleSolenoid.Value.kReverse);
+		_gearShifter2.set(enabled ? DoubleSolenoid.Value.kForward
+				: DoubleSolenoid.Value.kReverse);
+		_gearShifter3.set(enabled ? DoubleSolenoid.Value.kForward
 				: DoubleSolenoid.Value.kReverse);
 	}
 	
 	public boolean getHighGear(){
-		return _isHighGear;
+		return _isGearOn;
 	}
 	
 }

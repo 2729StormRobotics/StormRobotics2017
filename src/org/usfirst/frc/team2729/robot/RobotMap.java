@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
 public class RobotMap {
+	
 	public static final int
 	PORT_JOYSTICK_DRIVE 			= 4,
 	PORT_JOYSTICK_ARMS  			= 3,
@@ -10,8 +11,7 @@ public class RobotMap {
 	public static final int
 	JOYDRIVE_BUTTON_HALVE_1			   = 8,
 	JOYDRIVE_BUTTON_HALVE_2			   = 7,
-	JOYDRIVE_BUTTON_SHIFT_DRIVE_HIGH   = 12,
-	JOYDRIVE_BUTTON_SHIFT_DRIVE_LOW    = 2,
+	JOYDRIVE_BUTTON_DRIVE_GYRO		   = 3,
 	JOYARM_BUTTON_SHOOT_SPIN_ON		   = 3,
 	JOYARM_BUTTON_SHOOT_SPIN_OFF	   = 2,
 	JOYARM_BUTTON_SHOOT_FIRE		   = 6,
@@ -38,15 +38,14 @@ public class RobotMap {
 	PORT_MOTOR_INTAKE		 			= 30,
 	PORT_MOTOR_SHOOT_FIRE		 		= 13,
 	PORT_MOTOR_SHOOT_SPIN				= 0;
+
 	// Analog ports
-	public static final int  PORT_STRINGPOT		  = 0;
+	public static final int
+	PORT_STRINGPOT		  = 0;
 
 	//Digital I/O Ports
 	public static final int
 	PORT_ENCODER_SHOOT_FIRE	        =  30,
-	PORT_ENCODER_DRIVE_RIGHT_2      =  7,
-	PORT_ENCODER_DRIVE_LEFT_1       =  4,
-	PORT_ENCODER_DRIVE_LEFT_2       =  5,
 	PORT_SENSOR_GYRO				=  0;
 
 	//Relay
@@ -55,9 +54,11 @@ public class RobotMap {
 
 	//Solenoids
 	public static final int
-    PORT_SHIFT_DRIVE_HIGH			= 0,
-    PORT_SHIFT_DRIVE_LOW			= 1,
-	PORT_SHIFT_GEAR_ON		  		= 2,
-	PORT_SHIFT_GEAR_OFF				= 3;
-
+	PORT_SHIFT_GEAR_ON_1		  	= 0,
+	PORT_SHIFT_GEAR_OFF_1			= 1,
+	PORT_SHIFT_GEAR_ON_2		  	= 2,
+	PORT_SHIFT_GEAR_OFF_2			= 3,
+	PORT_SHIFT_GEAR_ON_3		  	= 4,
+	PORT_SHIFT_GEAR_OFF_3			= 5;
+	
 }
