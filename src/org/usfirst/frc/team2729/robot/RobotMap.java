@@ -4,7 +4,7 @@ public class RobotMap {
 	
 	public static final int
 	PORT_JOYSTICK_DRIVE 			= 4,
-	PORT_JOYSTICK_ARMS  			= 3,
+	PORT_JOYSTICK_ARMS  			= 0,
 	PORT_JOYSTICK_DEBUG 			= 2;
 
 	//Buttons
@@ -28,13 +28,13 @@ public class RobotMap {
 
 	//CAN Ports
 	public static final int
-	PORT_MOTOR_DRIVE_LEFT_MAIN 			= 20,
+	PORT_MOTOR_DRIVE_LEFT_MAIN 			= 1,
 	PORT_MOTOR_DRIVE_LEFT_2 			= 21,
 	PORT_MOTOR_DRIVE_LEFT_3 			= 22,
 	PORT_MOTOR_DRIVE_RIGHT_MAIN 		= 10,
 	PORT_MOTOR_DRIVE_RIGHT_2 			= 11,
 	PORT_MOTOR_DRIVE_RIGHT_3 			= 12,
-	PORT_MOTOR_HANG 					= 1,//Ambiguous port numbers
+	PORT_MOTOR_HANG 					= 20,//Ambiguous port numbers
 	PORT_MOTOR_INTAKE		 			= 30,
 	PORT_MOTOR_SHOOT_FIRE		 		= 13,
 	PORT_MOTOR_SHOOT_SPIN				= 0;
