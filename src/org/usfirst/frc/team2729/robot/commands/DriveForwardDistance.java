@@ -26,6 +26,7 @@ public class DriveForwardDistance extends Command {
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
 		Robot.driveTrain.speedControl();
+		Robot.driveTrain.resetGyro();
 	}
 
 	protected void execute() {

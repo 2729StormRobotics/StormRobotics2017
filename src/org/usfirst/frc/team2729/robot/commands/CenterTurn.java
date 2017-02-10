@@ -19,41 +19,41 @@ public class CenterTurn extends Command{
 	
 	@Override
 	protected void execute() {
+		GyroTurn x = new GyroTurn();
+		
 		final int RESOLUTION = 320;
 		NetworkTable table;
 		table = NetworkTable.getTable("Vision");
 		int leftSpeed = 0;
 		int rightSpeed = 0;
-		while(true) {
+		int rotation = (int) table.getNumber("p_angle", 0);
+		while(Math.abs(rotation) > 2) {
 			int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
-			int centerX = (int) table.getNumber("midpoint_x", RESOLUTION/2); //half of x res
-			int rotation = (int) table.getNumber("p_angle", 0);
-
-			if(centerX < (RESOLUTION/2) + 10 && centerX > (RESOLUTION/2) - 10) {
-				leftSpeed = 0;
-				rightSpeed = 0;
-			}
-			else if(centerX > RESOLUTION/2 && leftSpeed < 30) {
-				leftSpeed+=1;
-				rightSpeed -=1;
-			}
-			else if(centerX < RESOLUTION/2 && rightSpeed < 30) {
-				rightSpeed +=1;
-				leftSpeed -=1;
-			}
-			Robot.driveTrain.tankDrive(-leftSpeed, -rightSpeed); //1500 max
-		/*	try {
-				Thread.sleep(33);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+			x.turn(.10, rotation);
+			rotation = (int) table.getNumber("p_angle", 0);
+			//Robot.driveTrain.tankDrive(-leftSpeed, -rightSpeed); //1500 max
 		}
+		
+
+		/*
+		if(centerX < (RESOLUTION/2) + 10 && centerX > (RESOLUTION/2) - 10) {
+			leftSpeed = 0;
+			rightSpeed = 0;
+		}
+		else if(centerX > RESOLUTION/2 && leftSpeed < 30) {
+			leftSpeed+=1;
+			rightSpeed -=1;
+		}
+		else if(centerX < RESOLUTION/2 && rightSpeed < 30) {
+			rightSpeed +=1;
+			leftSpeed -=1;
+		}
+		*/
 	}
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 	
 	@Override

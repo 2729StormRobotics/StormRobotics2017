@@ -6,7 +6,6 @@ import org.usfirst.frc.team2729.robot.commands.TankDrive;
 
 import com.ctre.CANTalon;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -21,10 +20,7 @@ public class DriveTrainPID extends PIDSubsystem {
 			_rightMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_MAIN),
 			_right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2),
 			_right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
-	
-	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_DRIVE_HIGH, RobotMap.PORT_SHIFT_DRIVE_LOW);
-	
-	private boolean _isHighGear = false;
+
 	private boolean _halfOne = false, _halfTwo = false;
 //	private boolean _isPTOEnabled = false;
 
@@ -85,13 +81,11 @@ public class DriveTrainPID extends PIDSubsystem {
 	}
 
 	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
 		_leftMain.pidWrite(output);
 		
 	}

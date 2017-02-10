@@ -1,12 +1,12 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
+import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.commands.TankDrive;
 
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
@@ -19,9 +19,6 @@ public class DriveTrain extends Subsystem {
 	private final CANTalon _right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
 
 	private final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
-
-	private final DoubleSolenoid _shifter = new DoubleSolenoid(RobotMap.PORT_SHIFT_DRIVE_HIGH,
-			RobotMap.PORT_SHIFT_DRIVE_LOW);
 
 //	private boolean _halfOne = false;
 //	private boolean _halfTwo = false;
@@ -71,7 +68,7 @@ public class DriveTrain extends Subsystem {
 		resetLeftEnc();
 		resetRightEnc();
 		_gyro.initGyro();
-		_gyro.reset();
+		resetGyro();
 	}
 
 	@Override
@@ -125,6 +122,14 @@ public class DriveTrain extends Subsystem {
 	
 	public double getGyroAngle() {
 		return _gyro.getAngle();
+	}
+	
+	public void turnAngle(double power, double angle) {
+		//new GyroTurn(power, angle);
+	}
+	
+	public void resetGyro() {
+		_gyro.reset();
 	}
 
 	public void resetLeftEnc() {

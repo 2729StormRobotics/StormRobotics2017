@@ -3,12 +3,14 @@ package org.usfirst.frc.team2729.robot;
 import org.usfirst.frc.team2729.robot.autoModes.Right;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
+import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
 import org.usfirst.frc.team2729.robot.subsystems.IntakeSystem;
 import org.usfirst.frc.team2729.robot.subsystems.LEDz;
 import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
+import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -32,8 +34,9 @@ public class Robot extends IterativeRobot {
 	public static ShootingSystem shoot;
 	public static OI oi;
 	public static Compressor compressor;
+	public static VisionSystem vision;
 	public static LEDz leds;
-	// public static VisionSystem vision;
+
 	Command teleop;
 	Command autonomousCommand;
 	SendableChooser<Command> chooser;
@@ -48,7 +51,7 @@ public class Robot extends IterativeRobot {
 		intake = new IntakeSystem();
 		shoot = new ShootingSystem();
 		oi = new OI();
-		// vision = new VisionSystem();
+		vision = new VisionSystem();
 		compressor = new Compressor();
 		compressor.start();
 		chooser = new SendableChooser<Command>();
@@ -59,9 +62,9 @@ public class Robot extends IterativeRobot {
 		double encoderTicsPerFoot = encoderTicsPerRev/feetPerRev;
 
 		// chooser.addDefault("Default", new DriveForward(0, 0));
-		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right" };
+		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };
 		Command[] autoModes = new Command[] { new DriveForwardDistance(50, encoderTicsPerFoot * 6.00, encoderTicsPerFoot * 6.00),
-				new DriveForward(-0.25, 10), new Right() };// Almost full turn
+				new DriveForward(-0.25, 10), new Right()};// Almost full turn
 		
 //		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
 //				new DriveForward(-0.25, 10) };
