@@ -6,34 +6,28 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class CenterTurn extends Command{
+	
+	final int RESOLUTION = 320;
+	int _rotation;
+	NetworkTable table;
+	
 	public CenterTurn() {
 		requires(Robot.driveTrain);
 	}
 	
 	@Override
 	protected void initialize() {
-		
-		Robot.driveTrain.speedControl();
-		
+		table = NetworkTable.getTable("Vision");		
 	}
 	
 	@Override
-	protected void execute() {
-		GyroTurn x = new GyroTurn();
-		
-		final int RESOLUTION = 320;
-		NetworkTable table;
-		table = NetworkTable.getTable("Vision");
-		int leftSpeed = 0;
-		int rightSpeed = 0;
-		int rotation = (int) table.getNumber("p_angle", 0);
-		while(Math.abs(rotation) > 2) {
-			int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
-			x.turn(.10, rotation);
-			rotation = (int) table.getNumber("p_angle", 0);
+	public void execute() {
+
+		int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
+		_rotation = (int) table.getNumber("p_angle", 0);
+		GyroTurn x = new GyroTurn(0.1, _rotation);
+		x.start();
 			//Robot.driveTrain.tankDrive(-leftSpeed, -rightSpeed); //1500 max
-		}
-		
 
 		/*
 		if(centerX < (RESOLUTION/2) + 10 && centerX > (RESOLUTION/2) - 10) {
@@ -53,7 +47,9 @@ public class CenterTurn extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		return true;
+		if(Math.abs(_rotation) < 1)
+			return true;
+		return false;
 	}
 	
 	@Override

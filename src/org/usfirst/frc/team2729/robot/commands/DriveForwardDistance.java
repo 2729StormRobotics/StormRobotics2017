@@ -9,15 +9,17 @@ public class DriveForwardDistance extends Command {
 
 	double _leftSpeed;
 	double _rightSpeed;
-	final double _distanceL;
-	final double _distanceR;
+	double _distanceL;
+	double _distanceR;
+	double TICKSPERMETER = 3260;
 
+	
 	public DriveForwardDistance(double speed, double distanceL, double distanceR) {
 		requires(Robot.driveTrain);
 		_leftSpeed = speed;
 		_rightSpeed = speed;
-		_distanceL = distanceL;
-		_distanceR = distanceR;
+		_distanceL = distanceL*TICKSPERMETER;
+		_distanceR = distanceR*TICKSPERMETER;
 	}
 
 	@Override
