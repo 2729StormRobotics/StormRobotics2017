@@ -7,6 +7,7 @@ import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
 import org.usfirst.frc.team2729.robot.subsystems.IntakeSystem;
+import org.usfirst.frc.team2729.robot.subsystems.LEDz;
 import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -21,6 +22,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
+	
+	SerialPort ledOut = new SerialPort(9600, Port.kMXP);
 
 	public static DriveTrain driveTrain;
 	public static GearSystem gear;
@@ -29,7 +32,7 @@ public class Robot extends IterativeRobot {
 	public static ShootingSystem shoot;
 	public static OI oi;
 	public static Compressor compressor;
-	public static SerialPort ledOut;
+	public static LEDz leds;
 	// public static VisionSystem vision;
 	Command teleop;
 	Command autonomousCommand;
@@ -49,7 +52,7 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		compressor.start();
 		chooser = new SendableChooser<Command>();
-		ledOut = new SerialPort(9600, Port.kMXP);
+		leds = new LEDz();
 		
 		double encoderTicsPerRev = 1024;
 		double feetPerRev = 1.6875;//must determine
@@ -133,14 +136,16 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = (Command) chooser.getSelected();
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
-			
 		}
 	}
 
 	@Override
 	public void autonomousPeriodic() {
+		byte[] ff = new byte[1];
 		Scheduler.getInstance().run();
 		sendSensorData();
+		ff[0] = (byte) 160;
+		ledOut.write(ff, 1);
 		// Robot.vision.addCrosshairs();
 	}
 
@@ -160,9 +165,6 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		byte[] ff = new byte[1];
-		ff[0] = (byte) 255;
-		ledOut.write(ff, 1);
 		// Robot.vision.addCrosshairs();
 	}
 
