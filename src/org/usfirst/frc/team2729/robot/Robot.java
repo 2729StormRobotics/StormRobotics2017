@@ -5,7 +5,6 @@ import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team2729.robot.subsystems.DriveTrainPID;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
 import org.usfirst.frc.team2729.robot.subsystems.IntakeSystem;
@@ -29,7 +28,7 @@ public class Robot extends IterativeRobot {
 	SerialPort ledOut = new SerialPort(9600, Port.kMXP);
 
 	public static DriveTrain driveTrain;
-	public static DriveTrainPID driveTrainPID;
+//	public static DriveTrainPID driveTrainPID;
 	public static GearSystem gear;
 	public static HangingSystem hang;
 	public static IntakeSystem intake;
@@ -47,7 +46,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 
 		driveTrain = new DriveTrain();
-		driveTrainPID = new DriveTrainPID();
+//		driveTrainPID = new DriveTrainPID();
 		gear = new GearSystem();
 		hang = new HangingSystem();
 		intake = new IntakeSystem();
@@ -56,27 +55,27 @@ public class Robot extends IterativeRobot {
 		vision = new VisionSystem();
 		compressor = new Compressor();
 		compressor.start();
-		chooser = new SendableChooser<Command>();
+		chooser = new SendableChooser<>();
 		leds = new LEDz();
 		
-		double encoderTicsPerRev = 1024;
-		double feetPerRev = 1.6875;//must determine
-		double encoderTicsPerFoot = encoderTicsPerRev/feetPerRev;
+		chooser.addDefault("Default Program", new DriveForwardDistance(50, 0, 0));
 
-		// chooser.addDefault("Default", new DriveForward(0, 0));
-		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };
-		Command[] autoModes = new Command[] { new DriveForwardDistance(50, encoderTicsPerFoot * 6.00, encoderTicsPerFoot * 6.00),
-				new DriveForward(-0.25, 10), new Right()};// Almost full turn
+//		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };
+//		Command[] autoModes = new Command[] { new DriveForwardDistance(50, 2, 2),
+//				new DriveForward(-0.25, 10), new Right()};// Almost full turn
+//		
+////		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
+////				new DriveForward(-0.25, 10) };
+//
+//		
+//		// configure and send the sendableChooser, which allows the modes
+//		// to be chosen via radio button on the SmartDashboard
+//		for (int i = 0; i < autoModes.length; i++) {
+//			chooser.addObject(autoModeNames[i], autoModes[i]);
+//		}
 		
-//		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
-//				new DriveForward(-0.25, 10) };
-
-		
-		// configure and send the sendableChooser, which allows the modes
-		// to be chosen via radio button on the SmartDashboard
-		for (int i = 0; i < autoModes.length; i++) {
-			chooser.addObject(autoModeNames[i], autoModes[i]);
-		}
+		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(50, 2, 2));
+		chooser.addObject("Right", new Right());
 
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
