@@ -7,8 +7,8 @@ Working 2017 Robot Code
 
 ## Functionalities
 This is what our robot can do:
-Drive using tankdrive (PID control)
-Shoot (PID control)
-Intake
-Hang
-Gear Placement using pistons
+- Drive using tankdrive (PID control)
+- Shoot (PID control)
+- Intake
+- Hang
+- Gear Placement using pistons
