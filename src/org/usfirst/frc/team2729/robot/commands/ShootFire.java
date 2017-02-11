@@ -32,6 +32,7 @@ public class ShootFire extends Command {
 			
 			
 			fireRate = Preferences.getInstance().getDouble("ShootFireSpeed", _fireRate);
+			Robot.leds.turnOn(Robot.leds.ledShoot);
 		}
 		//This value must be negative so that shooter runs in correct direction
 		if (fireRate > 0) {

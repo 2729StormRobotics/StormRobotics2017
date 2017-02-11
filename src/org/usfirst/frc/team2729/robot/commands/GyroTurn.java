@@ -11,7 +11,8 @@ public class GyroTurn extends Command {
 	double gyroInitAngle;
 
 	public GyroTurn (double turnPower, double targetAngle) {
-		requires(Robot.driveTrainPID);
+//		requires(Robot.driveTrainPID);
+		requires(Robot.driveTrain);
 		_turnPower = turnPower;
 		_targetAngle = targetAngle;
 	}

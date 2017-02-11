@@ -15,7 +15,8 @@ public class DriveForwardDistance extends Command {
 
 	
 	public DriveForwardDistance(double speed, double distanceL, double distanceR) {
-		requires(Robot.driveTrainPID);
+//		requires(Robot.driveTrainPID);
+		requires(Robot.driveTrain);
 		_leftSpeed = speed;
 		_rightSpeed = speed;
 		_distanceL = distanceL*TICKSPERMETER;

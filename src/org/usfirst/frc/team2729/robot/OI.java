@@ -54,6 +54,14 @@ public class OI {
 		shootFire.whenPressed(new ShootFire(.6));
 		shootFireOff.whenPressed(new ShootFire(0));
 		shooterSpinOn.whenPressed(new ShooterSpin(0.3));
+		if(shooterSpinOn.get()){
+			Robot.driveTrain.tankDrive(0, 0.25);
+			Robot.leds.setLED(Robot.leds.ledShoot);
+		}
+		else{
+			Robot.driveTrain.tankDrive(0, 0);
+			Robot.leds.setLED(Robot.leds.ledTele);
+		}
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
 		centerTurn.whenPressed(new CenterTurn());
 		autoDrive.whenPressed(new AutoDrive());
