@@ -5,16 +5,17 @@ import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class GyroTurn extends Command {
+	
+	double _turnPower;
+	double _targetAngle;
 	double gyroInitAngle;
 
-	public GyroTurn () {
+	public GyroTurn (double turnPower, double targetAngle) {
 		requires(Robot.driveTrainPID);
+		_turnPower = turnPower;
+		_targetAngle = targetAngle;
 	}
-	public void turn(double turnPower, double targetAngle) {
-		initialize();
-		execute(turnPower, targetAngle);
-		end();
-	}
+	
 	@Override
 	protected void initialize() {
 		System.err.println("Init Gyro turn");
@@ -23,30 +24,31 @@ public class GyroTurn extends Command {
 		Robot.driveTrain.percentVbusControl();
 		Robot.driveTrain.resetGyro();
 		gyroInitAngle = Robot.driveTrain.getGyroAngle();
-		//targetAngle += gyroInitAngle;
+		_targetAngle += gyroInitAngle;
 	}
 	
-	protected void execute(double turnPower, double targetAngle) {
+	protected void execute() {
 		System.err.println("Execute Gyro turn");
-		if (targetAngle > 0) {			
-			while(Robot.driveTrain.getGyroAngle() <= targetAngle) {
+		if (_targetAngle > 0) {			
+			while(Robot.driveTrain.getGyroAngle() <= _targetAngle) {
 			
 				System.err.println("Execute Gyro turn");
 
-				Robot.driveTrain.tankDrive(-turnPower, turnPower);//negative sign for turning
+				Robot.driveTrain.tankDrive(-_turnPower, _turnPower);//negative sign for turning
 			}
 			
 		}
 		
-		if (targetAngle < 0) {			
-			while(Robot.driveTrain.getGyroAngle() >= targetAngle) {
+		if (_targetAngle < 0) {			
+			while(Robot.driveTrain.getGyroAngle() >= _targetAngle) {
 			
 				System.err.println("Execute Gyro turn");
 
-				Robot.driveTrain.tankDrive(turnPower, -turnPower);//negative sign for turning
+				Robot.driveTrain.tankDrive(_turnPower, -_turnPower);//negative sign for turning
 			}
 		}
 	}
+	
 	protected void end() {
 		System.err.println("End Gyro turn");
 		Robot.driveTrain.tankDrive(0, 0);
@@ -62,7 +64,7 @@ public class GyroTurn extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return true;
 	}
 	
 }

@@ -11,5 +11,9 @@ public class VisionSystem extends Subsystem {
 	public VisionSystem() {
 
 	}
+	
+	public void DriveForwardDistance() {
+		new org.usfirst.frc.team2729.robot.commands.DriveForwardDistance(0, 0, 0);
+	}
 
 }
