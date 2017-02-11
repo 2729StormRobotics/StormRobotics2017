@@ -157,15 +157,6 @@ public class DriveTrain extends Subsystem {
 		_rightMain.set(0);
 	}
 	
-	public void positionControl(double _targetPosition) {
-		_leftMain.changeControlMode(CANTalon.TalonControlMode.Position);
-		_leftMain.setPosition(0);
-		_leftMain.set(_targetPosition);
-		_rightMain.changeControlMode(CANTalon.TalonControlMode.Position);
-		_leftMain.setPosition(0);
-		_rightMain.set(_targetPosition);
-	}
-
 	public void resetRightEnc() {
 		_rightMain.setEncPosition(0);
 	}
