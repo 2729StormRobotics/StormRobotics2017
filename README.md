@@ -1,4 +1,14 @@
 # StormRobotics2017
 Working 2017 Robot Code
 
-## I dont know which way is up!
+## Getting Started
+
+## Prerequisites
+
+## Functionalities
+This is what our robot can do:
+Drive using tankdrive (PID control)
+Shoot (PID control)
+Intake
+Hang
+Gear Placement using pistons
