@@ -10,14 +10,14 @@ public class Right extends CommandGroup{
 	
 
 	public Right() {
-		addSequential(new VisionAlignment());	
+//		addSequential(new VisionAlignment());	
 //		addSequential(new CenterTurn());
 //		addSequential(new AutoDrive());
 //		addSequential(new CenterTurn());
 //		addSequential(new AutoDrive());
 //		addSequential(new CenterTurn());
 //		addSequential(new AutoDrive());
-		//addSequential(new DriveForwardDistance(50, 1, 1));
+		addSequential(new DriveForwardDistance(50, 1, 1));
 	}
 	
 }
