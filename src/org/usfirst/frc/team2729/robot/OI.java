@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.commands.AutoDrive;
+import org.usfirst.frc.team2729.robot.commands.CenterTurn;
 import org.usfirst.frc.team2729.robot.commands.Gear;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
@@ -22,7 +24,8 @@ public class OI {
 			shooterSpinOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_OFF),
 			shootFire = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE),
 			shootFireOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE_OFF),
-			driveTurnGyro = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_DRIVE_GYRO);
+			centerTurn = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_CENTERTURN),
+			autoDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_AUTODRIVE);
 	
 	
 	private double _zeroDeadzone(double joyValue,double dead) {
@@ -52,7 +55,8 @@ public class OI {
 		shootFireOff.whenPressed(new ShootFire(0));
 		shooterSpinOn.whenPressed(new ShooterSpin(0.3));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
-		//driveTurnGyro.whenPressed(new GyroTurn(0.1, 5));
+		centerTurn.whenPressed(new CenterTurn());
+		autoDrive.whenPressed(new AutoDrive());
 		
 		//Special Commands
 		

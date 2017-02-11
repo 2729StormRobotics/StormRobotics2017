@@ -11,13 +11,13 @@ public class ShootFire extends Command {
 	private final double _fireRate;
 
 	public ShootFire(double fireRateInput) {
-		//requires(Robot.shoot);
+		requires(Robot.shoot);
 		_fireRate = fireRateInput;
 	}
 	
 	@Override
 	protected void initialize() {
-		//Robot.shoot.resetEnc();
+		Robot.shoot.resetEnc();
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public class ShootFire extends Command {
 		}
 		
 		SmartDashboard.putNumber("MyShootFireSpeed", fireRate);
-		//Robot.shoot.shootFire(fireRate);
+		Robot.shoot.shootFire(fireRate);
 	}
 	
 	@Override
