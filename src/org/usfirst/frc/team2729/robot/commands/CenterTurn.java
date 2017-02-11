@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class CenterTurn extends Command{
 	public CenterTurn() {
-		requires(Robot.driveTrain);
+		requires(Robot.driveTrainPID);
 	}
 	
 	@Override

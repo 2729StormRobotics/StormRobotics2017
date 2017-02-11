@@ -13,7 +13,7 @@ public class DriveForward extends Command {
 	Timer _timer;
 
 	public DriveForward(double power, double time) {
-		requires(Robot.driveTrain);
+		requires(Robot.driveTrainPID);
 		_timer = new Timer();
 		_power = power;
 		_time = time;
