@@ -74,7 +74,6 @@ public class DriveTrainPID extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new TankDrive());
 	}
 
 /*	public void halveOne(boolean half) {
