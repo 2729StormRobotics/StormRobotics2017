@@ -26,50 +26,6 @@ public class DriveTrain extends Subsystem {
 
 	public DriveTrain() {
 		
-//		double valueP = 0.2,
-//				valueI = 0.001,
-//				valueD = 0,
-//				valueF = 1;
-//		
-//		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
-//		_leftMain.set(0);
-//		_rightMain.changeControlMode(CANTalon.TalonControlMode.Speed);
-//		_rightMain.set(0);
-//		_left2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_left2.set(_leftMain.getDeviceID());
-//		_left3.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_left3.set(_leftMain.getDeviceID());		
-//		_right2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_right2.set(_rightMain.getDeviceID());		
-//		_right3.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_right3.set(_rightMain.getDeviceID());
-//
-//		_leftMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-//		_rightMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
-//		
-//		_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
-//		_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
-//		_leftMain.setProfile(0);
-//		_leftMain.setF(valueF);
-//		_leftMain.setP(valueP);
-//		_leftMain.setI(valueI);
-//		_leftMain.setD(valueD);
-//		_rightMain.configNominalOutputVoltage(+0.0f, -0.0f);
-//		_leftMain.configEncoderCodesPerRev(256);
-//		_rightMain.configEncoderCodesPerRev(256);		
-//		_rightMain.configPeakOutputVoltage(+12.0f, -12.0f);
-//		_rightMain.setProfile(0);
-//		_rightMain.setF(valueF);
-//		_rightMain.setP(valueP);
-//		_rightMain.setI(valueI);
-//		_rightMain.setD(valueD);
-//		_leftMain.setVoltageRampRate(6.0);
-//		_rightMain.setVoltageRampRate(5.0);		
-//		resetLeftEnc();
-//		resetRightEnc();
-//		_gyro.initGyro();
-//		resetGyro();
-		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		_leftMain.set(0);
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
@@ -82,6 +38,14 @@ public class DriveTrain extends Subsystem {
 		_right2.set(_rightMain.getDeviceID());		
 		_right3.changeControlMode(CANTalon.TalonControlMode.Follower);
 		_right3.set(_rightMain.getDeviceID());
+		
+		_leftMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		_rightMain.setFeedbackDevice(CANTalon.FeedbackDevice.QuadEncoder);
+		
+		resetLeftEnc();
+		resetRightEnc();
+		_gyro.initGyro();
+		resetGyro();
 		
 	}
 
@@ -137,7 +101,6 @@ public class DriveTrain extends Subsystem {
 	public double getGyroAngle() {
 		return _gyro.getAngle();
 	}
-
 	
 	public void resetGyro() {
 		_gyro.reset();
@@ -148,10 +111,43 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void speedControl() {
+
+		double valueP = 0.2,
+		valueI = 0.001,
+		valueD = 0,
+		valueF = 1;
+
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_leftMain.set(0);
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_rightMain.set(0);
+//		_left2.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		_left2.set(_leftMain.getDeviceID());
+//		_left3.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		_left3.set(_leftMain.getDeviceID());		
+//		_right2.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		_right2.set(_rightMain.getDeviceID());		
+//		_right3.changeControlMode(CANTalon.TalonControlMode.Follower);
+//		_right3.set(_rightMain.getDeviceID());
+		
+		_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
+		_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
+		_leftMain.setProfile(0);
+		_leftMain.setF(valueF);
+		_leftMain.setP(valueP);
+		_leftMain.setI(valueI);
+		_leftMain.setD(valueD);
+		_rightMain.configNominalOutputVoltage(+0.0f, -0.0f);
+		_leftMain.configEncoderCodesPerRev(256);
+		_rightMain.configEncoderCodesPerRev(256);		
+		_rightMain.configPeakOutputVoltage(+12.0f, -12.0f);
+		_rightMain.setProfile(0);
+		_rightMain.setF(valueF);
+		_rightMain.setP(valueP);
+		_rightMain.setI(valueI);
+		_rightMain.setD(valueD);
+		_leftMain.setVoltageRampRate(6.0);
+		_rightMain.setVoltageRampRate(5.0);
 	}
 
 	public void percentVbusControl() {
@@ -160,7 +156,7 @@ public class DriveTrain extends Subsystem {
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		_rightMain.set(0);
 	}
-
+	
 	public void resetRightEnc() {
 		_rightMain.setEncPosition(0);
 	}

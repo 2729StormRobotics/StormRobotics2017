@@ -2,6 +2,7 @@ package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.commands.AutoDrive;
 import org.usfirst.frc.team2729.robot.commands.CenterTurn;
+import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.Gear;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
@@ -64,7 +65,7 @@ public class OI {
 		}
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
 		centerTurn.whenPressed(new CenterTurn());
-		autoDrive.whenPressed(new AutoDrive());
+		autoDrive.whenPressed(new DriveForwardDistance(50, 1, 1));
 		
 		//Special Commands
 		

@@ -12,7 +12,6 @@ public class CenterTurn extends Command{
 	NetworkTable table;
 	
 	public CenterTurn() {
-//		requires(Robot.driveTrainPID);
 		requires(Robot.driveTrain);
 	}
 	

@@ -15,7 +15,6 @@ public class DriveForwardDistance extends Command {
 
 	
 	public DriveForwardDistance(double speed, double distanceL, double distanceR) {
-//		requires(Robot.driveTrainPID);
 		requires(Robot.driveTrain);
 		_leftSpeed = speed;
 		_rightSpeed = speed;
@@ -36,7 +35,6 @@ public class DriveForwardDistance extends Command {
 		System.err.println("Execute drive forward distance");
 		// Robot.driveTrain.tankDrive(_powerLeft*1.1, _powerRight*1.05);
 		Robot.driveTrain.tankDrive(_leftSpeed, _rightSpeed);//negative sign for turning
-//		Robot.driveTrain.tankDrive(_distanceL, _distanceR);
 		SmartDashboard.putNumber("distance traveled",
 				Math.max(Robot.driveTrain.getLeftDistance(), Robot.driveTrain.getRightDistance()));
 		SmartDashboard.putNumber("Distance", _distanceL);
@@ -49,6 +47,10 @@ public class DriveForwardDistance extends Command {
 		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());		
 		
 		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL)) {
+			
+		}
+		
+		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL)) {
 			System.err.println("Done left!");
 			_leftSpeed = 0;
 		}
@@ -56,7 +58,7 @@ public class DriveForwardDistance extends Command {
 			System.err.println("Done right!");
 			_rightSpeed = 0;
 		}
-
+		
 	}
 
 	protected boolean isFinished() {
@@ -73,6 +75,7 @@ public class DriveForwardDistance extends Command {
 
 	protected void end() {
 		System.err.println("End drive forward distance");
+		Robot.driveTrain.speedControl();
 		Robot.driveTrain.tankDrive(0, 0);
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
