@@ -10,9 +10,11 @@ public class CenterTurn extends Command{
 	final int RESOLUTION = 320;
 	int _rotation;
 	NetworkTable table;
+	double _targetRotation;
 	
-	public CenterTurn() {
+	public CenterTurn(int targetRotation) {
 		requires(Robot.driveTrain);
+		_targetRotation = targetRotation;
 	}
 	
 	@Override
@@ -25,7 +27,7 @@ public class CenterTurn extends Command{
 
 		int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
 		_rotation = (int) table.getNumber("p_angle", 0);
-		GyroTurn x = new GyroTurn(0.1, _rotation);
+		GyroTurn x = new GyroTurn(0.1, _rotation - _targetRotation);
 		x.start();
 			//Robot.driveTrain.tankDrive(-leftSpeed, -rightSpeed); //1500 max
 
@@ -43,6 +45,9 @@ public class CenterTurn extends Command{
 			leftSpeed -=1;
 		}
 		*/
+	}
+	public void set_targetRotation(double targetRotation) {
+		_targetRotation = targetRotation;
 	}
 	
 	@Override

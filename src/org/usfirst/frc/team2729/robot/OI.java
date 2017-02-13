@@ -56,7 +56,7 @@ public class OI {
 		shootFireOff.whenPressed(new ShootFire(0));
 		shooterSpinOn.whenPressed(new ShooterSpin(0.3));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
-		centerTurn.whenPressed(new CenterTurn());
+		centerTurn.whenPressed(new CenterTurn(0));
 		autoDrive.whenPressed(new DriveForwardDistance(50, 1, 1));
 		
 		//Special Commands
