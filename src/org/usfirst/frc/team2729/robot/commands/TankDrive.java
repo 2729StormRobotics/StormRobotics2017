@@ -19,9 +19,8 @@ public class TankDrive extends Command {
 		double left = Robot.oi.getLeftDrive(),
 				right = Robot.oi.getRightDrive();
 		Robot.driveTrain.tankDrive(left, right);
-		if(right > 0.1){
-			Robot.leds.turnOn(Robot.leds.ledShoot);
-		}
+		Robot.leds.turnOn(Robot.leds.ledShoot);
+	
 	}
 
 	@Override
