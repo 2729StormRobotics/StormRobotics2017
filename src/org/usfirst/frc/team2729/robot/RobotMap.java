@@ -4,7 +4,7 @@ public class RobotMap {
 	
 	public static final int
 	PORT_JOYSTICK_DRIVE 			= 4,
-	PORT_JOYSTICK_ARMS  			= 3,
+	PORT_JOYSTICK_ARMS  			= 0,
 	PORT_JOYSTICK_DEBUG 			= 2;
 
 	//Buttons

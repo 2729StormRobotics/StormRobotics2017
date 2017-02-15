@@ -19,6 +19,8 @@ public class TankDrive extends Command {
 		double left = Robot.oi.getLeftDrive(),
 				right = Robot.oi.getRightDrive();
 		Robot.driveTrain.tankDrive(left, right);
+		Robot.leds.turnOn(Robot.leds.ledShoot);
+	
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class VisionAlignment extends Command {
 
 	private final static int RESOLUTION = 544;
+	private final static int SHIFTSCALE = 5;
 	private NetworkTable table;
 	private double dist;
 	private double incr;
@@ -22,15 +23,17 @@ public class VisionAlignment extends Command {
 	protected void initialize() {
 		Robot.driveTrain.speedControl();
 		table = NetworkTable.getTable("Vision");
-		x = new CenterTurn();
+		x = new CenterTurn(0);
 
 	}
 
 	@Override
 	protected void execute() {
 		dist = table.getNumber("est_distance", 0);
+		double shift = table.getNumber("shift", 0);
 
 		incr = dist / 10;
+		x.set_targetRotation(shift * SHIFTSCALE);
 		x.start();
 		if (dist - incr > 0.4) {
 			y = new DriveForwardDistance(100, incr, incr);

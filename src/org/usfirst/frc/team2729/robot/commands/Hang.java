@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Hang extends Command{
-	SerialPort ledOut = new SerialPort(9600, Port.kMXP);
 	
 	public Hang() {
 		requires(Robot.hang);
@@ -19,11 +18,8 @@ public class Hang extends Command{
 	
 	@Override
 	protected void execute() {
-		byte[] ff = new byte[1];
 		double power = Robot.oi.getHang();
 		Robot.hang.hang(power);
-		ff[0] = (byte) 255;
-		ledOut.write(ff, 1);
 	}
 	
 	@Override

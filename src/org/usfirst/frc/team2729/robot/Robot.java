@@ -24,8 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends IterativeRobot {
-	
-	SerialPort ledOut = new SerialPort(9600, Port.kMXP);
 
 	public static DriveTrain driveTrain;
 //	public static DriveTrainPID driveTrainPID;
@@ -45,6 +43,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
+		leds = new LEDz();
 		driveTrain = new DriveTrain();
 //		driveTrainPID = new DriveTrainPID();
 		gear = new GearSystem();
@@ -129,13 +128,14 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		
+		//Robot.leds.turnOn(Robot.leds.ledOff);
 		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void autonomousInit() {
-		
+		//Robot.leds.turnOff(4);
+		Robot.leds.turnOn(Robot.leds.ledAuto);
 		if (teleop != null) {
 			teleop.cancel();
 		}
@@ -146,31 +146,32 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
+	
 	public void autonomousPeriodic() {
-		byte[] ff = new byte[1];
 		Scheduler.getInstance().run();
 		sendSensorData();
-		ff[0] = (byte) 160;
-		ledOut.write(ff, 1);
+		Robot.leds.update();
 		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void teleopInit() {
-		
+		Robot.leds.turnOff(Robot.leds.ledAuto);
+		Robot.leds.turnOn(Robot.leds.ledTele);
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
 		if (teleop != null) {
 			teleop.start();
-			
 		}
+		
 	}
 
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
+		Robot.leds.update();
 		// Robot.vision.addCrosshairs();
 	}
 
