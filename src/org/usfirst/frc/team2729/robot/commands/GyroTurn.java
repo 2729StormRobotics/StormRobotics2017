@@ -21,7 +21,7 @@ public class GyroTurn extends Command {
 		System.err.println("Init Gyro turn");
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
-		Robot.driveTrain.percentVbusControl();
+		Robot.driveTrain.speedControl();
 		Robot.driveTrain.resetGyro();
 		gyroInitAngle = Robot.driveTrain.getGyroAngle();
 		_targetAngle += gyroInitAngle;
@@ -30,22 +30,15 @@ public class GyroTurn extends Command {
 	protected void execute() {
 		System.err.println("Execute Gyro turn");
 		if (_targetAngle > 0) {			
-			while(Robot.driveTrain.getGyroAngle() <= _targetAngle) {
-			
 				System.err.println("Execute Gyro turn");
 
 				Robot.driveTrain.tankDrive(-_turnPower, _turnPower);//negative sign for turning
-			}
-			
 		}
 		
-		if (_targetAngle < 0) {			
-			while(Robot.driveTrain.getGyroAngle() >= _targetAngle) {
-			
+		if (_targetAngle < 0) {
 				System.err.println("Execute Gyro turn");
 
 				Robot.driveTrain.tankDrive(_turnPower, -_turnPower);//negative sign for turning
-			}
 		}
 	}
 	
@@ -55,6 +48,7 @@ public class GyroTurn extends Command {
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
 		Robot.driveTrain.resetGyro();
+		Robot.driveTrain.percentVbusControl();
 	}
 
 	protected void interrupted() {
@@ -64,7 +58,9 @@ public class GyroTurn extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		return true;
+		if(Math.abs(Robot.driveTrain.getGyroAngle() - _targetAngle) <= 1) {
+			return true;}
+		return false;
 	}
 	
 }

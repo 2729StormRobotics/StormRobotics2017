@@ -7,6 +7,7 @@ import org.usfirst.frc.team2729.robot.commands.TankDrive;
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
@@ -19,12 +20,21 @@ public class DriveTrain extends Subsystem {
 	private final CANTalon _right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
 
 	private final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
+	
+	private static double valueP = 0.02;
+	private static double valueI = 0.001;
+	private static double valueD = 0.001;
+	private static double valueF = 1;
 
 //	private boolean _halfOne = false;
 //	private boolean _halfTwo = false;
 	// private boolean _isPTOEnabled = false;
 
 	public DriveTrain() {
+		valueP = Preferences.getInstance().getDouble("DriveTrain P", .2);
+		valueI = Preferences.getInstance().getDouble("DriveTrain I", .0015);
+		valueD = Preferences.getInstance().getDouble("DriveTrain D", 0);
+		valueF = Preferences.getInstance().getDouble("DriveTrain F", 1);
 		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		_leftMain.set(0);
@@ -111,24 +121,10 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void speedControl() {
-
-		double valueP = 0.2,
-		valueI = 0.001,
-		valueD = 0,
-		valueF = 1;
-
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_leftMain.set(0);
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_rightMain.set(0);
-//		_left2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_left2.set(_leftMain.getDeviceID());
-//		_left3.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_left3.set(_leftMain.getDeviceID());		
-//		_right2.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_right2.set(_rightMain.getDeviceID());		
-//		_right3.changeControlMode(CANTalon.TalonControlMode.Follower);
-//		_right3.set(_rightMain.getDeviceID());
 		
 		_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
 		_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
@@ -147,7 +143,7 @@ public class DriveTrain extends Subsystem {
 		_rightMain.setI(valueI);
 		_rightMain.setD(valueD);
 		_leftMain.setVoltageRampRate(6.0);
-		_rightMain.setVoltageRampRate(5.0);
+		_rightMain.setVoltageRampRate(6.0);
 	}
 
 	public void percentVbusControl() {
@@ -159,6 +155,46 @@ public class DriveTrain extends Subsystem {
 	
 	public void resetRightEnc() {
 		_rightMain.setEncPosition(0);
+	}
+	
+	public String getDriveTrainControlMode() {
+		return _leftMain.getControlMode().name();
+	}
+	
+	public boolean isDriveTrainPID() {
+		return _leftMain.getControlMode().isPID();
+	}
+
+	public double getValueP() {
+		return valueP;
+	}
+
+	public void setValueP(double valueP) {
+		this.valueP = valueP;
+	}
+
+	public double getValueI() {
+		return valueI;
+	}
+
+	public void setValueI(double valueI) {
+		this.valueI = valueI;
+	}
+
+	public double getValueD() {
+		return valueD;
+	}
+
+	public void setValueD(double valueD) {
+		this.valueD = valueD;
+	}
+
+	public double getValueF() {
+		return valueF;
+	}
+
+	public void setValueF(double valueF) {
+		this.valueF = valueF;
 	}
 
 	// public boolean getPTO(){

@@ -27,7 +27,7 @@ public class CenterTurn extends Command{
 
 		int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
 		_rotation = (int) table.getNumber("p_angle", 0);
-		GyroTurn x = new GyroTurn(0.1, _rotation - _targetRotation);
+		GyroTurn x = new GyroTurn(50, _rotation - _targetRotation);
 		x.start();
 			//Robot.driveTrain.tankDrive(-leftSpeed, -rightSpeed); //1500 max
 
@@ -52,18 +52,16 @@ public class CenterTurn extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		if(Math.abs(_rotation) < 1)
-			return true;
-		return false;
+		return true;
 	}
 	
 	@Override
 	protected void end() {
-		Robot.driveTrain.tankDrive(0, 0); //1500 max
+		Robot.driveTrain.percentVbusControl();
 	}
 	
 	@Override
 	protected void interrupted() {
-		Robot.driveTrain.tankDrive(0, 0); //1500 max
+		end();
 	}
 }

@@ -6,6 +6,7 @@ import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.Gear;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
+import org.usfirst.frc.team2729.robot.commands.VisionAlignment;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -65,7 +66,7 @@ public class OI {
 //		}
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
 		centerTurn.whenPressed(new CenterTurn(0));
-		autoDrive.whenPressed(new DriveForwardDistance(50, 1, 1));
+		autoDrive.whenPressed(new AutoDrive());
 		
 		//Special Commands
 		

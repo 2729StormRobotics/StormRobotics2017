@@ -39,7 +39,7 @@ public class LEDz extends Subsystem{
 
 	public void turnOn(int value) {
 		ledStatus |= value;
-		Robot.driveTrain.tankDrive(0.25, 0);
+//		Robot.driveTrain.tankDrive(0.25, 0);
 	}
 	
 	public void turnOff(int value) {

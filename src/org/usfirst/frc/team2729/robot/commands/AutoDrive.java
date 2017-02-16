@@ -47,10 +47,11 @@ public class AutoDrive extends Command {
 	@Override
 	protected void end() {
 		Robot.driveTrain.tankDrive(0, 0); // 1500 max
+		Robot.driveTrain.percentVbusControl();
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.driveTrain.tankDrive(0, 0); // 1500 max
+		end();
 	}
 }

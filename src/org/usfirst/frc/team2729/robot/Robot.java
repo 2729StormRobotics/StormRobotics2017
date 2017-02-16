@@ -35,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static Compressor compressor;
 	public static VisionSystem vision;
 	public static LEDz leds;
+	public static Preferences preferences;
 
 	Command teleop;
 	Command autonomousCommand;
@@ -80,7 +81,7 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData(Scheduler.getInstance());
 			
-		/*
+		
 		new Command("Sensor feedback") {
 			@Override
 			protected void initialize() {
@@ -104,7 +105,7 @@ public class Robot extends IterativeRobot {
 			protected void interrupted() {
 			}
 		}.start();
-		*/
+		
 	}
 
 	public void sendSensorData() {
@@ -118,6 +119,17 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("ShootFire EncVelocity", Robot.shoot.getShootFireSpeedEnc());
 		SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
+		SmartDashboard.putString("DriveTrain control mode", Robot.driveTrain.getDriveTrainControlMode());
+		SmartDashboard.putBoolean("DriveTrain is PID?", Robot.driveTrain.isDriveTrainPID());
+		Robot.driveTrain.setValueP(Preferences.getInstance().getDouble("P Value", 0.2));
+		SmartDashboard.putNumber("DriveTrain PID: P", Robot.driveTrain.getValueP());
+		Robot.driveTrain.setValueI(Preferences.getInstance().getDouble("I Value", 0.001));
+		SmartDashboard.putNumber("DriveTrain PID: I", Robot.driveTrain.getValueI());
+		Robot.driveTrain.setValueD(Preferences.getInstance().getDouble("D Value", 0.2));
+		SmartDashboard.putNumber("DriveTrain PID: D", Robot.driveTrain.getValueD());
+		Robot.driveTrain.setValueF(Preferences.getInstance().getDouble("F Value", 1));
+		SmartDashboard.putNumber("DriveTrain PID: F", Robot.driveTrain.getValueF());
+		
 	}
 
 	@Override

@@ -75,7 +75,6 @@ public class DriveForwardDistance extends Command {
 
 	protected void end() {
 		System.err.println("End drive forward distance");
-		Robot.driveTrain.speedControl();
 		Robot.driveTrain.tankDrive(0, 0);
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();

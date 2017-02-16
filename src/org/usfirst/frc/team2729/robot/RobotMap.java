@@ -23,7 +23,7 @@ public class RobotMap {
 	//Axes
 	public static final int
 	JOYDRIVE_AXIS_DRIVE_LEFT		 = 1,
-	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 5,
+	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 3,
 	JOYAXIS_AXIS_INTAKE				 = 1,
 	JOYAXIS_AXIS_HANG				 = 3;
 
