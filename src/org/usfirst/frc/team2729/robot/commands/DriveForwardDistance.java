@@ -58,7 +58,7 @@ public class DriveForwardDistance extends Command {
 			System.err.println("Done right!");
 			_rightSpeed = 0;
 		}
-		
+
 	}
 
 	protected boolean isFinished() {

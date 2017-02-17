@@ -21,7 +21,7 @@ public class DriveTrain extends Subsystem {
 
 	private final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
 	
-	private static double valueP = 0.02;
+	private static double valueP = 4.0; //used to be 0.02
 	private static double valueI = 0.001;
 	private static double valueD = 0.001;
 	private static double valueF = 1;
