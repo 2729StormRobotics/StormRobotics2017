@@ -20,8 +20,8 @@ public class DriveTrain extends Subsystem {
 
 	private final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
 
-//	private boolean _halfOne = false;
-//	private boolean _halfTwo = false;
+	private boolean _halfOne = false;
+	private boolean _halfTwo = false;
 	// private boolean _isPTOEnabled = false;
 
 	public DriveTrain() {
@@ -54,24 +54,22 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new TankDrive());
 	}
 
-/*	public void halveOne(boolean half) {
+	public void halveOne(boolean half) {
 		_halfOne = half;
 	}
 
 	public void halveTwo(boolean half) {
 		_halfTwo = half;
 	}
-*/
+
 	public void halt() {
 		_leftMain.set(0);
 		_rightMain.set(0);
 	}
 
 	public void tankDrive(double left, double right) {
-//		_leftMain.set(-((left) - (_halfOne ? (left / 3) : 0) - (_halfTwo ? (left / 3) : 0)));
-//		_rightMain.set((right) - (_halfOne ? (right / 3) : 0) - (_halfTwo ? (right / 3) : 0));
-		_leftMain.set(-left);
-		_rightMain.set(right);
+		_leftMain.set(-((left) - (_halfOne ? (left / 3) : 0) - (_halfTwo ? (left / 3) : 0)));
+		_rightMain.set((right) - (_halfOne ? (right / 3) : 0) - (_halfTwo ? (right / 3) : 0));
 	}
 
 	public double getLeftDistance() {

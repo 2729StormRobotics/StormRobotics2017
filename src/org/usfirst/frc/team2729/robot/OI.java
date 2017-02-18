@@ -3,13 +3,14 @@ package org.usfirst.frc.team2729.robot;
 import org.usfirst.frc.team2729.robot.commands.AutoDrive;
 import org.usfirst.frc.team2729.robot.commands.CenterTurn;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
-import org.usfirst.frc.team2729.robot.commands.Gear;
+import org.usfirst.frc.team2729.robot.commands.GearOn;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 public class OI {
 
@@ -17,11 +18,12 @@ public class OI {
 			armJoystick = new Joystick(RobotMap.PORT_JOYSTICK_ARMS);
 
 	private final Button 
-//			halveOne = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_1),
-//			halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
+			halveOne = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_1),
+			halveTwo = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_HALVE_2),
 			shiftGearOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHIFT_GEAR_ON),
 			shiftGearOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHIFT_GEAR_OFF),
 			shooterSpinOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_ON),
+			shooterSpinOnLow = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_LOW),
 			shooterSpinOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_OFF),
 			shootFire = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE),
 			shootFireOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE_OFF),
@@ -39,7 +41,7 @@ public class OI {
 		return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_RIGHT), 0.15);
 	}
 	public double getIntake(){
-		return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYAXIS_AXIS_INTAKE), 0.15);
+		return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYAXIS_AXIS_INTAKE), 0.24);
 	}
 	public double getHang() {
 		return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYAXIS_AXIS_HANG), 0.15);
@@ -50,26 +52,19 @@ public class OI {
 
 		//Operator Commands	
 		
-		shiftGearOn.whenPressed(new Gear(true));
-		shiftGearOff.whenPressed(new Gear(false));	
-		shootFire.whenPressed(new ShootFire(.6));
+		shiftGearOn.whenPressed(new GearOn(true));
+		shiftGearOff.whenPressed(new GearOn(false));	
+		shootFire.whenPressed(new ShootFire(4702));
 		shootFireOff.whenPressed(new ShootFire(0));
-		shooterSpinOn.whenPressed(new ShooterSpin(0.3));
-//		if(shooterSpinOn.get()){
-//			Robot.driveTrain.tankDrive(0, 0.25);
-//			Robot.leds.setLED(Robot.leds.ledShoot);
-//		}
-//		else{
-//			Robot.driveTrain.tankDrive(0, 0);
-//			Robot.leds.setLED(Robot.leds.ledTele);
-//		}
+		shooterSpinOn.whenPressed(new ShooterSpin(0.40));
+		shooterSpinOnLow.whenPressed(new ShooterSpin(.20));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
 		centerTurn.whenPressed(new CenterTurn(0));
-		autoDrive.whenPressed(new DriveForwardDistance(50, 1, 1));
+		autoDrive.whenPressed(new AutoDrive());
 		
 		//Special Commands
 		
-		/*halveOne.whileHeld(new Command() {
+		halveOne.whileHeld(new Command() {
 			@Override
 			protected void initialize() { Robot.driveTrain.halveOne(true); }
 			@Override
@@ -93,7 +88,7 @@ public class OI {
 			protected void end() { Robot.driveTrain.halveTwo(false); }
 			@Override
 			protected void interrupted() { end(); }
-		});*/
+		});
 
 	}
 }

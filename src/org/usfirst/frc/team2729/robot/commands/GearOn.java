@@ -4,18 +4,18 @@ import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Gear extends Command {
+public class GearOn extends Command {
 	
-	private boolean _on;
+	private final boolean _on;
 
-	public Gear(boolean on) {
+	public GearOn(boolean on) {
 		requires(Robot.gear);
 		_on = on;
 	}
 	
 	@Override
 	protected void initialize() {
-		
+		Robot.gear.setHighGear(_on);
 	}
 	
 	@Override

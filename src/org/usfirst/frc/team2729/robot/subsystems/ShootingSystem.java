@@ -14,32 +14,32 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShootingSystem extends Subsystem {
 	
 	//private FeedbackDevice _fireSensor = new FeedbackDevice(RobotMap.PORT_ENCODER_SHOOT_FIRE);
-	private final Talon _spin = new Talon(RobotMap.PORT_MOTOR_SHOOT_SPIN);	
+	private final CANTalon _spin = new CANTalon(RobotMap.PORT_MOTOR_SHOOT_SPIN);	
 	private final CANTalon _fire = new CANTalon(RobotMap.PORT_MOTOR_SHOOT_FIRE);
 	
 	//Encoder enc;
 	//enc = new Encoder(0,1,false,Encoder.EncodingType,k4x);
 	
 	public ShootingSystem() {
-		_fire.changeControlMode(CANTalon.TalonControlMode.Speed);
-		_fire.set(0);
-		_fire.reverseSensor(false);
-		_fire.setFeedbackDevice(FeedbackDevice.EncRising);
-		
-		_fire.configEncoderCodesPerRev(3);
-		resetEnc();
-		_fire.configPeakOutputVoltage(+12.0f, -12.0f);
-		_fire.configNominalOutputVoltage(+0.0f, -0.0f);		
-		double  valueF = 1,
-				valueP = 0.2,
-				valueI = 0.001,
-				valueD = 0;
-		_fire.setProfile(0);
-		_fire.setF(valueF);
-		_fire.setP(valueP);
-		_fire.setI(valueI);
-		_fire.setD(valueD);
-		_fire.setVoltageRampRate(6.0);
+//		_fire.changeControlMode(CANTalon.TalonControlMode.Speed);
+//		_fire.set(0);
+//		_fire.reverseSensor(false);
+//		_fire.setFeedbackDevice(FeedbackDevice.EncRising);
+//	
+//		_fire.configEncoderCodesPerRev(4);
+//		resetEnc();
+//		_fire.configPeakOutputVoltage(+12.0f, -12.0f);
+//		_fire.configNominalOutputVoltage(+0.0f, -0.0f);		
+//		double  valueF = 1,
+//				valueP = 0.2,
+//				valueI = 0.001,
+//				valueD = 0;
+//		_fire.setProfile(0);
+//		_fire.setF(valueF);
+//		_fire.setP(valueP);
+//		_fire.setI(valueI);
+//		_fire.setD(valueD);
+//		_fire.setVoltageRampRate(6.0);
 	}
 	
 	@Override
@@ -53,37 +53,73 @@ public class ShootingSystem extends Subsystem {
 	
 	public void shootFire(double speed){
 		
-		double P;
-		double I;
-		double D;
-		double F;
+		_fire.changeControlMode(CANTalon.TalonControlMode.Speed);
+		_fire.set(0);
+		_fire.reverseSensor(false);
+		_fire.setFeedbackDevice(FeedbackDevice.EncRising);
+		_fire.configEncoderCodesPerRev(4);
+		resetEnc();
+		_fire.configPeakOutputVoltage(+12.0f, -12.0f);
+		_fire.configNominalOutputVoltage(+0.0f, -0.0f);		
+//		double  valueF = 1,
+//				//valueP = 90,
+//				valueP = 90,
+//				valueI = 0,
+//				valueD = 2;
 		
-		P = Preferences.getInstance().getDouble("Shooter P", .2);
-		I = Preferences.getInstance().getDouble("Shooter I", .0015);
-		D = Preferences.getInstance().getDouble("Shooter D", 0);
-		F = Preferences.getInstance().getDouble("Shooter F", 1);
+		double valueP,
+				valueI,
+				valueD,
+				valueF;
 		
-		if((P < 0) || (P > 1)) {
-			P = .2;
-		}
+		valueP = Preferences.getInstance().getDouble("Shooter P", 90);
+		valueI = Preferences.getInstance().getDouble("Shooter I", 0);
+		valueD = Preferences.getInstance().getDouble("Shooter D", 2);
+		valueF = Preferences.getInstance().getDouble("Shooter F", 1);
 		
-		if((I < 0) || (I > 1)) {
-			I = .001;
-		}
+		_fire.setProfile(0);
+		_fire.setF(valueF);
+		_fire.setP(valueP);
+		_fire.setI(valueI);
+		_fire.setD(valueD);
 		
-		if((D < 0) || (D > 1)) {
-			D = 0;
-		}
+//		_fire.setVoltageRampRate(6.0);
+//		double P;
+//		double I;
+//		double D;
+//		double F;
 		
-		if((F < 0) || (F > 1)) {
-			F = 1;
-		}
+//		P = Preferences.getInstance().getDouble("Shooter P", .2);
+//		I = Preferences.getInstance().getDouble("Shooter I", .0015);
+//		D = Preferences.getInstance().getDouble("Shooter D", 0);
+//		F = Preferences.getInstance().getDouble("Shooter F", 1);
+//		
+//		if((P < 0) || (P > 1)) {
+//			P = .2;
+//		}
+//		
+//		if((I < 0) || (I > 1)) {
+//			I = .001;
+//		}
+//		
+//		if((D < 0) || (D > 1)) {
+//			D = 0;
+//		}
+//		
+//		if((F < 0) || (F > 1)) {
+//			F = 1;
+//		}
 		
-		_fire.setF(F);
-		_fire.setP(P);
-		_fire.setI(I);
-		_fire.setD(D);
-		
+//		P = .2;
+//		I = .0015;
+//		D = 0;
+//		F = 1;
+//		
+//		_fire.setF(F);
+//		_fire.setP(P);
+//		_fire.setI(I);
+//		_fire.setD(D);
+//		
 		_fire.set(speed);
 	}
 	
@@ -105,5 +141,13 @@ public class ShootingSystem extends Subsystem {
 	
 	public void resetEnc() {
 		_fire.setEncPosition(0);
+	}
+	
+	public String getShootFireMode() {
+		return _fire.getControlMode().name();
+	}
+	
+	public boolean isShootFirePID() {
+		return _fire.getControlMode().isPID();
 	}
 }

@@ -4,6 +4,7 @@ import org.usfirst.frc.team2729.robot.autoModes.Right;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
+import org.usfirst.frc.team2729.robot.subsystems.DriveTest;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrain;
+	//public static DriveTest driveTrain;
 //	public static DriveTrainPID driveTrainPID;
 	public static GearSystem gear;
 	public static HangingSystem hang;
@@ -73,7 +75,7 @@ public class Robot extends IterativeRobot {
 //			chooser.addObject(autoModeNames[i], autoModes[i]);
 //		}
 		
-		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(50, 2, 2));
+		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(80, 2, 2));
 		chooser.addObject("Right", new Right());
 
 		SmartDashboard.putData("Auto mode", chooser);
@@ -114,7 +116,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());
 		SmartDashboard.putNumber("ShootFire Amount Turned", Robot.shoot.getShootFireDistance());
 		SmartDashboard.putNumber("ShootFire EncVelocity", Robot.shoot.getShootFireSpeedEnc());
-		SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
+		SmartDashboard.putNumber("ShootFire EncPosition", Robot.shoot.getShootFireDistance());
+		SmartDashboard.putNumber("Intake", Robot.oi.getIntake());
+		SmartDashboard.putString("ShootFire Speed Control", Robot.shoot.getShootFireMode());
+		SmartDashboard.putBoolean("ShootFire is PID?", Robot.shoot.isShootFirePID());
+		SmartDashboard.putBoolean("getHighGear", Robot.gear.getHighGear());
+		
+		//SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 	}
 
@@ -133,7 +141,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		//Robot.leds.turnOff(4);
-		Robot.leds.turnOn(Robot.leds.ledAuto);
+		//Robot.leds.turnOn(Robot.leds.ledAuto);
 		if (teleop != null) {
 			teleop.cancel();
 		}
@@ -148,7 +156,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		Robot.leds.update();
+		//Robot.leds.update();
 		// Robot.vision.addCrosshairs();
 	}
 

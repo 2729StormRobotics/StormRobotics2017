@@ -13,6 +13,7 @@ public class ShootFire extends Command {
 	public ShootFire(double fireRateInput) {
 		requires(Robot.shoot);
 		_fireRate = fireRateInput;
+		
 	}
 	
 	@Override
@@ -23,28 +24,30 @@ public class ShootFire extends Command {
 	@Override
 	protected void execute() {
 		double fireRate;
+		fireRate = _fireRate;
 		
 		//If the button to turn off the shooter is pressed, override preferences value from SMartDashboard
-		if (_fireRate == 0) {
-			fireRate = 0;
-		}
-		else {
+		//if (_fireRate == 0) {
+		//	fireRate = 0;
+		//}
+		//else {
 			
 			
-			fireRate = Preferences.getInstance().getDouble("ShootFireSpeed", _fireRate);
+			//fireRate = Preferences.getInstance().getDouble("ShootFireSpeed", _fireRate);
+			//fireRate = _fireRate;
 			
-		}
+		//}
 		//This value must be negative so that shooter runs in correct direction
-		if (fireRate > 0) {
-			fireRate = 0;
-		}
+		//if (fireRate > 0) {
+			//fireRate = 0;
+		//}
 		
 		//Value lower than -0.9 will default to -0.9
-		if (fireRate < -0.9) {
-			fireRate = -0.9;
-		}
+		//if (fireRate < -0.9) {
+			//fireRate = -0.9;
+		//}
 		
-		SmartDashboard.putNumber("MyShootFireSpeed", fireRate);
+		
 		Robot.shoot.shootFire(fireRate);
 	}
 	

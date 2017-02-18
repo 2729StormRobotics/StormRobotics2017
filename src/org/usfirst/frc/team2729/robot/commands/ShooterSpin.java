@@ -20,7 +20,7 @@ public class ShooterSpin extends Command {
 	
 	@Override
 	protected void execute() {
-		Robot.shoot.shootSpin(_power);
+		Robot.shoot.shootSpin(-_power);
 	}
 	
 	@Override

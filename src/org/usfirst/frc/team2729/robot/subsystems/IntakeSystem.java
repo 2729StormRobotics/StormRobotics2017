@@ -17,7 +17,8 @@ public class IntakeSystem extends Subsystem {
 	}
 
 	public IntakeSystem() {
-
+		_intake.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
+		_intake.set(0);
 	}
 	
 	public void intakeSpinner(double power) {
