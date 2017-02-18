@@ -3,17 +3,20 @@ package org.usfirst.frc.team2729.robot.subsystems;
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.GearOn;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GearSystem extends Subsystem {
 	
-	private static final DoubleSolenoid _gearShifter1 = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON_1, RobotMap.PORT_SHIFT_GEAR_OFF_1);
+	private final DoubleSolenoid _gearShifter1 = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON_1, RobotMap.PORT_SHIFT_GEAR_OFF_1);
 	private final DoubleSolenoid _gearShifter2 = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON_2, RobotMap.PORT_SHIFT_GEAR_OFF_2);
 	//private final DoubleSolenoid _gearShifter3 = new DoubleSolenoid(RobotMap.PORT_SHIFT_GEAR_ON_3, RobotMap.PORT_SHIFT_GEAR_OFF_3);
+	private final DigitalInput _gearHalt = new DigitalInput(RobotMap.PORT_MAJOR_LASER);
 	
 	private static boolean _isGearOn;
-
+	private static boolean _isGearReady;
+	
 	@Override
 	protected void initDefaultCommand() {
 		
@@ -38,6 +41,10 @@ public class GearSystem extends Subsystem {
 	
 	public boolean getHighGear(){
 		return _isGearOn;
+	}
+	
+	public boolean getGearReady() {
+		return _isGearReady;
 	}
 	
 }

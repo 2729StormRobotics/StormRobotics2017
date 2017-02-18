@@ -126,8 +126,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("ShootFire Speed Control", Robot.shoot.getShootFireMode());
 		SmartDashboard.putBoolean("ShootFire is PID?", Robot.shoot.isShootFirePID());
 		SmartDashboard.putBoolean("getHighGear", Robot.gear.getHighGear());
+		SmartDashboard.putBoolean("gearReady", Robot.gear.getGearReady());
 		
-		//SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
+		
+		SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 		SmartDashboard.putString("DriveTrain control mode", Robot.driveTrain.getDriveTrainControlMode());
 		SmartDashboard.putBoolean("DriveTrain is PID?", Robot.driveTrain.isDriveTrainPID());
@@ -139,6 +141,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("DriveTrain PID: D", Robot.driveTrain.getValueD());
 		Robot.driveTrain.setValueF(Preferences.getInstance().getDouble("F Value", 1));
 		SmartDashboard.putNumber("DriveTrain PID: F", Robot.driveTrain.getValueF());
+		
 		
 	}
 

@@ -24,7 +24,7 @@ public class RobotMap {
 	//Axes
 	public static final int
 	JOYDRIVE_AXIS_DRIVE_LEFT		 = 1,
-	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 3,
+	JOYDRIVE_AXIS_DRIVE_RIGHT		 = 5,
 	JOYAXIS_AXIS_INTAKE				 = 1,
 	JOYAXIS_AXIS_HANG				 = 3;
 
@@ -48,7 +48,8 @@ public class RobotMap {
 	//Digital I/O Ports
 	public static final int
 	PORT_ENCODER_SHOOT_FIRE	        =  30,
-	PORT_SENSOR_GYRO				=  0;
+	PORT_SENSOR_GYRO				=  1,
+	PORT_MAJOR_LASER				=  7;
 
 	//Relay
 	public static final int
