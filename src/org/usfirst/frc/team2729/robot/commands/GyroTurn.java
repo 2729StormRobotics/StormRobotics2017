@@ -3,14 +3,17 @@ package org.usfirst.frc.team2729.robot.commands;
 import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class GyroTurn extends Command {
 	
 	double _turnPower;
 	double _targetAngle;
 	double gyroInitAngle;
+	NetworkTable table;
 
 	public GyroTurn (double turnPower, double targetAngle) {
+		table = NetworkTable.getTable("Vision");
 		requires(Robot.driveTrain);
 		_turnPower = turnPower;
 		_targetAngle = targetAngle;
@@ -18,6 +21,7 @@ public class GyroTurn extends Command {
 	
 	@Override
 	protected void initialize() {
+		_targetAngle = table.getNumber("p_angle", 0);
 		System.err.println("Init Gyro turn");
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();

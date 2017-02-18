@@ -25,7 +25,11 @@ public class VisionAlignment extends Command {
 
 	@Override
 	protected void execute() {
+		
 		dist = table.getNumber("est_distance", 0);
+		new GyroTurn(50, 0).start();
+		new AutoDrive().start();
+		/*
 //		double shift = table.getNumber("shift", 0);
 		double shift = 0;
 		incr = dist / 4;
@@ -38,12 +42,15 @@ public class VisionAlignment extends Command {
 		} else {
 			y = new DriveForwardDistance(50, dist-0.4, dist-0.4);
 			y.start();
+		
 		}
+		*/
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return dist <= 0.4;
+		//return dist <= 0.4;
+		return true;
 	}
 
 	@Override

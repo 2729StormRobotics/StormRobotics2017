@@ -65,7 +65,7 @@ public class OI {
 //			Robot.leds.setLED(Robot.leds.ledTele);
 //		}
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
-		centerTurn.whenPressed(new CenterTurn(0));
+		centerTurn.whenPressed(new VisionAlignment());
 		autoDrive.whenPressed(new AutoDrive());
 		
 		//Special Commands
