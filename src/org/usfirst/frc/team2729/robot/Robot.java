@@ -45,7 +45,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 
-		leds = new LEDz();
+
 		driveTrain = new DriveTrain();
 //		driveTrainPID = new DriveTrainPID();
 		gear = new GearSystem();
@@ -79,8 +79,7 @@ public class Robot extends IterativeRobot {
 //			chooser.addObject(autoModeNames[i], autoModes[i]);
 //		}
 		
-		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(80, 2, 2));
-		chooser.addObject("Right", new Right());
+
 
 		SmartDashboard.putData(Scheduler.getInstance());
 			
@@ -164,9 +163,9 @@ public class Robot extends IterativeRobot {
 			teleop.cancel();
 		}
 		autonomousCommand = (Command) chooser.getSelected();
-		//if (autonomousCommand != null) {
+		if (autonomousCommand != null) {
 			autonomousCommand.start();
-		//}
+		}
 	}
 
 	@Override
@@ -174,8 +173,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		//Robot.leds.update();
-		// Robot.vision.addCrosshairs();
+
 	}
 
 	@Override

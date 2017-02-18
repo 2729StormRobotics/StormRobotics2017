@@ -21,15 +21,17 @@ public class Right extends CommandGroup{
 		//	addSequential(new VisionAlignRep()); //Give param for dist.  Calc dist through incr
 		//}
 		//table.putBoolean("VisionAlignRep Running", VisionAlignRep())
-		VisionAlignRep x = new VisionAlignRep();
-		x.start();
-		x.start();
+		//VisionAlignRep x = new VisionAlignRep();
+		//x.start();
+		//x.start();
 //		while (dist > 0.4) {
 //			if(!x.isRunning())
 //				addSequential(x);
 //			
 //		}
 
+		addSequential(new VisionAlignRep());
+		addSequential(new VisionAlignRep());
 
 //		addSequential(new GyroTurn(50, 0));
 //		addSequential(new WaitCommand(1));
