@@ -15,15 +15,22 @@ public class Right extends CommandGroup{
 	public static boolean running = false;
 	public Right() {
 		table = NetworkTable.getTable("Vision");
-		
+		double dist = table.getNumber("est_distance", 0);
 		//DashboardCmdLine = ""C:\\Program Files (x86)\\FRC Dashboard\\Dashboard.exe""
 		//while(table.getNumber("est_distance", 0) > 0.4){
 		//	addSequential(new VisionAlignRep()); //Give param for dist.  Calc dist through incr
 		//}
 		//table.putBoolean("VisionAlignRep Running", VisionAlignRep())
-		addSequential(new VisionAlignRep());	
-		addSequential(new VisionAlignRep());
-		addSequential(new VisionAlignRep());
+		VisionAlignRep x = new VisionAlignRep();
+		x.start();
+		x.start();
+//		while (dist > 0.4) {
+//			if(!x.isRunning())
+//				addSequential(x);
+//			
+//		}
+
+
 //		addSequential(new GyroTurn(50, 0));
 //		addSequential(new WaitCommand(1));
 //		addSequential(new DriveForwardDistance(50, .5, .5));
