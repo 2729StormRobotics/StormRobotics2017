@@ -37,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static Compressor compressor;
 	public static VisionSystem vision;
 	public static LEDz leds;
+	public static Preferences preferences;
 
 	Command teleop;
 	Command autonomousCommand;
@@ -56,11 +57,15 @@ public class Robot extends IterativeRobot {
 		vision = new VisionSystem();
 		compressor = new Compressor();
 		compressor.start();
-		chooser = new SendableChooser<>();
 		leds = new LEDz();
 		
+		chooser = new SendableChooser();
 		chooser.addDefault("Default Program", new DriveForwardDistance(50, 0, 0));
-
+		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(50, 2, 2));
+		chooser.addObject("Right", new Right());
+		SmartDashboard.putData("Chooser", chooser);
+		
+		
 //		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };
 //		Command[] autoModes = new Command[] { new DriveForwardDistance(50, 2, 2),
 //				new DriveForward(-0.25, 10), new Right()};// Almost full turn
@@ -78,9 +83,9 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(80, 2, 2));
 		chooser.addObject("Right", new Right());
 
-		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putData(Scheduler.getInstance());
-
+			
+		
 		new Command("Sensor feedback") {
 			@Override
 			protected void initialize() {
@@ -104,7 +109,7 @@ public class Robot extends IterativeRobot {
 			protected void interrupted() {
 			}
 		}.start();
-
+		
 	}
 
 	public void sendSensorData() {
@@ -124,6 +129,17 @@ public class Robot extends IterativeRobot {
 		
 		//SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
+		SmartDashboard.putString("DriveTrain control mode", Robot.driveTrain.getDriveTrainControlMode());
+		SmartDashboard.putBoolean("DriveTrain is PID?", Robot.driveTrain.isDriveTrainPID());
+		Robot.driveTrain.setValueP(Preferences.getInstance().getDouble("P Value", 0.2));
+		SmartDashboard.putNumber("DriveTrain PID: P", Robot.driveTrain.getValueP());
+		Robot.driveTrain.setValueI(Preferences.getInstance().getDouble("I Value", 0.001));
+		SmartDashboard.putNumber("DriveTrain PID: I", Robot.driveTrain.getValueI());
+		Robot.driveTrain.setValueD(Preferences.getInstance().getDouble("D Value", 0.2));
+		SmartDashboard.putNumber("DriveTrain PID: D", Robot.driveTrain.getValueD());
+		Robot.driveTrain.setValueF(Preferences.getInstance().getDouble("F Value", 1));
+		SmartDashboard.putNumber("DriveTrain PID: F", Robot.driveTrain.getValueF());
+		
 	}
 
 	@Override
@@ -146,9 +162,9 @@ public class Robot extends IterativeRobot {
 			teleop.cancel();
 		}
 		autonomousCommand = (Command) chooser.getSelected();
-		if (autonomousCommand != null) {
+		//if (autonomousCommand != null) {
 			autonomousCommand.start();
-		}
+		//}
 	}
 
 	@Override

@@ -3,14 +3,17 @@ package org.usfirst.frc.team2729.robot.commands;
 import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class GyroTurn extends Command {
 	
 	double _turnPower;
 	double _targetAngle;
 	double gyroInitAngle;
+	NetworkTable table;
 
 	public GyroTurn (double turnPower, double targetAngle) {
+		table = NetworkTable.getTable("Vision");
 		requires(Robot.driveTrain);
 		_turnPower = turnPower;
 		_targetAngle = targetAngle;
@@ -18,10 +21,11 @@ public class GyroTurn extends Command {
 	
 	@Override
 	protected void initialize() {
+		_targetAngle = table.getNumber("p_angle", 0);
 		System.err.println("Init Gyro turn");
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
-		Robot.driveTrain.percentVbusControl();
+		Robot.driveTrain.speedControl();
 		Robot.driveTrain.resetGyro();
 		gyroInitAngle = Robot.driveTrain.getGyroAngle();
 		_targetAngle += gyroInitAngle;
@@ -30,22 +34,15 @@ public class GyroTurn extends Command {
 	protected void execute() {
 		System.err.println("Execute Gyro turn");
 		if (_targetAngle > 0) {			
-			while(Robot.driveTrain.getGyroAngle() <= _targetAngle) {
-			
 				System.err.println("Execute Gyro turn");
 
 				Robot.driveTrain.tankDrive(-_turnPower, _turnPower);//negative sign for turning
-			}
-			
 		}
 		
-		if (_targetAngle < 0) {			
-			while(Robot.driveTrain.getGyroAngle() >= _targetAngle) {
-			
+		if (_targetAngle < 0) {
 				System.err.println("Execute Gyro turn");
 
 				Robot.driveTrain.tankDrive(_turnPower, -_turnPower);//negative sign for turning
-			}
 		}
 	}
 	
@@ -55,6 +52,7 @@ public class GyroTurn extends Command {
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
 		Robot.driveTrain.resetGyro();
+		Robot.driveTrain.percentVbusControl();
 	}
 
 	protected void interrupted() {
@@ -64,7 +62,9 @@ public class GyroTurn extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		return true;
+		if(Math.abs(Robot.driveTrain.getGyroAngle() - _targetAngle) <= 1) {
+			return true;}
+		return false;
 	}
 	
 }

@@ -7,55 +7,60 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 public class VisionAlignment extends Command {
 
-	private final static int RESOLUTION = 544;
 	private final static int SHIFTSCALE = 5;
 	private NetworkTable table;
 	private double dist;
 	private double incr;
-	private CenterTurn x;
+	//private CenterTurn x;
 	private DriveForwardDistance y;
 
 	public VisionAlignment() {
-
 	}
 
 	@Override
 	protected void initialize() {
 		Robot.driveTrain.speedControl();
 		table = NetworkTable.getTable("Vision");
-		x = new CenterTurn(0);
-
 	}
 
 	@Override
 	protected void execute() {
+		
 		dist = table.getNumber("est_distance", 0);
-		double shift = table.getNumber("shift", 0);
-
-		incr = dist / 10;
-		x.set_targetRotation(shift * SHIFTSCALE);
-		x.start();
+		new GyroTurn(50, 0).start();
+		new AutoDrive().start();
+		/*
+//		double shift = table.getNumber("shift", 0);
+		double shift = 0;
+		incr = dist / 4;
+		//x = new CenterTurn(0);
+		//x.set_targetRotation(shift * SHIFTSCALE);
+		//x.start();
 		if (dist - incr > 0.4) {
-			y = new DriveForwardDistance(100, incr, incr);
+			y = new DriveForwardDistance(200, incr, incr);
 			y.start();
 		} else {
 			y = new DriveForwardDistance(50, dist-0.4, dist-0.4);
 			y.start();
+		
 		}
+		*/
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return dist <= 0.4;
+		//return dist <= 0.4;
+		return true;
 	}
 
 	@Override
 	protected void end() {
 		Robot.driveTrain.tankDrive(0, 0); // 1500 max
+		Robot.driveTrain.percentVbusControl();
 	}
 
 	@Override
 	protected void interrupted() {
-		Robot.driveTrain.tankDrive(0, 0); // 1500 max
+		end();
 	}
 }

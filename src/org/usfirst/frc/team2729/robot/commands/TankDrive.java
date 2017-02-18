@@ -12,6 +12,7 @@ public class TankDrive extends Command {
 
 	@Override
 	protected void initialize() {
+		
 	}
 
 	@Override
