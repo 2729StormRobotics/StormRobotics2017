@@ -24,9 +24,12 @@ public class GearSystem extends Subsystem {
 	
 	public GearSystem(){
 		_gearShifter1.set(DoubleSolenoid.Value.kReverse);
-		_gearShifter2.set(DoubleSolenoid.Value.kReverse);
+		_gearShifter2.set(DoubleSolenoid.Value.kForward);
 		//_gearShifter3.set(DoubleSolenoid.Value.kReverse);
-		
+	}
+	
+	public void startComp() {
+		_gearShifter1.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public void setHighGear(boolean enabled) {

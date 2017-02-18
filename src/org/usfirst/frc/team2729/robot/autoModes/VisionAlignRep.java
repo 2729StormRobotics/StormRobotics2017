@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class VisionAlignRep extends CommandGroup{
 	public VisionAlignRep() {
 		
-		addSequential(new GyroTurn(50, 0));
+		addSequential(new GyroTurn(0.2, 0));
 		addSequential(new WaitCommand(1));
-		addSequential(new DriveForwardDistance(50, .5, .5));
+		addSequential(new DriveForwardDistance(-.2, -.5, -.5));
 	}
 
 }

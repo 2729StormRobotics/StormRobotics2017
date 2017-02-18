@@ -12,30 +12,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 
-	private final CANTalon _leftMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_MAIN);
-	private final CANTalon _left2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_2);
-	private final CANTalon _left3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_3);
-	private final CANTalon _rightMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_MAIN);
-	private final CANTalon _right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2);
-	private final CANTalon _right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
+	private static final CANTalon _leftMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_MAIN);
+	private static final CANTalon _left2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_2);
+	private static final CANTalon _left3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_LEFT_3);
+	private static final CANTalon _rightMain = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_MAIN);
+	private static final CANTalon _right2 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_2);
+	private static final CANTalon _right3 = new CANTalon(RobotMap.PORT_MOTOR_DRIVE_RIGHT_3);
 
-	private final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
+	private static final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
 	
-	private static double valueP = 4.0; //used to be 0.02
-	private static double valueI = 0.001;
-	private static double valueD = 0.001;
-	private static double valueF = 1;
+	private static final double valueP = 50.0; //used to be 0.02
+	private static final double valueI = 0.001;
+	private static final double valueD = 2.0;
+	private static final double valueF = 1;
 
 	private boolean _halfOne = false;
 	private boolean _halfTwo = false;
 	// private boolean _isPTOEnabled = false;
 
-	public DriveTrain() {
-		valueP = Preferences.getInstance().getDouble("DriveTrain P", .2);
-		valueI = Preferences.getInstance().getDouble("DriveTrain I", .0015);
-		valueD = Preferences.getInstance().getDouble("DriveTrain D", 0);
-		valueF = Preferences.getInstance().getDouble("DriveTrain F", 1);
-		
+	public DriveTrain() {		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		_leftMain.set(0);
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
@@ -61,7 +56,7 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new TankDrive());
+		//setDefaultCommand(new TankDrive());
 	}
 
 	public void halveOne(boolean half) {
@@ -78,8 +73,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void tankDrive(double left, double right) {
-		_leftMain.set(-((left) - (_halfOne ? (left / 3) : 0) - (_halfTwo ? (left / 3) : 0)));
-		_rightMain.set((right) - (_halfOne ? (right / 3) : 0) - (_halfTwo ? (right / 3) : 0));
+		_leftMain.set(((left) - (_halfOne ? (left / 3) : 0) - (_halfTwo ? (left / 3) : 0)));
+		_rightMain.set(-(right) - (_halfOne ? (right / 3) : 0) - (_halfTwo ? (right / 3) : 0));
 	}
 
 	public double getLeftDistance() {
@@ -167,33 +162,18 @@ public class DriveTrain extends Subsystem {
 		return valueP;
 	}
 
-	public void setValueP(double valueP) {
-		this.valueP = valueP;
-	}
-
 	public double getValueI() {
 		return valueI;
-	}
-
-	public void setValueI(double valueI) {
-		this.valueI = valueI;
 	}
 
 	public double getValueD() {
 		return valueD;
 	}
 
-	public void setValueD(double valueD) {
-		this.valueD = valueD;
-	}
-
 	public double getValueF() {
 		return valueF;
 	}
 
-	public void setValueF(double valueF) {
-		this.valueF = valueF;
-	}
 
 	// public boolean getPTO(){
 	// return _isPTOEnabled;

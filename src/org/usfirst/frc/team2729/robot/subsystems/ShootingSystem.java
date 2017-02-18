@@ -8,6 +8,7 @@ import com.ctre.CANTalon.FeedbackDevice;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -16,6 +17,7 @@ public class ShootingSystem extends Subsystem {
 	//private FeedbackDevice _fireSensor = new FeedbackDevice(RobotMap.PORT_ENCODER_SHOOT_FIRE);
 	private final CANTalon _spin = new CANTalon(RobotMap.PORT_MOTOR_SHOOT_SPIN);	
 	private final CANTalon _fire = new CANTalon(RobotMap.PORT_MOTOR_SHOOT_FIRE);
+	private final Relay light = new Relay(0, Relay.Direction.kForward);
 	
 	//Encoder enc;
 	//enc = new Encoder(0,1,false,Encoder.EncodingType,k4x);
@@ -40,6 +42,7 @@ public class ShootingSystem extends Subsystem {
 //		_fire.setI(valueI);
 //		_fire.setD(valueD);
 //		_fire.setVoltageRampRate(6.0);
+		light.set(Relay.Value.kOff);
 	}
 	
 	@Override
@@ -121,6 +124,7 @@ public class ShootingSystem extends Subsystem {
 //		_fire.setD(D);
 //		
 		_fire.set(speed);
+		light.set(Relay.Value.kForward);
 	}
 	
 	public void shootSpin(double power) {

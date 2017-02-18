@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.autoModes.Center;
 import org.usfirst.frc.team2729.robot.autoModes.Right;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
@@ -58,11 +59,11 @@ public class Robot extends IterativeRobot {
 		compressor.start();
 		leds = new LEDz();
 		
-		chooser = new SendableChooser();
-		chooser.addDefault("Default Program", new DriveForwardDistance(50, 0, 0));
-		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(50, 2, 2));
-		chooser.addObject("Right", new Right());
-		SmartDashboard.putData("Chooser", chooser);
+		chooser = new SendableChooser<>();
+		chooser.addDefault("Default Program", new DriveForwardDistance(0, 0, 0));
+		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(-0.2, -1.37, -1.37));
+		chooser.addObject("Center", new Center());
+		SmartDashboard.putData("Auto Choose", chooser);
 		
 		
 //		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };
@@ -131,13 +132,9 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 		SmartDashboard.putString("DriveTrain control mode", Robot.driveTrain.getDriveTrainControlMode());
 		SmartDashboard.putBoolean("DriveTrain is PID?", Robot.driveTrain.isDriveTrainPID());
-		Robot.driveTrain.setValueP(Preferences.getInstance().getDouble("P Value", 0.2));
 		SmartDashboard.putNumber("DriveTrain PID: P", Robot.driveTrain.getValueP());
-		Robot.driveTrain.setValueI(Preferences.getInstance().getDouble("I Value", 0.001));
 		SmartDashboard.putNumber("DriveTrain PID: I", Robot.driveTrain.getValueI());
-		Robot.driveTrain.setValueD(Preferences.getInstance().getDouble("D Value", 0.2));
 		SmartDashboard.putNumber("DriveTrain PID: D", Robot.driveTrain.getValueD());
-		Robot.driveTrain.setValueF(Preferences.getInstance().getDouble("F Value", 1));
 		SmartDashboard.putNumber("DriveTrain PID: F", Robot.driveTrain.getValueF());
 		
 		
@@ -151,19 +148,20 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		//Robot.leds.turnOn(Robot.leds.ledOff);
+		Robot.leds.turnOn(Robot.leds.ledOff);
 		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void autonomousInit() {
-		//Robot.leds.turnOff(4);
-		//Robot.leds.turnOn(Robot.leds.ledAuto);
+		Robot.leds.turnOff(4);
+		Robot.leds.turnOn(Robot.leds.ledAuto);
 		if (teleop != null) {
 			teleop.cancel();
 		}
 		autonomousCommand = (Command) chooser.getSelected();
 		if (autonomousCommand != null) {
+			Robot.gear.startComp();
 			autonomousCommand.start();
 		}
 	}
@@ -184,6 +182,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		if (teleop != null) {
+			Robot.driveTrain.percentVbusControl();
 			teleop.start();
 		}
 		

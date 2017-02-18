@@ -5,6 +5,7 @@ import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class TankDrive extends Command {
+	
 
 	public TankDrive() {
 		requires(Robot.driveTrain);
@@ -17,10 +18,13 @@ public class TankDrive extends Command {
 
 	@Override
 	protected void execute() {
+		if (Robot.driveTrain.isDriveTrainPID()) {
+			Robot.driveTrain.percentVbusControl();
+		}
 		double left = Robot.oi.getLeftDrive(),
 				right = Robot.oi.getRightDrive();
-		Robot.driveTrain.tankDrive(left*Math.abs(left), right*Math.abs(right));
-		Robot.leds.turnOn(Robot.leds.ledShoot);
+		Robot.driveTrain.tankDrive(left, right);
+		//Robot.leds.turnOn(Robot.leds.ledShoot);
 	
 	}
 

@@ -13,26 +13,35 @@ public class GyroTurn extends Command {
 	NetworkTable table;
 
 	public GyroTurn (double turnPower, double targetAngle) {
-		table = NetworkTable.getTable("Vision");
 		requires(Robot.driveTrain);
+		table = NetworkTable.getTable("Vision");
+		
 		_turnPower = turnPower;
 		_targetAngle = targetAngle;
 	}
 	
 	@Override
 	protected void initialize() {
-		_targetAngle = table.getNumber("p_angle", 0);
+//		_targetAngle = table.getNumber("p_angle", 0);
 		System.err.println("Init Gyro turn");
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
-		Robot.driveTrain.speedControl();
 		Robot.driveTrain.resetGyro();
 		gyroInitAngle = Robot.driveTrain.getGyroAngle();
 		_targetAngle += gyroInitAngle;
+		Robot.driveTrain.percentVbusControl();
 	}
 	
 	protected void execute() {
 		System.err.println("Execute Gyro turn");
+		if (Math.abs(Robot.driveTrain.getGyroAngle() - _targetAngle) <= 10) {
+			if (_turnPower > 0) {
+				_turnPower = 0.1;
+			}
+			if (_turnPower < 0) {
+				_turnPower = -0.1;
+			}
+		}
 		if (_targetAngle > 0) {			
 				System.err.println("Execute Gyro turn");
 
