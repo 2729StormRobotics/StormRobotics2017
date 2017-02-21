@@ -56,7 +56,7 @@ public class DriveTrain extends Subsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		//setDefaultCommand(new TankDrive());
+		setDefaultCommand(new TankDrive());
 	}
 
 	public void halveOne(boolean half) {
@@ -70,6 +70,14 @@ public class DriveTrain extends Subsystem {
 	public void halt() {
 		_leftMain.set(0);
 		_rightMain.set(0);
+	}
+	
+	public boolean getHalfOne() {
+		return _halfOne;
+	}
+	
+	public boolean getHalfTwo() {
+		return _halfTwo;
 	}
 
 	public void tankDrive(double left, double right) {
@@ -107,6 +115,11 @@ public class DriveTrain extends Subsystem {
 	
 	public void resetGyro() {
 		_gyro.reset();
+	}
+	
+	public void resetEnc() {
+		_leftMain.setEncPosition(0);
+		_rightMain.setEncPosition(0);
 	}
 
 	public void resetLeftEnc() {

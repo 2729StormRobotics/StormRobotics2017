@@ -62,8 +62,8 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Default Program", new DriveForwardDistance(0, 0, 0));
 		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(-0.2, -1.37, -1.37));
-		chooser.addObject("Center", new Center());
-		SmartDashboard.putData("Auto Choose", chooser);
+		chooser.addObject("Right", new Right());
+		SmartDashboard.putData("AutoChoose", chooser);
 		
 		
 //		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };
@@ -126,6 +126,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("ShootFire is PID?", Robot.shoot.isShootFirePID());
 		SmartDashboard.putBoolean("getHighGear", Robot.gear.getHighGear());
 		SmartDashboard.putBoolean("gearReady", Robot.gear.getGearReady());
+		SmartDashboard.putBoolean("Is HalfOne?", Robot.driveTrain.getHalfOne());
+		SmartDashboard.putBoolean("Is HalfTwo?", Robot.driveTrain.getHalfTwo());
 		
 		
 		SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
@@ -142,20 +144,21 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
+		//Robot.leds.turnOn(Robot.leds.ledOff);
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
-		Robot.leds.turnOn(Robot.leds.ledOff);
+		Robot.leds.update();
 		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void autonomousInit() {
-		Robot.leds.turnOff(4);
-		Robot.leds.turnOn(Robot.leds.ledAuto);
+		//Robot.leds.turnOff(4);
+	//	Robot.leds.turnOn(Robot.leds.ledAuto);
 		if (teleop != null) {
 			teleop.cancel();
 		}
@@ -171,13 +174,14 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		sendSensorData();
+		
+		Robot.leds.update();
 
 	}
 
 	@Override
 	public void teleopInit() {
-		Robot.leds.turnOff(Robot.leds.ledAuto);
-		Robot.leds.turnOn(Robot.leds.ledTele);
+		//Robot.leds.turnOff(Robot.leds.ledAuto);
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}

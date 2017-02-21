@@ -42,7 +42,7 @@ public class ShootingSystem extends Subsystem {
 //		_fire.setI(valueI);
 //		_fire.setD(valueD);
 //		_fire.setVoltageRampRate(6.0);
-		light.set(Relay.Value.kOff);
+		lightOff();
 	}
 	
 	@Override
@@ -124,7 +124,6 @@ public class ShootingSystem extends Subsystem {
 //		_fire.setD(D);
 //		
 		_fire.set(speed);
-		light.set(Relay.Value.kForward);
 	}
 	
 	public void shootSpin(double power) {
@@ -153,5 +152,13 @@ public class ShootingSystem extends Subsystem {
 	
 	public boolean isShootFirePID() {
 		return _fire.getControlMode().isPID();
+	}
+	
+	public void lightOn() {
+		light.set(Relay.Value.kForward);
+	}
+	
+	public void lightOff() {
+		light.set(Relay.Value.kOff);
 	}
 }

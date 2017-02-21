@@ -9,7 +9,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveForwardDistance extends Command {
 
-	volatile double  _leftSpeed;
+	private double _initLeftSpeed;
+	private double _initRightSpeed;
+	private double _initDistanceL;
+	private double _initDistanceR;
+	volatile double _leftSpeed;
 	volatile double _rightSpeed;
 	volatile double _distanceL;
 	volatile double _distanceR;
@@ -19,21 +23,26 @@ public class DriveForwardDistance extends Command {
 	
 	public DriveForwardDistance(double speed, double distanceL, double distanceR) {
 		requires(Robot.driveTrain);
-		_leftSpeed = speed*1.15;
-		_rightSpeed = speed;
-		_distanceL = distanceL*TICKSPERMETER;
-		_distanceR = distanceR*TICKSPERMETER;
-//		Robot.driveTrain.speedControl();
+		_initLeftSpeed = speed*1.15;
+		_initRightSpeed = speed;
+		_initDistanceL = distanceL*TICKSPERMETER;
+		_initDistanceR = distanceR*TICKSPERMETER;
 		Robot.driveTrain.percentVbusControl();
+		table = NetworkTable.getTable("Console");
 	}
 
 	@Override
 	protected void initialize() {
-		table = NetworkTable.getTable("Console");
+		_leftSpeed = _initLeftSpeed;
+		_rightSpeed = _initRightSpeed;
+		_distanceL = _initDistanceL;
+		_distanceR = _initDistanceR;
+		
+		table.putString("Done left", "No");
+		table.putString("Done right", "No");
 		table.putBoolean("Forward", true);
 		System.err.println("Init drive forward distance");
-		Robot.driveTrain.resetLeftEnc();
-		Robot.driveTrain.resetRightEnc();
+		Robot.driveTrain.resetEnc();
 		Robot.driveTrain.resetGyro();
 		Robot.driveTrain.percentVbusControl();
 	}
@@ -55,7 +64,7 @@ public class DriveForwardDistance extends Command {
 		SmartDashboard.putNumber("RightEncVelocity", Robot.driveTrain.getRightSpeedEnc());
 
 		SmartDashboard.putNumber("LeftSpeed", Robot.driveTrain.getLeftSpeed());
-		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());		
+		SmartDashboard.putNumber("RightSpeed", Robot.driveTrain.getRightSpeed());	
 		table.putNumber("_leftSpeed", _leftSpeed);
 		table.putNumber("_rightSpeed", _rightSpeed);
 		table.putNumber("_distanceLimitLeft", _distanceL);
@@ -65,27 +74,29 @@ public class DriveForwardDistance extends Command {
 		
 		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= 0.5*Math.abs(_distanceL)) {
 			if (_leftSpeed > 0) {
-				_leftSpeed = 0.1;
+				_leftSpeed = 0.15;
 			}
 			if (_leftSpeed < 0) {
-				_leftSpeed = -0.1;
+				_leftSpeed = -0.15;
 			}
 		}
 		
 		if (Math.abs(Robot.driveTrain.getRightDistance()) >= 0.5*Math.abs(_distanceR)) {
 			if (_rightSpeed > 0) {
-				_rightSpeed = 0.1;
+				_rightSpeed = 0.15;
 			}
 			if (_rightSpeed < 0) {
-				_rightSpeed = -0.1;
+				_rightSpeed = -0.15;
 			}
 		}
 		
 		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL)) {
+			table.putString("Done left", "Yes");
 			System.err.println("Done left!");
 			_leftSpeed = 0;
 		}
 		if (Math.abs(Robot.driveTrain.getRightDistance()) >= Math.abs(_distanceR)) {
+			table.putString("Done right", "Yes");
 			System.err.println("Done right!");
 			_rightSpeed = 0;
 		}

@@ -5,35 +5,28 @@ import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
-public class GyroTurn extends Command {
+public class VisionGyroAlign extends Command {
 	
 	double _turnPower;
 	double _targetAngle;
-	double _initTurnPower;
-	double _initTargetAngle;
 	double gyroInitAngle;
 	NetworkTable table;
 
-	public GyroTurn (double turnPower, double targetAngle) {
+	public VisionGyroAlign () {
 		requires(Robot.driveTrain);
-//		table = NetworkTable.getTable("Vision");
+		table = NetworkTable.getTable("Vision");
 		
-		_initTurnPower = turnPower;
-		_initTargetAngle = targetAngle;
-		
+		_turnPower = -0.3;
 	}
 	
 	@Override
 	protected void initialize() {
-//		_targetAngle = table.getNumber("p_angle", 0);
-		_turnPower = _initTurnPower;
-		_targetAngle = _initTargetAngle;
+		_targetAngle = table.getNumber("p_angle", 0);
 		System.err.println("Init Gyro turn");
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
 		Robot.driveTrain.resetGyro();
 		gyroInitAngle = Robot.driveTrain.getGyroAngle();
-		
 		_targetAngle += gyroInitAngle;
 		Robot.driveTrain.percentVbusControl();
 	}

@@ -16,12 +16,19 @@ public class GearOn extends Command {
 	@Override
 	protected void initialize() {
 		Robot.gear.setHighGear(_on);
+		
 	}
 	
 	@Override
 	protected void execute() {
 		if (Robot.gear.getHighGear() != _on) {
 			Robot.gear.setHighGear(_on);
+		}
+		if(_on) {
+			Robot.leds.ledGearOn = true;
+		}
+		else {
+			Robot.leds.ledGearOn = false;
 		}
 	}
 	

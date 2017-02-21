@@ -23,8 +23,6 @@ public class ShootFire extends Command {
 	
 	@Override
 	protected void execute() {
-		double fireRate;
-		fireRate = _fireRate;
 		
 		//If the button to turn off the shooter is pressed, override preferences value from SMartDashboard
 		//if (_fireRate == 0) {
@@ -46,9 +44,10 @@ public class ShootFire extends Command {
 		//if (fireRate < -0.9) {
 			//fireRate = -0.9;
 		//}
-		
-		
-		Robot.shoot.shootFire(fireRate);
+		Robot.shoot.shootFire(_fireRate);
+		if (_fireRate == 0) {
+			Robot.shoot.lightOff();
+		}
 	}
 	
 	@Override

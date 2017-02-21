@@ -28,7 +28,7 @@ public class VisionAlignment extends Command {
 		
 		dist = table.getNumber("est_distance", 0);
 		new GyroTurn(50, 0).start();
-		new AutoDrive().start();
+		new AutoDrive(0).start();
 		/*
 //		double shift = table.getNumber("shift", 0);
 		double shift = 0;

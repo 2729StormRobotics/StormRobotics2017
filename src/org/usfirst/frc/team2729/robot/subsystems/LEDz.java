@@ -12,24 +12,23 @@ public class LEDz extends Subsystem{
 	static int ledStatus;
 	SerialPort ledOut = new SerialPort(9600, Port.kMXP);
 	
-	//Auto Basic = 160
-	//Drive Failure = 170
+	//Auto Basic = 160 - 
+	//Drive Failure = 170 
 	//Shooting = 180
 	//Encoder Failure = 200
-	//Tele Basic = 210
+	//Tele Basic = 210 - 
 	//Hanging Failure = 220
 	//Shooting Failure = 230
 	//Gear Failure = 240
 	//Intake Failure = 250
-	//RDP = 255
+	//RDP = 255 - Rainbow
 	
-	public int ledMotors = 1;
-	public int ledAuto = 2;
-	public int ledTele = 4;
-	public int ledShoot = 8;
-	public int ledOff = 16;
+	public boolean ledOff = false;
+	public boolean ledAuto = false;
+	public boolean ledGearOn = false;
+	public boolean ledHang = false;
 	
-	byte[] ff = new byte[1];
+	
 	
 	@Override
 	protected void initDefaultCommand() {
@@ -37,14 +36,14 @@ public class LEDz extends Subsystem{
 		
 	}
 
-	public void turnOn(int value) {
-		ledStatus |= value;
-		
-	}
-	
-	public void turnOff(int value) {
-		ledStatus &= ~value;
-	}
+//	public void turnOn(int value) {
+//		ledStatus |= value;
+//		
+//	}
+//	
+//	public void turnOff(int value) {
+//		ledStatus &= ~value;
+//	}
 	
 	static int loopCount = 0;
 	
@@ -52,33 +51,29 @@ public class LEDz extends Subsystem{
 		ledStatus = value;
 	}
 	public void update(){
+		byte[] ff = new byte[1];
 //		if(ledStatus != 0){
 //			Robot.driveTrain.tankDrive(0, 0.25);
 //		}
-		 if((ledStatus & ledShoot) != 0){
+		 if(ledAuto){
 			ff[0] = (byte) 180;
 			ledOut.write(ff, 1);
-			System.out.println("Tele");
 		}
-		else if((ledStatus & ledAuto) != 0){
-			ff[0] = (byte) 160;
+		if(ledGearOn){
+			ff[0] = (byte) 140;
 			ledOut.write(ff, 1);
-			System.out.println("Auto");
 		}
-		else if((ledStatus & ledTele) != 0){
-			ff[0] = (byte) 190;
-			ledOut.write(ff, 1);
-			System.out.println("Tele");
-		}
-		else if((ledStatus & ledOff) != 0){
-			ff[0] = (byte) 150;
-			ledOut.write(ff, 1);
-			System.out.println("Tele");
-		}
-		else{
+//		else{
+//			ff[0] = (byte) 130;
+//			ledOut.write(ff, 1);
+//		}
+		else if(ledHang && ((ledGearOn = true)||(ledGearOn = false))){
 			ff[0] = (byte) 255;
 			ledOut.write(ff, 1);
-			System.out.println("No");
 		}
+//		if(ledOff){
+//			ff[0] = (byte) 0;
+//			ledOut.write(ff, 1);
+//		}
 	}
 }

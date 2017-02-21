@@ -14,12 +14,19 @@ public class Hang extends Command{
 	
 	@Override
 	protected void initialize() {
+		
 	}
 	
 	@Override
 	protected void execute() {
 		double power = Robot.oi.getHang();
 		Robot.hang.hang(power);
+		if(power != 0) {
+			Robot.leds.ledHang = true;
+		}
+		else {
+			Robot.leds.ledHang = false;
+		}
 	}
 	
 	@Override
