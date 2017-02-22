@@ -25,10 +25,10 @@ public class GearOn extends Command {
 			Robot.gear.setHighGear(_on);
 		}
 		if(_on) {
-			Robot.leds.ledGearOn = true;
+			Robot.leds.ledGearOn = 0;
 		}
 		else {
-			Robot.leds.ledGearOn = false;
+			Robot.leds.ledGearOn = 1;
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
+import org.usfirst.frc.team2729.robot.autoModes.Right;
 import org.usfirst.frc.team2729.robot.autoModes.VisionAlignRep;
 import org.usfirst.frc.team2729.robot.commands.AutoDrive;
 import org.usfirst.frc.team2729.robot.commands.CenterTurn;
@@ -32,8 +33,9 @@ public class OI {
 			shooterSpinOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_SPIN_OFF),
 			shootFire = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE),
 			shootFireOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE_OFF),
-			centerTurn = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_CENTERTURN),
+			gyroTurn = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_CENTERTURN),
 			autoDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_AUTODRIVE),
+			fullAuto = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FULLAUTO),
 			lightOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_LIGHT_ON);
 	
 	
@@ -65,9 +67,10 @@ public class OI {
 		shooterSpinOn.whenPressed(new ShooterSpin(0.41));
 		shooterSpinOnLow.whenPressed(new ShooterSpin(.20));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
-		centerTurn.whenPressed(new GyroTurn(-0.2, 180));
+		gyroTurn.whenPressed(new GyroTurn(-0.2, 180));
 		autoDrive.whenPressed(new DriveForwardDistance(-0.2, -0.42, -0.42));
 		lightOn.whenPressed(new LightOn());
+		fullAuto.whenPressed(new VisionAlignment());
 		
 		//Special Commands
 		
