@@ -42,10 +42,10 @@ public class GyroTurn extends Command {
 		System.err.println("Execute Gyro turn");
 		if (Math.abs(Robot.driveTrain.getGyroAngle() - _targetAngle) <= 10) {
 			if (_turnPower > 0) {
-				_turnPower = 0.1;
+				_turnPower = 0.15;
 			}
 			if (_turnPower < 0) {
-				_turnPower = -0.1;
+				_turnPower = -0.15;
 			}
 		}
 		if (_targetAngle > 0) {			

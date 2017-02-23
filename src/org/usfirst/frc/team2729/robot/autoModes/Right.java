@@ -28,10 +28,11 @@ public class Right extends CommandGroup{
 		addSequential(new WaitCommand(0.5));
 		addSequential(new GyroTurn(-0.3, turn1), 2.5);
 		addSequential(new WaitCommand(0.8));
-//		addSequential(new VisionGyroAlign(), 5);
+		addSequential(new VisionGyroAlign(), 5);
+		
 		
 		double incr = 0.6;
-//		//double dist = 1.5;
+//		double dist = 1.5;
 //		int reps = (int) (dist / incr);
 		int reps = 2;
 //		addSequential(new VisionAlignment());
