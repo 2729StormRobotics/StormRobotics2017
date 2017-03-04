@@ -23,7 +23,11 @@ public class TankDrive extends Command {
 		}
 		double left = Robot.oi.getLeftDrive(),
 				right = Robot.oi.getRightDrive();
-		Robot.driveTrain.tankDrive(left, right);
+		if(Math.abs(left - right) < 0.3) {
+			left = (left + right)/2;
+			right = left;
+		}
+		Robot.driveTrain.tankDrive(left * Math.abs(left), right * Math.abs(right));
 		//Robot.leds.turnOn(Robot.leds.ledShoot);
 	
 	}

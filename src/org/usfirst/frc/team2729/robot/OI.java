@@ -8,6 +8,7 @@ import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GearOn;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.commands.LightOn;
+import org.usfirst.frc.team2729.robot.commands.MovingVisionAlignment;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
 import org.usfirst.frc.team2729.robot.commands.VisionAlignment;
@@ -43,10 +44,10 @@ public class OI {
 		return Math.abs(joyValue) > dead ? joyValue : 0;
 	}
 	public double getLeftDrive(){
-		return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_LEFT), 0.15);
+		return driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_LEFT);
 	}
 	public double getRightDrive(){
-		return _zeroDeadzone(driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_RIGHT), 0.15);
+		return driveJoystick.getRawAxis(RobotMap.JOYDRIVE_AXIS_DRIVE_RIGHT);
 	}
 	public double getIntake(){
 		return _zeroDeadzone(armJoystick.getRawAxis(RobotMap.JOYAXIS_AXIS_INTAKE), 0.24);
@@ -70,8 +71,7 @@ public class OI {
 		gyroTurn.whenPressed(new GyroTurn(-0.2, 180));
 		autoDrive.whenPressed(new DriveForwardDistance(-0.2, -0.42, -0.42));
 		lightOn.whenPressed(new LightOn());
-		fullAuto.whenPressed(new VisionAlignment());
-		drive.whenPressed(new DriveForwardDistance(-0.5, 2, 2));
+		fullAuto.whenPressed(new MovingVisionAlignment());
 		
 		//Special Commands
 		
