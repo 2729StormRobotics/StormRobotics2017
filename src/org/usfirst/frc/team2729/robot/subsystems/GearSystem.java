@@ -44,6 +44,10 @@ public class GearSystem extends Subsystem {
 		return _isGearOn;
 	}
 	
+	public boolean getHaltGear(){
+		return _gearHalt.get();
+	}
+	
 	public boolean getGearReady() {
 		return _isGearReady;
 	}

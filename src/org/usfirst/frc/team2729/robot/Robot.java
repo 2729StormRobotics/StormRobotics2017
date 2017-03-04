@@ -125,7 +125,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("ShootFire Speed Control", Robot.shoot.getShootFireMode());
 		SmartDashboard.putBoolean("ShootFire is PID?", Robot.shoot.isShootFirePID());
 		SmartDashboard.putBoolean("getHighGear", Robot.gear.getHighGear());
-		SmartDashboard.putBoolean("gearReady", Robot.gear.getGearReady());
+		SmartDashboard.putBoolean("gearHalt", Robot.gear.getHaltGear());
 		SmartDashboard.putBoolean("Is HalfOne?", Robot.driveTrain.getHalfOne());
 		SmartDashboard.putBoolean("Is HalfTwo?", Robot.driveTrain.getHalfTwo());
 		
