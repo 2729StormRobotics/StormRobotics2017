@@ -36,7 +36,7 @@ public class OI {
 			shootFire = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE),
 			shootFireOff = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHOOT_FIRE_OFF),
 			gyroTurn = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_CENTERTURN),
-			autoDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_AUTODRIVE),
+			visionAlign = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_VISIONALIGN),
 			fullAuto = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FULLAUTO),
 			lightOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_LIGHT_ON);
 	
@@ -70,7 +70,7 @@ public class OI {
 		shooterSpinOnLow.whenPressed(new ShooterSpin(.20));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
 		gyroTurn.whenPressed(new GyroTurn(-0.2, 180));
-		autoDrive.whenPressed(new DFDSpeed(-50, -300, -.5, -.75));
+		visionAlign.whenPressed(new VisionGyroAlign());
 		lightOn.whenPressed(new LightOn());
 		fullAuto.whenPressed(new MovingVisionAlignment());
 		

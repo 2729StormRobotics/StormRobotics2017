@@ -22,12 +22,12 @@ public class DriveForwardPosition extends Command {
 
 	
 	public DriveForwardPosition(double speed, double distanceL, double distanceR) {
-		requires(Robot.driveTrainPID);
+		//requires(Robot.driveTrainPID);
 		_initLeftSpeed = speed*1.15;
 		_initRightSpeed = speed;
 		_initDistanceL = distanceL*TICKSPERMETER;
 		_initDistanceR = distanceR*TICKSPERMETER;
-		Robot.driveTrainPID.percentVbusControl();
+		//Robot.driveTrainPID.percentVbusControl();
 		table = NetworkTable.getTable("Console");
 	}
 

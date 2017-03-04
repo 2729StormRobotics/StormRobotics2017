@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrain;
 	//public static DriveTest driveTrain;
-	public static DriveTrainPID driveTrainPID;
+	//public static DriveTrainPID driveTrainPID;
 	public static GearSystem gear;
 	public static HangingSystem hang;
 	public static IntakeSystem intake;
@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 
 
 		driveTrain = new DriveTrain();
-		driveTrainPID = new DriveTrainPID();
+		//driveTrainPID = new DriveTrainPID();
 		gear = new GearSystem();
 		hang = new HangingSystem();
 		intake = new IntakeSystem();
