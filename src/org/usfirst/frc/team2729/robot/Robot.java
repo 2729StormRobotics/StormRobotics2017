@@ -6,6 +6,7 @@ import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2729.robot.subsystems.DriveTrainPID;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
 import org.usfirst.frc.team2729.robot.subsystems.IntakeSystem;
@@ -28,7 +29,7 @@ public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrain;
 	//public static DriveTest driveTrain;
-//	public static DriveTrainPID driveTrainPID;
+	public static DriveTrainPID driveTrainPID;
 	public static GearSystem gear;
 	public static HangingSystem hang;
 	public static IntakeSystem intake;
@@ -48,7 +49,7 @@ public class Robot extends IterativeRobot {
 
 
 		driveTrain = new DriveTrain();
-//		driveTrainPID = new DriveTrainPID();
+		driveTrainPID = new DriveTrainPID();
 		gear = new GearSystem();
 		hang = new HangingSystem();
 		intake = new IntakeSystem();
@@ -125,7 +126,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("ShootFire Speed Control", Robot.shoot.getShootFireMode());
 		SmartDashboard.putBoolean("ShootFire is PID?", Robot.shoot.isShootFirePID());
 		SmartDashboard.putBoolean("getHighGear", Robot.gear.getHighGear());
-		SmartDashboard.putBoolean("gearReady", Robot.gear.getGearReady());
+		SmartDashboard.putBoolean("haltGear", Robot.gear.getHaltGear());
 		SmartDashboard.putBoolean("Is HalfOne?", Robot.driveTrain.getHalfOne());
 		SmartDashboard.putBoolean("Is HalfTwo?", Robot.driveTrain.getHalfTwo());
 		
