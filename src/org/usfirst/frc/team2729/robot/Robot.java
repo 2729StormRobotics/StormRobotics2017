@@ -6,7 +6,6 @@ import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team2729.robot.subsystems.DriveTrainPID;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
 import org.usfirst.frc.team2729.robot.subsystems.IntakeSystem;
@@ -28,6 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static DriveTrain driveTrain;
+	//public static DriveTest driveTrain;
+//	public static DriveTrainPID driveTrainPID;
 	public static GearSystem gear;
 	public static HangingSystem hang;
 	public static IntakeSystem intake;
@@ -37,7 +38,6 @@ public class Robot extends IterativeRobot {
 	public static VisionSystem vision;
 	public static LEDz leds;
 	public static Preferences preferences;
-	public static DriveTrainPID driveTrainPID;
 
 	Command teleop;
 	Command autonomousCommand;
@@ -48,6 +48,7 @@ public class Robot extends IterativeRobot {
 
 
 		driveTrain = new DriveTrain();
+//		driveTrainPID = new DriveTrainPID();
 		gear = new GearSystem();
 		hang = new HangingSystem();
 		intake = new IntakeSystem();
@@ -57,28 +58,27 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		compressor.start();
 		leds = new LEDz();
-		driveTrainPID = new DriveTrainPID();
 		
 		chooser = new SendableChooser<>();
-		chooser.addDefault("Default Program", new DriveForwardDistance(0, 0, 0));
-		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(-0.2, -1.37, -1.37));
+		chooser.addDefault("Default Program", new DriveForwardDistance(0, 0, 0, 0));
+		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(-0.2, -.2, -1.37, -1.37));
 		chooser.addObject("Right", new Right());
-		SmartDashboard.putData("AutoChoose", chooser);
+		SmartDashboard.putData("AutoChooser", chooser);
 		
 		
-		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right"};
-		Command[] autoModes = new Command[] { new DriveForwardDistance(0.25, 2, 2),
-				new DriveForward(-0.25, 10), new Right()};// Almost full turn
-		
-//		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
-//				new DriveForward(-0.25, 10) };
-
-		
-		// configure and send the sendableChooser, which allows the modes
-		// to be chosen via radio button on the SmartDashboard
-		for (int i = 0; i < autoModes.length; i++) {
-			chooser.addObject(autoModeNames[i], autoModes[i]);
-		}
+//		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };
+//		Command[] autoModes = new Command[] { new DriveForwardDistance(50, 2, 2),
+//				new DriveForward(-0.25, 10), new Right()};// Almost full turn
+//		
+////		Command[] autoModes = new Command[] { new DriveForwardDistance(encoderTicsPerRev * 20, encoderTicsPerRev * 20),
+////				new DriveForward(-0.25, 10) };
+//
+//		
+//		// configure and send the sendableChooser, which allows the modes
+//		// to be chosen via radio button on the SmartDashboard
+//		for (int i = 0; i < autoModes.length; i++) {
+//			chooser.addObject(autoModeNames[i], autoModes[i]);
+//		}
 		
 
 
@@ -125,12 +125,13 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("ShootFire Speed Control", Robot.shoot.getShootFireMode());
 		SmartDashboard.putBoolean("ShootFire is PID?", Robot.shoot.isShootFirePID());
 		SmartDashboard.putBoolean("getHighGear", Robot.gear.getHighGear());
-		SmartDashboard.putBoolean("gearHalt", Robot.gear.getHaltGear());
+		SmartDashboard.putBoolean("gearReady", Robot.gear.getGearReady());
 		SmartDashboard.putBoolean("Is HalfOne?", Robot.driveTrain.getHalfOne());
 		SmartDashboard.putBoolean("Is HalfTwo?", Robot.driveTrain.getHalfTwo());
 		
 		
 		SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());
+		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 		SmartDashboard.putString("DriveTrain control mode", Robot.driveTrain.getDriveTrainControlMode());
 		SmartDashboard.putBoolean("DriveTrain is PID?", Robot.driveTrain.isDriveTrainPID());
 		SmartDashboard.putNumber("DriveTrain PID: P", Robot.driveTrain.getValueP());
@@ -151,6 +152,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		sendSensorData();
 		Robot.leds.update();
+		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
@@ -195,10 +197,12 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		sendSensorData();
 		Robot.leds.update();
+		// Robot.vision.addCrosshairs();
 	}
 
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+		// Robot.vision.addCrosshairs();
 	}
 }

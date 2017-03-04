@@ -24,11 +24,11 @@ public class MovingVisionAlignment extends Command{
 	
 	protected void execute() {
 		
-		if(table.getNumber("p_angle", 0) > 0 && Math.abs(right - left) < 20) {
+		if(table.getNumber("p_angle", 0) > 1 && Math.abs(right - left) < 20) {
 			left +=5;
 			right -= 5;
 		}
-		else if(table.getNumber("p_angle", 0) < 0 && Math.abs(right - left) < 20) {
+		else if(table.getNumber("p_angle", 0) < 1 && Math.abs(right - left) < 20) {
 			left -= 5;
 			right += 5;
 		}
@@ -37,16 +37,16 @@ public class MovingVisionAlignment extends Command{
 			right = 0;
 		}
 		
-		if(table.getNumber("est_distance", 0) < 1)
-			base = -75;
+		if(table.getNumber("est_distance", 0) < 0.75)
+			base =-75;
 		
 		Robot.driveTrain.tankDrive(left + base, right + base);
 		
 	}
 	@Override
 	protected void end() {
-		Robot.driveTrain.tankDrive(0, 0);
-		Robot.driveTrain.percentVbusControl();
+		//Robot.driveTrain.percentVbusControl();
+		//Robot.driveTrain.tankDrive(0, 0);
 	}
 	
 	protected void interrupted() {
@@ -55,7 +55,7 @@ public class MovingVisionAlignment extends Command{
 	
 	@Override
 	protected boolean isFinished() {
-		if(table.getNumber("est_distance", 0) < 0.5){
+		if(table.getNumber("est_distance", 0) < 0.5 || Math.abs(Robot.driveTrain.getRightSpeedEnc()) < 10){
 			
 			return true;
 		}

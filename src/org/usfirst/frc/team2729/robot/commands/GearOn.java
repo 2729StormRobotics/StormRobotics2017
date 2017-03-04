@@ -34,10 +34,7 @@ public class GearOn extends Command {
 	
 	@Override
 	protected boolean isFinished() {
-		if(Robot.gear.getHaltGear()){
-			return true;
-		}
-		return false;
+		return true;
 	}
 	
 	@Override

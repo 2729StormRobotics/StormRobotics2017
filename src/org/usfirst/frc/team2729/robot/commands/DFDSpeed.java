@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveForwardPosition extends Command {
+public class DFDSpeed extends Command {
 
 	private double _initLeftSpeed;
 	private double _initRightSpeed;
@@ -21,13 +21,13 @@ public class DriveForwardPosition extends Command {
 	NetworkTable table;
 
 	
-	public DriveForwardPosition(double speed, double distanceL, double distanceR) {
-		requires(Robot.driveTrainPID);
-		_initLeftSpeed = speed*1.15;
-		_initRightSpeed = speed;
+	public DFDSpeed(double speedL, double speedR, double distanceL, double distanceR) {
+		requires(Robot.driveTrain);
+		_initLeftSpeed = speedL;
+		_initRightSpeed = speedR;
 		_initDistanceL = distanceL*TICKSPERMETER;
 		_initDistanceR = distanceR*TICKSPERMETER;
-		Robot.driveTrainPID.percentVbusControl();
+		Robot.driveTrain.speedControl();
 		table = NetworkTable.getTable("Console");
 	}
 
@@ -44,7 +44,8 @@ public class DriveForwardPosition extends Command {
 		System.err.println("Init drive forward distance");
 		Robot.driveTrain.resetEnc();
 		Robot.driveTrain.resetGyro();
-		Robot.driveTrain.percentVbusControl();
+		Robot.driveTrain.speedControl();
+		Robot.driveTrain.setBrakeMode();
 	}
 
 	@Override
@@ -72,23 +73,23 @@ public class DriveForwardPosition extends Command {
 		table.putNumber("_encoderDistanceLeft", Robot.driveTrain.getLeftDistance());
 		table.putNumber("_encoderDistanceRight", Robot.driveTrain.getRightDistance());
 		
-		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= 0.5*Math.abs(_distanceL)) {
-			if (_leftSpeed > 0) {
-				_leftSpeed = 0.15;
-			}
-			if (_leftSpeed < 0) {
-				_leftSpeed = -0.15;
-			}
-		}
-		
-		if (Math.abs(Robot.driveTrain.getRightDistance()) >= 0.5*Math.abs(_distanceR)) {
-			if (_rightSpeed > 0) {
-				_rightSpeed = 0.15;
-			}
-			if (_rightSpeed < 0) {
-				_rightSpeed = -0.15;
-			}
-		}
+//		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= 0.5*Math.abs(_distanceL)) {
+//			if (_leftSpeed > 0) {
+//				_leftSpeed = 0.15;
+//			}
+//			if (_leftSpeed < 0) {
+//				_leftSpeed = -0.15;
+//			}
+//		}
+//		
+//		if (Math.abs(Robot.driveTrain.getRightDistance()) >= 0.5*Math.abs(_distanceR)) {
+//			if (_rightSpeed > 0) {
+//				_rightSpeed = 0.15;
+//			}
+//			if (_rightSpeed < 0) {
+//				_rightSpeed = -0.15;
+//			}
+//		}
 		
 		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL)) {
 			table.putString("Done left", "Yes");
@@ -135,10 +136,11 @@ public class DriveForwardPosition extends Command {
 	@Override
 	protected void end() {
 		System.err.println("End drive forward distance");
-		
+		Robot.driveTrain.percentVbusControl();
 		Robot.driveTrain.tankDrive(0, 0);
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
+		Robot.driveTrain.setCoastMode();
 	}
 
 	@Override

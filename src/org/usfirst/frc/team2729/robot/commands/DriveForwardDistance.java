@@ -21,10 +21,10 @@ public class DriveForwardDistance extends Command {
 	NetworkTable table;
 
 	
-	public DriveForwardDistance(double speed, double distanceL, double distanceR) {
+	public DriveForwardDistance(double speedL, double speedR, double distanceL, double distanceR) {
 		requires(Robot.driveTrain);
-		_initLeftSpeed = speed*1.15;
-		_initRightSpeed = speed;
+		_initLeftSpeed = speedL*1.15;
+		_initRightSpeed = speedR;
 		_initDistanceL = distanceL*TICKSPERMETER;
 		_initDistanceR = distanceR*TICKSPERMETER;
 		Robot.driveTrain.percentVbusControl();

@@ -25,7 +25,7 @@ public class Center extends CommandGroup {
 			double drive1 = -Preferences.getInstance().getDouble("Drive 1", 1.65);
 			double turn1 = -Preferences.getInstance().getDouble("Turn 1", 50);
 			
-			addSequential(new DriveForwardDistance(-0.2, drive1/1.2, drive1/1.2));
+			addSequential(new DriveForwardDistance(-0.2, -.2, drive1/1.2, drive1/1.2));
 			addSequential(new WaitCommand(0.5));
 			addSequential(new GyroTurn(-0.3, turn1), 2.5);
 			addSequential(new WaitCommand(0.8));
@@ -40,15 +40,15 @@ public class Center extends CommandGroup {
 			for(int i = 0; i<reps; i++) {
 				addSequential(new VisionGyroAlign(), 5);
 				addSequential(new WaitCommand(2.5));
-				addSequential(new DriveForwardDistance(-.2,-incr/1.2, -incr/1.2));
+				addSequential(new DriveForwardDistance(-.2,-.2, -incr/1.2, -incr/1.2));
 				addSequential(new WaitCommand(2.5));
 			}
 			
-			addSequential(new DriveForwardDistance(-.2,-0.2, -0.2), 3);
+			addSequential(new DriveForwardDistance(-.2,-.2, -0.2, -0.2), 3);
 			addSequential(new WaitCommand(0.5));
 			addSequential(new GearOn(false));
 			addSequential(new WaitCommand(1));
-			addSequential(new DriveForwardDistance(0.2, 1.37, 1.37));
+			addSequential(new DriveForwardDistance(0.2,.2, 1.37, 1.37));
 	}
 	
 }

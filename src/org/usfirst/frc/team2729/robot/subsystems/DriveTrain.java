@@ -21,13 +21,14 @@ public class DriveTrain extends Subsystem {
 
 	private static final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
 	
-	private static final double valueP = 50.0; //used to be 0.02
+	private static final double valueP = 1.0; //used to be 0.02
 	private static final double valueI = 0.001;
 	private static final double valueD = 2.0;
 	private static final double valueF = 1;
 
 	private boolean _halfOne = false;
 	private boolean _halfTwo = false;
+	// private boolean _isPTOEnabled = false;
 
 	public DriveTrain() {		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
@@ -168,6 +169,16 @@ public class DriveTrain extends Subsystem {
 	
 	public boolean isDriveTrainPID() {
 		return _leftMain.getControlMode().isPID();
+	}
+	
+	public void setBrakeMode() {
+		_leftMain.enableBrakeMode(true);
+		_rightMain.enableBrakeMode(true);
+	}
+	
+	public void setCoastMode() {
+		_leftMain.enableBrakeMode(false);
+		_rightMain.enableBrakeMode(false);
 	}
 
 	public double getValueP() {
