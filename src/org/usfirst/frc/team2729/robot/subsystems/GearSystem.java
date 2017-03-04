@@ -38,8 +38,6 @@ public class GearSystem extends Subsystem {
 				: DoubleSolenoid.Value.kReverse);
 		_gearShifter2.set(enabled ? DoubleSolenoid.Value.kForward
 				: DoubleSolenoid.Value.kReverse);
-	//	_gearShifter3.set(enabled ? DoubleSolenoid.Value.kForward
-				//: DoubleSolenoid.Value.kReverse);
 	}
 	
 	public boolean getHighGear(){

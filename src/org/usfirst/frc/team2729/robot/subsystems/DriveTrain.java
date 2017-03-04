@@ -28,7 +28,6 @@ public class DriveTrain extends Subsystem {
 
 	private boolean _halfOne = false;
 	private boolean _halfTwo = false;
-	// private boolean _isPTOEnabled = false;
 
 	public DriveTrain() {		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);

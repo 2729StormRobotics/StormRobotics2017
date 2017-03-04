@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class OI {
-
+// Hi Mom
 	private final Joystick driveJoystick = new Joystick(RobotMap.PORT_JOYSTICK_DRIVE),
 			armJoystick = new Joystick(RobotMap.PORT_JOYSTICK_ARMS);
 
@@ -36,8 +36,8 @@ public class OI {
 			gyroTurn = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_CENTERTURN),
 			autoDrive = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_AUTODRIVE),
 			fullAuto = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FULLAUTO),
-			lightOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_LIGHT_ON);
-	
+			lightOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_LIGHT_ON),
+			drive = new JoystickButton(armJoystick, RobotMap.JOYARM_DRIVE);
 	
 	private double _zeroDeadzone(double joyValue,double dead) {
 		return Math.abs(joyValue) > dead ? joyValue : 0;
@@ -71,6 +71,7 @@ public class OI {
 		autoDrive.whenPressed(new DriveForwardDistance(-0.2, -0.42, -0.42));
 		lightOn.whenPressed(new LightOn());
 		fullAuto.whenPressed(new VisionAlignment());
+		drive.whenPressed(new DriveForwardDistance(-0.5, 2, 2));
 		
 		//Special Commands
 		

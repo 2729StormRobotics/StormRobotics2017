@@ -20,10 +20,6 @@ public class DriveTrainPID extends Subsystem {
 
 	private final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
 
-//	private boolean _halfOne = false;
-//	private boolean _halfTwo = false;
-	// private boolean _isPTOEnabled = false;
-
 	public DriveTrainPID() {
 		
 		double valueP = 0.2,

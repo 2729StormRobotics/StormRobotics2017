@@ -14,34 +14,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ShootingSystem extends Subsystem {
 	
-	//private FeedbackDevice _fireSensor = new FeedbackDevice(RobotMap.PORT_ENCODER_SHOOT_FIRE);
+	
 	private final CANTalon _spin = new CANTalon(RobotMap.PORT_MOTOR_SHOOT_SPIN);	
 	private final CANTalon _fire = new CANTalon(RobotMap.PORT_MOTOR_SHOOT_FIRE);
 	private final Relay light = new Relay(0, Relay.Direction.kForward);
 	
-	//Encoder enc;
-	//enc = new Encoder(0,1,false,Encoder.EncodingType,k4x);
-	
 	public ShootingSystem() {
-//		_fire.changeControlMode(CANTalon.TalonControlMode.Speed);
-//		_fire.set(0);
-//		_fire.reverseSensor(false);
-//		_fire.setFeedbackDevice(FeedbackDevice.EncRising);
-//	
-//		_fire.configEncoderCodesPerRev(4);
-//		resetEnc();
-//		_fire.configPeakOutputVoltage(+12.0f, -12.0f);
-//		_fire.configNominalOutputVoltage(+0.0f, -0.0f);		
-//		double  valueF = 1,
-//				valueP = 0.2,
-//				valueI = 0.001,
-//				valueD = 0;
-//		_fire.setProfile(0);
-//		_fire.setF(valueF);
-//		_fire.setP(valueP);
-//		_fire.setI(valueI);
-//		_fire.setD(valueD);
-//		_fire.setVoltageRampRate(6.0);
 		lightOff();
 	}
 	
@@ -64,11 +42,6 @@ public class ShootingSystem extends Subsystem {
 		resetEnc();
 		_fire.configPeakOutputVoltage(+12.0f, -12.0f);
 		_fire.configNominalOutputVoltage(+0.0f, -0.0f);		
-//		double  valueF = 1,
-//				//valueP = 90,
-//				valueP = 90,
-//				valueI = 0,
-//				valueD = 2;
 		
 		double valueP,
 				valueI,
@@ -86,43 +59,13 @@ public class ShootingSystem extends Subsystem {
 		_fire.setI(valueI);
 		_fire.setD(valueD);
 		
-//		_fire.setVoltageRampRate(6.0);
-//		double P;
-//		double I;
-//		double D;
-//		double F;
+
 		
 //		P = Preferences.getInstance().getDouble("Shooter P", .2);
 //		I = Preferences.getInstance().getDouble("Shooter I", .0015);
 //		D = Preferences.getInstance().getDouble("Shooter D", 0);
-//		F = Preferences.getInstance().getDouble("Shooter F", 1);
-//		
-//		if((P < 0) || (P > 1)) {
-//			P = .2;
-//		}
-//		
-//		if((I < 0) || (I > 1)) {
-//			I = .001;
-//		}
-//		
-//		if((D < 0) || (D > 1)) {
-//			D = 0;
-//		}
-//		
-//		if((F < 0) || (F > 1)) {
-//			F = 1;
-//		}
+//		F = Preferences.getInstance().getDouble("Shooter F", 1);		
 		
-//		P = .2;
-//		I = .0015;
-//		D = 0;
-//		F = 1;
-//		
-//		_fire.setF(F);
-//		_fire.setP(P);
-//		_fire.setI(I);
-//		_fire.setD(D);
-//		
 		_fire.set(speed);
 	}
 	
