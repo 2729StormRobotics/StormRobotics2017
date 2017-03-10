@@ -13,6 +13,7 @@ public class DriveForwardDistance extends Command {
 	private double _initRightSpeed;
 	private double _initDistanceL;
 	private double _initDistanceR;
+	private boolean _slow;
 	volatile double _leftSpeed;
 	volatile double _rightSpeed;
 	volatile double _distanceL;
@@ -21,12 +22,13 @@ public class DriveForwardDistance extends Command {
 	NetworkTable table;
 
 	
-	public DriveForwardDistance(double speedL, double speedR, double distanceL, double distanceR) {
+	public DriveForwardDistance(double speedL, double speedR, double distanceL, double distanceR, boolean slow) {
 		requires(Robot.driveTrain);
 		_initLeftSpeed = speedL*1.15;
 		_initRightSpeed = speedR;
 		_initDistanceL = distanceL*TICKSPERMETER;
 		_initDistanceR = distanceR*TICKSPERMETER;
+		_slow = slow;
 		Robot.driveTrain.percentVbusControl();
 		table = NetworkTable.getTable("Console");
 	}
@@ -72,23 +74,26 @@ public class DriveForwardDistance extends Command {
 		table.putNumber("_encoderDistanceLeft", Robot.driveTrain.getLeftDistance());
 		table.putNumber("_encoderDistanceRight", Robot.driveTrain.getRightDistance());
 		
-		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= 0.5*Math.abs(_distanceL)) {
-			if (_leftSpeed > 0) {
-				_leftSpeed = 0.15;
+		if (_slow) {
+			if (Math.abs(Robot.driveTrain.getLeftDistance()) >= 0.5*Math.abs(_distanceL)) {
+				if (_leftSpeed > 0) {
+					_leftSpeed = 0.15;
+				}
+				if (_leftSpeed < 0) {
+					_leftSpeed = -0.15;
+				}
 			}
-			if (_leftSpeed < 0) {
-				_leftSpeed = -0.15;
+			
+			if (Math.abs(Robot.driveTrain.getRightDistance()) >= 0.5*Math.abs(_distanceR)) {
+				if (_rightSpeed > 0) {
+					_rightSpeed = 0.15;
+				}
+				if (_rightSpeed < 0) {
+					_rightSpeed = -0.15;
+				}
 			}
 		}
 		
-		if (Math.abs(Robot.driveTrain.getRightDistance()) >= 0.5*Math.abs(_distanceR)) {
-			if (_rightSpeed > 0) {
-				_rightSpeed = 0.15;
-			}
-			if (_rightSpeed < 0) {
-				_rightSpeed = -0.15;
-			}
-		}
 		
 		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL)) {
 			table.putString("Done left", "Yes");

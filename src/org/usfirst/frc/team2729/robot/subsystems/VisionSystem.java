@@ -15,7 +15,7 @@ public class VisionSystem extends Subsystem {
 	}
 	
 	public void DriveForwardDistance() {
-		new org.usfirst.frc.team2729.robot.commands.DriveForwardDistance(0, 0, 0, 0);
+		new org.usfirst.frc.team2729.robot.commands.DriveForwardDistance(0, 0, 0, 0, true);
 	}
 	
 	public double GetEstDistance() {

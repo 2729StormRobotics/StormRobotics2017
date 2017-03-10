@@ -17,7 +17,7 @@ public class VisionAlignment extends CommandGroup{
 		for(int i = 0; i<reps; i++) {
 			addSequential(new VisionGyroAlign(), 1.5);
 			addSequential(new WaitCommand(0.7));
-			addSequential(new DriveForwardDistance(-.2,-.2, -incr/1.5, -incr/1.5));
+			addSequential(new DriveForwardDistance(-.2,-.2, -incr/1.5, -incr/1.5, true));
 			addSequential(new WaitCommand(0.5));
 		}
 		

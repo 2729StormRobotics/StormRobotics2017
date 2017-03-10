@@ -13,7 +13,7 @@ public class Left extends CommandGroup {
 
 		addSequential(new GyroTurn(-0.2, 30));
 		addSequential(new WaitCommand(0.8));
-		addSequential(new DriveForwardDistance(-0.2,-.2, -0.5, -0.5));
+		addSequential(new DriveForwardDistance(-0.2,-.2, -0.5, -0.5, true));
 		
 	}
 

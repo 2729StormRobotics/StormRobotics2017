@@ -69,10 +69,10 @@ public class OI {
 		shooterSpinOn.whenPressed(new ShooterSpin(0.41));
 		shooterSpinOnLow.whenPressed(new ShooterSpin(.20));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
-		gyroTurn.whenPressed(new GyroTurn(-0.2, 180));
-		visionAlign.whenPressed(new VisionGyroAlign());
+//		gyroTurn.whenPressed(new GyroTurn(-0.2, 180));
+//		visionAlign.whenPressed(new VisionGyroAlign());
 		lightOn.whenPressed(new LightOn());
-		fullAuto.whenPressed(new MovingVisionAlignment());
+//		fullAuto.whenPressed(new MovingVisionAlignment());
 		
 		//Special Commands
 		

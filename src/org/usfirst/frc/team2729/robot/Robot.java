@@ -61,10 +61,10 @@ public class Robot extends IterativeRobot {
 		leds = new LEDz();
 		
 		chooser = new SendableChooser<>();
-		chooser.addDefault("Default Program", new DriveForwardDistance(0, 0, 0, 0));
-		chooser.addObject("Drive 2 Meters", new DriveForwardDistance(-0.2, -.2, -1.37, -1.37));
+		chooser.addDefault("Default Program", new DriveForwardDistance(0, 0, 0, 0, true));
+		chooser.addObject("Center", new Center());
 		chooser.addObject("Right", new Right());
-		SmartDashboard.putData("AutoChooser", chooser);
+		SmartDashboard.putData("AutoChoose", chooser);
 		
 		
 //		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };

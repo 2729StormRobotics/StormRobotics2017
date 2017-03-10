@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class DistanceTest extends CommandGroup {
 	public DistanceTest() {
-		addSequential(new DriveForwardDistance(-0.2, -0.2, -0.5, -0.5));
+		addSequential(new DriveForwardDistance(-0.2, -0.2, -0.5, -0.5, true));
 	}
 
 }

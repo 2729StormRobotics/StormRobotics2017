@@ -12,7 +12,7 @@ public class VisionAlignRep extends CommandGroup{
 		
 		addSequential(new GyroTurn(0.2, 0));
 		addSequential(new WaitCommand(1));
-		addSequential(new DriveForwardDistance(-.2,-.2, -.5, -.5));
+		addSequential(new DriveForwardDistance(-.2,-.2, -.5, -.5, true));
 	}
 
 }
