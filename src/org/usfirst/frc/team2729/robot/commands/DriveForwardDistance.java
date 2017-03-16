@@ -24,7 +24,7 @@ public class DriveForwardDistance extends Command {
 	
 	public DriveForwardDistance(double speedL, double speedR, double distanceL, double distanceR, boolean slow) {
 		requires(Robot.driveTrain);
-		_initLeftSpeed = speedL*1.15;
+		_initLeftSpeed = speedL;
 		_initRightSpeed = speedR;
 		_initDistanceL = distanceL*TICKSPERMETER;
 		_initDistanceR = distanceR*TICKSPERMETER;

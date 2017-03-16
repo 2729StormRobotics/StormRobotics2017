@@ -17,27 +17,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
-public class Right extends CommandGroup{
-	NetworkTable table;
-//	public static boolean running = false;
-	public Right() {
-		Robot.driveTrain.resetEnc();
-		table = NetworkTable.getTable("Vision");
+public class Baseline extends CommandGroup{
+	
+	public Baseline() {
 		
-		addSequential(new DriveForwardDistance(-0.3, -0.3, -0.4, -0.4, false));
-		addSequential(new DriveForwardDistance(-0.35, -0.21, -1.55, -0.8, false));
-		addSequential(new PVbusMovingVisionAlign());
-		//addSequential(new GearOn(false));
+		addSequential(new DriveForwardDistance(-0.2, -0.2, -1.5, -1.5, true));
+		addSequential(new WaitCommand(0.5));
 		addSequential(new WaitCommand(0.5));
 		//addSequential(new DriveForwardDistance(0.2, 0.2, 1.37, 1.37, true));
-		
-		//TestBot
-//		double left = -105;
-//		double right = -150;
-		//addSequential(new DFDSpeed(left, right, -1, -1.5));
-		//addSequential(new DFDSpeed(-50, -50, -0.5, -0.5));
-		//addSequential(new WaitCommand(2));
-		//addSequential(new MovingVisionAlignment());
-		//addSequential(new WaitCommand(2));	
+
 	}
+	
 }

@@ -27,7 +27,6 @@ public class DFDSpeed extends Command {
 		_initRightSpeed = speedR;
 		_initDistanceL = distanceL*TICKSPERMETER;
 		_initDistanceR = distanceR*TICKSPERMETER;
-		Robot.driveTrain.percentVbusControl();
 		table = NetworkTable.getTable("Console");
 	}
 
