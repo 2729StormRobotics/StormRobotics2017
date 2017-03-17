@@ -21,10 +21,30 @@ public class DriveTrain extends Subsystem {
 
 	private static final AnalogGyro _gyro = new AnalogGyro(RobotMap.PORT_SENSOR_GYRO);
 	
-	private static final double valueP = 1.0; //used to be 0.02
-	private static final double valueI = 0.001;
-	private static final double valueD = 2.0;
-	private static final double valueF = 1;
+//	private static final double valueP = 1.0; //used to be 0.02
+//	private static final double valueI = 0.001;
+//	private static final double valueD = 2.0;
+//	private static final double valueF = 1;
+	
+//	private static final double LvalueP = Preferences.getInstance().getDouble("LDriveTrain P", 0); //used to be 0.02
+//	private static final double LvalueI = Preferences.getInstance().getDouble("LDriveTrain I", 0);
+//	private static final double LvalueD = Preferences.getInstance().getDouble("LDriveTrain D", 0);
+//	private static final double LvalueF = Preferences.getInstance().getDouble("LDriveTrain F", 0);
+//	
+//	private static final double RvalueP = Preferences.getInstance().getDouble("RDriveTrain P", 0); //used to be 0.02
+//	private static final double RvalueI = Preferences.getInstance().getDouble("RDriveTrain I", 0);
+//	private static final double RvalueD = Preferences.getInstance().getDouble("RDriveTrain D", 0);
+//	private static final double RvalueF = Preferences.getInstance().getDouble("RDriveTrain F", 0);
+	
+	private static double LvalueP = 0.504; //used to be 0.02
+	private static double LvalueI = 0;
+	private static double LvalueD = 0;
+	private static double LvalueF = 0;
+	
+	private static double RvalueP = 0.48; //used to be 0.02
+	private static double RvalueI = 0;
+	private static double RvalueD = 0;
+	private static double RvalueF = 0;
 
 	private boolean _halfOne = false;
 	private boolean _halfTwo = false;
@@ -52,6 +72,31 @@ public class DriveTrain extends Subsystem {
 		_gyro.initGyro();
 		resetGyro();
 		
+	}
+
+	public static double getLvalueP() {
+		return _leftMain.getP();
+		//return LvalueP;
+	}
+
+	public static double getLvalueI() {
+		return LvalueI;
+	}
+
+	public static double getLvalueD() {
+		return LvalueD;
+	}
+
+	public static double getRvalueP() {
+		return RvalueP;
+	}
+
+	public static double getRvalueI() {
+		return RvalueI;
+	}
+
+	public static double getRvalueD() {
+		return RvalueD;
 	}
 
 	@Override
@@ -113,6 +158,37 @@ public class DriveTrain extends Subsystem {
 		return _gyro.getAngle();
 	}
 	
+	
+	public static void setLvalueP(double lvalueP) {
+		LvalueP = lvalueP;
+		_leftMain.setP(LvalueP);
+	}
+
+	public static void setLvalueI(double lvalueI) {
+		LvalueI = lvalueI;
+		_leftMain.setI(LvalueI);
+	}
+
+	public static void setLvalueD(double lvalueD) {
+		LvalueD = lvalueD;
+		_leftMain.setD(LvalueD);
+	}
+
+	public static void setRvalueP(double rvalueP) {
+		RvalueP = rvalueP;
+		_rightMain.setP(RvalueP);
+	}
+
+	public static void setRvalueI(double rvalueI) {
+		RvalueI = rvalueI;
+		_rightMain.setI(RvalueI);
+	}
+
+	public static void setRvalueD(double rvalueD) {
+		RvalueD = rvalueD;
+		_rightMain.setD(RvalueD);
+	}
+
 	public void resetGyro() {
 		_gyro.reset();
 	}
@@ -127,32 +203,38 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void speedControl() {
+		System.err.println("Speed Control!");
+		
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_leftMain.set(0);
+		_leftMain.reverseSensor(true);
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.Speed);
 		_rightMain.set(0);
+		_rightMain.reverseSensor(true);
 		
-		_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
-		_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
+		// speed control is being weird. Uncomment one at a time
+		//_leftMain.configNominalOutputVoltage(+0.0f, -0.0f);
+		//_leftMain.configPeakOutputVoltage(+12.0f, -12.0f);
 		_leftMain.setProfile(0);
-		_leftMain.setF(valueF);
-		_leftMain.setP(valueP);
-		_leftMain.setI(valueI);
-		_leftMain.setD(valueD);
-		_rightMain.configNominalOutputVoltage(+0.0f, -0.0f);
+		_leftMain.setF(LvalueF);
+		_leftMain.setP(LvalueP);
+		_leftMain.setI(LvalueI);
+		_leftMain.setD(LvalueD);
+		//_rightMain.configNominalOutputVoltage(+0.0f, -0.0f);
 		_leftMain.configEncoderCodesPerRev(256);
 		_rightMain.configEncoderCodesPerRev(256);		
-		_rightMain.configPeakOutputVoltage(+12.0f, -12.0f);
+		//_rightMain.configPeakOutputVoltage(+12.0f, -12.0f);
 		_rightMain.setProfile(0);
-		_rightMain.setF(valueF);
-		_rightMain.setP(valueP);
-		_rightMain.setI(valueI);
-		_rightMain.setD(valueD);
-		_leftMain.setVoltageRampRate(6.0);
-		_rightMain.setVoltageRampRate(6.0);
+		_rightMain.setF(RvalueF);
+		_rightMain.setP(RvalueP);
+		_rightMain.setI(RvalueI);
+		_rightMain.setD(RvalueD);
+		//_leftMain.setVoltageRampRate(6.0);
+		//_rightMain.setVoltageRampRate(6.0);
 	}
 
 	public void percentVbusControl() {
+		System.err.println("VBus Control!");
 		_leftMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
 		_leftMain.set(0);
 		_rightMain.changeControlMode(CANTalon.TalonControlMode.PercentVbus);
@@ -179,22 +261,6 @@ public class DriveTrain extends Subsystem {
 	public void setCoastMode() {
 		_leftMain.enableBrakeMode(false);
 		_rightMain.enableBrakeMode(false);
-	}
-
-	public double getValueP() {
-		return valueP;
-	}
-
-	public double getValueI() {
-		return valueI;
-	}
-
-	public double getValueD() {
-		return valueD;
-	}
-
-	public double getValueF() {
-		return valueF;
 	}
 
 

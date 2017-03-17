@@ -139,10 +139,10 @@ public class Robot extends IterativeRobot {
 		// SmartDashboard.putBoolean("PTO On", Robot.driveTrain.getPTO());
 		SmartDashboard.putString("DriveTrain control mode", Robot.driveTrain.getDriveTrainControlMode());
 		SmartDashboard.putBoolean("DriveTrain is PID?", Robot.driveTrain.isDriveTrainPID());
-		SmartDashboard.putNumber("DriveTrain PID: P", Robot.driveTrain.getValueP());
-		SmartDashboard.putNumber("DriveTrain PID: I", Robot.driveTrain.getValueI());
-		SmartDashboard.putNumber("DriveTrain PID: D", Robot.driveTrain.getValueD());
-		SmartDashboard.putNumber("DriveTrain PID: F", Robot.driveTrain.getValueF());
+		SmartDashboard.putNumber("DriveTrain PID: LP", Robot.driveTrain.getLvalueP());
+		SmartDashboard.putNumber("DriveTrain PID: LI", Robot.driveTrain.getLvalueI());
+		SmartDashboard.putNumber("DriveTrain PID: LD", Robot.driveTrain.getLvalueD());
+//		SmartDashboard.putNumber("DriveTrain PID: F", Robot.driveTrain.getValueF());
 		
 		
 	}

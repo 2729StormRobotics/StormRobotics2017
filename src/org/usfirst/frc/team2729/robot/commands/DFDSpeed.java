@@ -106,11 +106,13 @@ public class DFDSpeed extends Command {
 	@Override
 	protected boolean isFinished() {
 
-		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL) && 
+		if (Math.abs(Robot.driveTrain.getLeftDistance()) >= Math.abs(_distanceL) || 
 				Math.abs(Robot.driveTrain.getRightDistance()) >= Math.abs(_distanceR)) {
 			table.putBoolean("Forward", false);
 			System.err.println("Done drive forward!");
 			Robot.driveTrain.percentVbusControl();
+			Robot.driveTrain.setLvalueP(100);
+			Robot.driveTrain.setRvalueP(100);
 			Robot.driveTrain.tankDrive(0, 0);
 			_leftSpeed = 0;
 			_rightSpeed = 0;

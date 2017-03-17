@@ -24,11 +24,12 @@ public class Right extends CommandGroup{
 		Robot.driveTrain.resetEnc();
 		table = NetworkTable.getTable("Vision");
 		
-		addSequential(new DriveForwardDistance(-0.3, -0.3, -0.4, -0.4, false));
-		addSequential(new DriveForwardDistance(-0.35, -0.21, -1.55, -0.8, false));
-		addSequential(new PVbusMovingVisionAlign());
+		addSequential(new DFDSpeed(-400, -400, 2, 2));
+		//addSequential(new DriveForwardDistance(-0.3, -0.3, -0.4, -0.4, false));
+		//addSequential(new DriveForwardDistance(-0.35, -0.21, -1.55, -0.8, false));
+		//addSequential(new PVbusMovingVisionAlign());
 		//addSequential(new GearOn(false));
-		addSequential(new WaitCommand(0.5));
+		//addSequential(new WaitCommand(0.5));
 		//addSequential(new DriveForwardDistance(0.2, 0.2, 1.37, 1.37, true));
 		
 		//TestBot
