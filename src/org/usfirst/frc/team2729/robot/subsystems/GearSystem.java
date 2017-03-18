@@ -18,7 +18,8 @@ public class GearSystem extends Subsystem {
 	// RobotMap.PORT_SHIFT_GEAR_OFF_3);
 	private final DigitalInput _gearHalt = new DigitalInput(RobotMap.PORT_MAJOR_LASER);
 
-	private static boolean _isGearOn;
+	private static boolean _isGearOn, _onePiston;
+	
 
 	@Override
 	protected void initDefaultCommand() {
@@ -41,6 +42,11 @@ public class GearSystem extends Subsystem {
 		_gearShifter2.set(enabled ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
 		// _gearShifter3.set(enabled ? DoubleSolenoid.Value.kForward
 		// : DoubleSolenoid.Value.kReverse);
+	}
+	
+	public void setOneGear(boolean on) {
+		_onePiston = on;
+		_gearShifter1.set(on ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
 	}
 
 	public boolean getHighGear() {
