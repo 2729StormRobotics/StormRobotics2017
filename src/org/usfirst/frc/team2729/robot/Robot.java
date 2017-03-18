@@ -133,6 +133,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("haltGear", Robot.gear.getHaltGear());
 		SmartDashboard.putBoolean("Is HalfOne?", Robot.driveTrain.getHalfOne());
 		SmartDashboard.putBoolean("Is HalfTwo?", Robot.driveTrain.getHalfTwo());
+		SmartDashboard.putBoolean("Right Encoder Movement", Robot.driveTrain.encoderEnabledRight());
+		SmartDashboard.putBoolean("Left Encoder Movement", Robot.driveTrain.encoderEnabledLeft());
+		//pidf
+		
 		
 		
 		SmartDashboard.putNumber("GyroAngle", Robot.driveTrain.getGyroAngle());

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
+import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.RobotMap;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.commands.TankDrive;
@@ -200,6 +201,24 @@ public class DriveTrain extends Subsystem {
 
 	public void resetLeftEnc() {
 		_leftMain.setEncPosition(0);
+	}
+	
+	public boolean encoderEnabledRight() {
+		if(Math.abs(Robot.driveTrain._rightMain.getEncVelocity()) > 10) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean encoderEnabledLeft() {
+		if(Math.abs(Robot.driveTrain._leftMain.getEncVelocity()) > 10) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public void speedControl() {
