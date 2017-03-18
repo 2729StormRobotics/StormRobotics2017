@@ -19,7 +19,6 @@ public class GearSystem extends Subsystem {
 	private final DigitalInput _gearHalt = new DigitalInput(RobotMap.PORT_MAJOR_LASER);
 
 	private static boolean _isGearOn;
-	private static boolean _isGearReady;
 
 	@Override
 	protected void initDefaultCommand() {
@@ -51,9 +50,4 @@ public class GearSystem extends Subsystem {
 	public boolean getHaltGear() {
 		return _gearHalt.get();
 	}
-
-	public boolean getGearReady() {
-		return _isGearReady;
-	}
-
 }
