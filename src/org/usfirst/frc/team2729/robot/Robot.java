@@ -1,9 +1,10 @@
 package org.usfirst.frc.team2729.robot;
 
 import org.usfirst.frc.team2729.robot.autoModes.Baseline;
-import org.usfirst.frc.team2729.robot.autoModes.Center;
-import org.usfirst.frc.team2729.robot.autoModes.Left;
-import org.usfirst.frc.team2729.robot.autoModes.Right;
+import org.usfirst.frc.team2729.robot.autoModes.CenterNoVision;
+import org.usfirst.frc.team2729.robot.autoModes.CenterVision;
+import org.usfirst.frc.team2729.robot.autoModes.LeftPeg;
+import org.usfirst.frc.team2729.robot.autoModes.RightPeg;
 import org.usfirst.frc.team2729.robot.commands.DriveForward;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
@@ -65,10 +66,12 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Do Nothing", new DriveForwardDistance(0, 0, 0, 0, true));
 		chooser.addObject("Baseline", new Baseline());
-		chooser.addObject("Left", new Left());
-		chooser.addObject("Center", new Center());
-		chooser.addObject("Right", new Right());
-		SmartDashboard.putData("AutoChoose", chooser);
+		chooser.addObject("Left", new LeftPeg());
+		chooser.addObject("Center No Vision", new CenterNoVision());
+		chooser.addObject("Right", new RightPeg());
+		chooser.addObject("Center Vision", new CenterVision());
+		
+		SmartDashboard.putData("AutoChooser", chooser);
 		
 		
 //		String[] autoModeNames = new String[] { "Drive Forward Distance", "Drive Forward Time", "Right", "GyroTurn" };

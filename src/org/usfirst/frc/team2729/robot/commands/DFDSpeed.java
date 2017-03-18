@@ -18,7 +18,7 @@ public class DFDSpeed extends Command {
 	volatile double _distanceL;
 	volatile double _distanceR;
 	private static final double TICKSPERMETER = 3260;
-	NetworkTable table;
+	private NetworkTable table;
 
 	
 	public DFDSpeed(double speedL, double speedR, double distanceL, double distanceR) {
@@ -28,6 +28,10 @@ public class DFDSpeed extends Command {
 		_initDistanceL = distanceL*TICKSPERMETER;
 		_initDistanceR = distanceR*TICKSPERMETER;
 		table = NetworkTable.getTable("Console");
+		if(speedL > 0)
+			table.putString("Message", "Backwards DFD Speed");
+		else
+			table.putString("Message", "Forwards DFD Speed");
 	}
 
 	@Override
@@ -110,9 +114,7 @@ public class DFDSpeed extends Command {
 				Math.abs(Robot.driveTrain.getRightDistance()) >= Math.abs(_distanceR)) {
 			table.putBoolean("Forward", false);
 			System.err.println("Done drive forward!");
-			Robot.driveTrain.percentVbusControl();
-			Robot.driveTrain.setLvalueP(100);
-			Robot.driveTrain.setRvalueP(100);
+			//Robot.driveTrain.percentVbusControl();
 			Robot.driveTrain.tankDrive(0, 0);
 			_leftSpeed = 0;
 			_rightSpeed = 0;
@@ -141,7 +143,6 @@ public class DFDSpeed extends Command {
 		Robot.driveTrain.tankDrive(0, 0);
 		Robot.driveTrain.resetLeftEnc();
 		Robot.driveTrain.resetRightEnc();
-		Robot.driveTrain.setCoastMode();
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.autoModes.Right;
+import org.usfirst.frc.team2729.robot.autoModes.RightPeg;
 import org.usfirst.frc.team2729.robot.autoModes.VisionAlignRep;
 import org.usfirst.frc.team2729.robot.commands.AutoDrive;
 import org.usfirst.frc.team2729.robot.commands.CenterTurn;

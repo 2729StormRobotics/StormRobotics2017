@@ -23,7 +23,7 @@ public class TankDrive extends Command {
 		}
 		double left = Robot.oi.getLeftDrive(),
 				right = Robot.oi.getRightDrive();
-		if(Math.abs(left - right) < 0.3) {
+		if(Math.abs(left - right) < 0.10) {
 			left = (left + right)/2;
 			right = left;
 		}
