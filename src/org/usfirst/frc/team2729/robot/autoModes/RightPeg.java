@@ -31,7 +31,7 @@ public class RightPeg extends CommandGroup{
 		addSequential(new WaitCommand(0.1));
 		addSequential(new MovingVisionAlignment(), 6);
 		addSequential(new WaitCommand(0.5));
-		addSequential(new GearOn(false));
+		addSequential(new GearOn(false, true), 1);
 		addSequential(new WaitCommand(0.5));
 		addSequential(new DFDSpeed(200, 200, 1.4, 1.4));
 //		addSequential(new DFDSpeed(-275, -175, 1.95, 1.95));

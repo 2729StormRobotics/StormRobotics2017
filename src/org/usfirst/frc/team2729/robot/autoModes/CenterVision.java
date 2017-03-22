@@ -22,7 +22,7 @@ public class CenterVision extends CommandGroup {
 			addSequential(new WaitCommand(0.5));
 			addSequential(new MovingVisionAlignment(), 6);
 			addSequential(new WaitCommand(0.5));
-			addSequential(new GearOn(false));
+			addSequential(new GearOn(false, true));
 			addSequential(new WaitCommand(0.5));
 			addSequential(new DFDSpeed(200, 200, 1.37, 1.37));
 	}

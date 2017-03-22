@@ -10,7 +10,7 @@ public class MovingVisionAlignment extends Command{
 	double left = 0;
 	double right = 0;
 	double base = -150;
-	double mult = 2.5;
+	double mult = 3.25;
 	
 	public MovingVisionAlignment() {
 		requires(Robot.driveTrain);
@@ -25,11 +25,11 @@ public class MovingVisionAlignment extends Command{
 	
 	protected void execute() {
 		
-		if(table.getNumber("p_angle", 0) > 1 && Math.abs(right - left) < 40 * mult) {//trying a flip
+		if(table.getNumber("p_angle", 0) > 1 && Math.abs(right - left) < 40 * mult) {
 			left +=5;
 			right -= 5;
 		}
-		else if(table.getNumber("p_angle", 0) < 1 && Math.abs(right - left) < 40 * mult) {//trying a flip
+		else if(table.getNumber("p_angle", 0) < 1 && Math.abs(right - left) < 40 * mult) {
 			left -= 5;
 			right += 5;
 		}
@@ -47,7 +47,7 @@ public class MovingVisionAlignment extends Command{
 	@Override
 	protected void end() {
 		//Robot.driveTrain.percentVbusControl();
-		//Robot.driveTrain.tankDrive(0, 0);
+		Robot.driveTrain.tankDrive(0, 0);
 		Robot.driveTrain.resetEnc();
 	}
 	
@@ -61,8 +61,10 @@ public class MovingVisionAlignment extends Command{
 //			
 //			return true;
 //		}
+		double rightEnc = Math.abs(Robot.driveTrain.getRightDistance());
+		int rightSpeed =   Math.abs(Robot.driveTrain.getRightSpeedEnc());
 		
-		if(Math.abs(Robot.driveTrain.getRightDistance()) > 1000 && Math.abs(Robot.driveTrain.getRightSpeedEnc()) < 5){
+		if((rightEnc > 1000 && rightSpeed< 5) || !Robot.gear.getHaltGear()){
 			
 			return true;
 		}

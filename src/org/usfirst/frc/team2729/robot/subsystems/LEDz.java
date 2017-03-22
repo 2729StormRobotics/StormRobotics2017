@@ -29,6 +29,7 @@ public class LEDz extends Subsystem {
 	public int ledGearOn = 0;
 	public boolean ledHang = false;
 	public int vision = 0;
+	public boolean pegDetect = false;
 	public NetworkTable table;
 	public NetworkTable LEDZ;
 
@@ -66,6 +67,8 @@ public class LEDz extends Subsystem {
 			vision = 3;
 		else
 			vision = 2;
+		
+		
 
 		table.putNumber("vision", vision);
 		LEDZ.putNumber("ledGearOn", ledGearOn);
@@ -73,7 +76,12 @@ public class LEDz extends Subsystem {
 		// if(ledStatus != 0){
 		// Robot.driveTrain.tankDrive(0, 0.25);
 		// }
-		if (vision == 1) {
+				
+		if(!Robot.gear.getHaltGear()){
+			ff[0] = (byte) 255;
+			ledOut.write(ff, 1);
+		}
+		else if (vision == 1) {
 			ff[0] = (byte) 110;
 			ledOut.write(ff, 1);
 		} else if (vision == 2) {

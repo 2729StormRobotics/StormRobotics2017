@@ -63,8 +63,8 @@ public class OI {
 
 		//Operator Commands	
 		
-		shiftGearOn.whenPressed(new GearOn(true));
-		shiftGearOff.whenPressed(new GearOn(false));	
+		shiftGearOn.whenPressed(new GearOn(true, false));
+		shiftGearOff.whenPressed(new GearOn(false, false));	
 		shootFire.whenPressed(new ShootFire(4702));
 		shootFireOff.whenPressed(new ShootFire(0));
 		shooterSpinOn.whenPressed(new ShooterSpin(0.41));

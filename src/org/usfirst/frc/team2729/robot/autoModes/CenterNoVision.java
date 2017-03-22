@@ -20,7 +20,7 @@ public class CenterNoVision extends CommandGroup {
 	public CenterNoVision() {
 			addSequential(new DFDSpeed(-200, -200, 2, 2));
 			addSequential(new WaitCommand(0.5));
-			addSequential(new GearOn(false));
+			addSequential(new GearOn(false, true));
 			addSequential(new WaitCommand(0.5));
 			addSequential(new DFDSpeed(200, 200, 1.37, 1.37));
 	}
