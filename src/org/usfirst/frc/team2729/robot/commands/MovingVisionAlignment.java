@@ -10,6 +10,7 @@ public class MovingVisionAlignment extends Command{
 	double left = 0;
 	double right = 0;
 	double base = -150;
+	double mult = 2.5;
 	
 	public MovingVisionAlignment() {
 		requires(Robot.driveTrain);
@@ -24,11 +25,11 @@ public class MovingVisionAlignment extends Command{
 	
 	protected void execute() {
 		
-		if(table.getNumber("p_angle", 0) > 1 && Math.abs(right - left) < 40) {//trying a flip
+		if(table.getNumber("p_angle", 0) > 1 && Math.abs(right - left) < 40 * mult) {//trying a flip
 			left +=5;
 			right -= 5;
 		}
-		else if(table.getNumber("p_angle", 0) < 1 && Math.abs(right - left) < 40) {//trying a flip
+		else if(table.getNumber("p_angle", 0) < 1 && Math.abs(right - left) < 40 * mult) {//trying a flip
 			left -= 5;
 			right += 5;
 		}

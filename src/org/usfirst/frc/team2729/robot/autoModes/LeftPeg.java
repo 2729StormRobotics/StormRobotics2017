@@ -21,7 +21,7 @@ public class LeftPeg extends CommandGroup {
 		table = NetworkTable.getTable("Vision");
 
 		addSequential(new DFDSpeed(-200, -200, .1, .1));
-//		addSequential(new WaitCommand(0.2));
+		//addSequential(new WaitCommand(0.2));
 		addSequential(new DFDSpeed(-175, -275, 1.75, 1.75));
 		addSequential(new WaitCommand(0.1));
 		addSequential(new MovingVisionAlignment(), 6);

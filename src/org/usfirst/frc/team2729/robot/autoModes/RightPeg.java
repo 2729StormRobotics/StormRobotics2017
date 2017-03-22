@@ -24,9 +24,19 @@ public class RightPeg extends CommandGroup{
 		Robot.driveTrain.resetEnc();
 		table = NetworkTable.getTable("Vision");
 		
-		addSequential(new DFDSpeed(-275, -175, 1.95, 1.95));
+		
+		addSequential(new DFDSpeed(-200, -200, .07, .07));
+		//addSequential(new WaitCommand(0.2));
+		addSequential(new DFDSpeed(-355, -175, 1.75, 1.75));
 		addSequential(new WaitCommand(0.1));
-		addSequential(new DFDSpeed(-200, -200, 1.4, 1.4));
+		addSequential(new MovingVisionAlignment(), 6);
+		addSequential(new WaitCommand(0.5));
+		addSequential(new GearOn(false));
+		addSequential(new WaitCommand(0.5));
+		addSequential(new DFDSpeed(200, 200, 1.4, 1.4));
+//		addSequential(new DFDSpeed(-275, -175, 1.95, 1.95));
+//		addSequential(new WaitCommand(0.1));
+//		addSequential(new DFDSpeed(-200, -200, 1.4, 1.4));
 		//addSequential(new DFDSpeed(-400, -400, 7, 7));
 		//addSequential(new DriveForwardDistance(-0.3, -0.3, -0.4, -0.4, false));
 		//addSequential(new DriveForwardDistance(-0.35, -0.21, -1.55, -0.8, false));

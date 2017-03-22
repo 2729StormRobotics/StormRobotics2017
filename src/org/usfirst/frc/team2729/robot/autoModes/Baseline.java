@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class Baseline extends CommandGroup{
 	
 	public Baseline() {
-		addSequential(new DFDSpeed(-300, -300, -1.5, -1.5));
+		addSequential(new DFDSpeed(-500, -500, -1.5, -1.5));
 		addSequential(new WaitCommand(0.5));
 	}
 	

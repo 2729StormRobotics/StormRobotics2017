@@ -51,7 +51,7 @@ public class RobotMap {
 	public static final int
 	PORT_ENCODER_SHOOT_FIRE	        =  30,
 	PORT_SENSOR_GYRO				=  1,
-	PORT_MAJOR_LASER				=  10;
+	PORT_MAJOR_LASER				=  0;
 
 	//Relay
 	public static final int
