@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.autoModes.RightPeg;
 import org.usfirst.frc.team2729.robot.autoModes.VisionAlignRep;
 import org.usfirst.frc.team2729.robot.commands.AutoDrive;
 import org.usfirst.frc.team2729.robot.commands.CenterTurn;
@@ -10,6 +9,7 @@ import org.usfirst.frc.team2729.robot.commands.GearOn;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.commands.LightOn;
 import org.usfirst.frc.team2729.robot.commands.MovingVisionAlignment;
+import org.usfirst.frc.team2729.robot.commands.OnePiston;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
 import org.usfirst.frc.team2729.robot.commands.VisionAlignment;
@@ -38,7 +38,8 @@ public class OI {
 			gyroTurn = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_CENTERTURN),
 			visionAlign = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_VISIONALIGN),
 			fullAuto = new JoystickButton(driveJoystick, RobotMap.JOYDRIVE_BUTTON_FULLAUTO),
-			lightOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_LIGHT_ON);
+			lightOn = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_LIGHT_ON),
+			onePiston = new JoystickButton(armJoystick, RobotMap.JOYARM_BUTTON_SHIFT_ONE_GEAR);
 	
 	
 	private double _zeroDeadzone(double joyValue,double dead) {
@@ -73,6 +74,7 @@ public class OI {
 //		visionAlign.whenPressed(new VisionGyroAlign());
 		lightOn.whenPressed(new LightOn());
 //		fullAuto.whenPressed(new MovingVisionAlignment());
+		onePiston.whenPressed(new OnePiston(true));
 		
 		//Special Commands
 		
