@@ -33,25 +33,6 @@ public class RightPeg extends CommandGroup{
 		addSequential(new WaitCommand(0.5));
 		addSequential(new GearOn(false, true), 1);
 		addSequential(new WaitCommand(0.5));
-		addSequential(new DFDSpeed(200, 200, 1.4, 1.4));
-//		addSequential(new DFDSpeed(-275, -175, 1.95, 1.95));
-//		addSequential(new WaitCommand(0.1));
-//		addSequential(new DFDSpeed(-200, -200, 1.4, 1.4));
-		//addSequential(new DFDSpeed(-400, -400, 7, 7));
-		//addSequential(new DriveForwardDistance(-0.3, -0.3, -0.4, -0.4, false));
-		//addSequential(new DriveForwardDistance(-0.35, -0.21, -1.55, -0.8, false));
-		//addSequential(new PVbusMovingVisionAlign());
-		//addSequential(new GearOn(false));
-		//addSequential(new WaitCommand(0.5));
-		//addSequential(new DriveForwardDistance(0.2, 0.2, 1.37, 1.37, true));
-		
-		//TestBot
-//		double left = -105;
-//		double right = -150;
-		//addSequential(new DFDSpeed(left, right, -1, -1.5));
-		//addSequential(new DFDSpeed(-50, -50, -0.5, -0.5));
-		//addSequential(new WaitCommand(2));
-		//addSequential(new MovingVisionAlignment());
-		//addSequential(new WaitCommand(2));	
+		addSequential(new DFDSpeed(200, 200, 1.4, 1.4));	
 	}
 }
