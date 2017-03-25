@@ -4,12 +4,11 @@ import org.usfirst.frc.team2729.robot.autoModes.Baseline;
 import org.usfirst.frc.team2729.robot.autoModes.CenterNoVision;
 import org.usfirst.frc.team2729.robot.autoModes.CenterVision;
 import org.usfirst.frc.team2729.robot.autoModes.LeftPeg;
+import org.usfirst.frc.team2729.robot.autoModes.LeftPegBoiler;
 import org.usfirst.frc.team2729.robot.autoModes.RightPeg;
-import org.usfirst.frc.team2729.robot.commands.DriveForward;
+import org.usfirst.frc.team2729.robot.autoModes.RightPegBoiler;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
-import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team2729.robot.subsystems.DriveTrainPID;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
 import org.usfirst.frc.team2729.robot.subsystems.HangingSystem;
 import org.usfirst.frc.team2729.robot.subsystems.IntakeSystem;
@@ -20,8 +19,6 @@ import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -70,6 +67,8 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Center No Vision", new CenterNoVision());
 		chooser.addObject("Right", new RightPeg());
 		chooser.addObject("Center Vision", new CenterVision());
+		chooser.addObject("Right Peg Boiler", new RightPegBoiler());
+		chooser.addObject("Left Peg Boiler", new LeftPegBoiler());
 		
 		SmartDashboard.putData("AutoChooser", chooser);
 		

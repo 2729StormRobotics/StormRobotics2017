@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
-public class LeftPeg extends CommandGroup {
+public class LeftPegBoiler extends CommandGroup {
 	
 	NetworkTable table;
-	public LeftPeg() {
+	public LeftPegBoiler() {
 
 		Robot.driveTrain.resetEnc();
 		table = NetworkTable.getTable("Vision");
@@ -24,7 +24,11 @@ public class LeftPeg extends CommandGroup {
 		addSequential(new WaitCommand(0.5));
 		addSequential(new GearOn(false, true), 1);
 		addSequential(new WaitCommand(0.5));
-		addSequential(new DFDSpeed(200, 200, 1.4, 1.4));
+		addSequential(new DFDSpeed(200, 310, 1.5, 1.5));
+		addSequential(new WaitCommand(0.1));
+		addSequential(new DFDSpeed(300, 200, 1, 1));
+		addSequential(new WaitCommand(0.1));
+		addSequential(new DFDSpeed(200, 200, 0.5, 0.5));
 		
 	}
 

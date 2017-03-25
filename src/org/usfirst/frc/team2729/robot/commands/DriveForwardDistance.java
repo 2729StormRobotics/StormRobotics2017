@@ -3,7 +3,6 @@ package org.usfirst.frc.team2729.robot.commands;
 import org.usfirst.frc.team2729.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,12 +13,12 @@ public class DriveForwardDistance extends Command {
 	private double _initDistanceL;
 	private double _initDistanceR;
 	private boolean _slow;
-	volatile double _leftSpeed;
-	volatile double _rightSpeed;
-	volatile double _distanceL;
-	volatile double _distanceR;
+	private volatile double _leftSpeed;
+	private volatile double _rightSpeed;
+	private volatile double _distanceL;
+	private volatile double _distanceR;
 	private static final double TICKSPERMETER = 3260;
-	NetworkTable table;
+	private NetworkTable table;
 
 	
 	public DriveForwardDistance(double speedL, double speedR, double distanceL, double distanceR, boolean slow) {

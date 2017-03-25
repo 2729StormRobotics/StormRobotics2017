@@ -1,8 +1,6 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.GearOn;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -18,7 +16,8 @@ public class GearSystem extends Subsystem {
 	// RobotMap.PORT_SHIFT_GEAR_OFF_3);
 	private final DigitalInput _gearHalt = new DigitalInput(RobotMap.PORT_MAJOR_LASER);
 
-	private static boolean _isGearOn, _onePiston;
+	private static boolean _isGearOn;
+	private static boolean _onePiston;
 	
 
 	@Override
@@ -46,7 +45,8 @@ public class GearSystem extends Subsystem {
 	
 	public void setOneGear(boolean on) {
 		_onePiston = on;
-		_gearShifter1.set(on ? DoubleSolenoid.Value.kForward : DoubleSolenoid.Value.kReverse);
+		_gearShifter1.set(on ? DoubleSolenoid.Value.kReverse : DoubleSolenoid.Value.kForward);
+		_gearShifter2.set(DoubleSolenoid.Value.kForward);
 	}
 
 	public boolean getHighGear() {

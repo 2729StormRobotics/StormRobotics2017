@@ -36,7 +36,7 @@ public class GearOn extends Command {
 		table.putBoolean("Robot.gear.getHighGear()", Robot.gear.getHighGear());
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
-		table.putNumber("Robot.leds.ledGearOn", Robot.leds.ledGearOn);
+		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
 	//	if (Robot.gear.getHighGear() != _on) {
 			if (_autonomous) {
 				if (!Robot.gear.getHaltGear()) {
@@ -48,14 +48,14 @@ public class GearOn extends Command {
 	//	}
 
 		if (_on) {
-			Robot.leds.ledGearOn = 0;
+			Robot.leds.setLedGearOn(0);
 		} else {
-			Robot.leds.ledGearOn = 1;
+			Robot.leds.setLedGearOn(1);
 		}
 		table.putBoolean("Robot.gear.getHighGear()", Robot.gear.getHighGear());
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
-		table.putNumber("Robot.leds.ledGearOn", Robot.leds.ledGearOn);
+		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class GearOn extends Command {
 		table.putBoolean("Robot.gear.getHighGear()", Robot.gear.getHighGear());
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
-		table.putNumber("Robot.leds.ledGearOn", Robot.leds.ledGearOn);
+		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
 		if (Robot.gear.getHaltGear()) {
 			return true;
 		}
@@ -75,7 +75,7 @@ public class GearOn extends Command {
 		table.putBoolean("Robot.gear.getHighGear()", Robot.gear.getHighGear());
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
-		table.putNumber("Robot.leds.ledGearOn", Robot.leds.ledGearOn);
+		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class GearOn extends Command {
 		table.putBoolean("Robot.gear.getHighGear()", Robot.gear.getHighGear());
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
-		table.putNumber("Robot.leds.ledGearOn", Robot.leds.ledGearOn);
+		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
 	}
 
 }

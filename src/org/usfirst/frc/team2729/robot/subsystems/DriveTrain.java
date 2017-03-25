@@ -1,14 +1,11 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
-import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.commands.TankDrive;
 
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
@@ -83,23 +80,23 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public static double getLvalueI() {
-		return LvalueI;
+		return _leftMain.getI();
 	}
 
 	public static double getLvalueD() {
-		return LvalueD;
+		return _leftMain.getD();
 	}
 
 	public static double getRvalueP() {
-		return RvalueP;
+		return _rightMain.getP();
 	}
 
 	public static double getRvalueI() {
-		return RvalueI;
+		return _rightMain.getI();
 	}
 
 	public static double getRvalueD() {
-		return RvalueD;
+		return _rightMain.getD();
 	}
 
 	@Override
@@ -206,7 +203,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public boolean encoderEnabledRight() {
-		if(Math.abs(Robot.driveTrain._rightMain.getEncVelocity()) > 10) {
+		if(Math.abs(_rightMain.getEncVelocity()) > 10) {
 			return true;
 		}
 		else {
@@ -215,7 +212,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public boolean encoderEnabledLeft() {
-		if(Math.abs(Robot.driveTrain._leftMain.getEncVelocity()) > 10) {
+		if(Math.abs(_leftMain.getEncVelocity()) > 10) {
 			return true;
 		}
 		else {

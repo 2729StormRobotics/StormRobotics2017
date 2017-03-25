@@ -25,7 +25,7 @@ public class CenterTurn extends Command{
 	@Override
 	public void execute() {
 
-		int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
+		//int shift = (int) table.getNumber("shift", 0); // (+) = left shifted (-) = right shifted
 		_rotation = (int) table.getNumber("p_angle", 0);
 		GyroTurn x = new GyroTurn(50, _rotation - _targetRotation);
 		x.start();

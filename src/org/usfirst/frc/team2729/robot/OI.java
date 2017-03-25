@@ -1,20 +1,10 @@
 package org.usfirst.frc.team2729.robot;
 
-import org.usfirst.frc.team2729.robot.autoModes.VisionAlignRep;
-import org.usfirst.frc.team2729.robot.commands.AutoDrive;
-import org.usfirst.frc.team2729.robot.commands.CenterTurn;
-import org.usfirst.frc.team2729.robot.commands.DFDSpeed;
-import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GearOn;
-import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 import org.usfirst.frc.team2729.robot.commands.LightOn;
-import org.usfirst.frc.team2729.robot.commands.MovingVisionAlignment;
 import org.usfirst.frc.team2729.robot.commands.OnePiston;
 import org.usfirst.frc.team2729.robot.commands.ShootFire;
 import org.usfirst.frc.team2729.robot.commands.ShooterSpin;
-import org.usfirst.frc.team2729.robot.commands.VisionAlignment;
-import org.usfirst.frc.team2729.robot.commands.VisionGyroAlign;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

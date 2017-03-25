@@ -2,8 +2,6 @@ package org.usfirst.frc.team2729.robot.commands;
 
 import org.usfirst.frc.team2729.robot.Robot;
 
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Hang extends Command{
@@ -22,10 +20,10 @@ public class Hang extends Command{
 		double power = Robot.oi.getHang();
 		Robot.hang.hang(power);
 		if(power != 0) {
-			Robot.leds.ledHang = true;
+			Robot.leds.setLedHang(true);
 		}
 		else {
-			Robot.leds.ledHang = false;
+			Robot.leds.setLedHang(false);
 		}
 	}
 	

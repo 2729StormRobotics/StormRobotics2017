@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2729.robot.autoModes;
 
-import org.usfirst.frc.team2729.robot.Robot;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.commands.GyroTurn;
 

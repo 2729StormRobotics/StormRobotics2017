@@ -1,15 +1,11 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.util.HallEffectSensor;
-
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ShootingSystem extends Subsystem {

@@ -21,15 +21,12 @@ public class OnePiston extends Command{
 
 	@Override
 	protected void execute() {
-		Robot.gear.setHighGear(_on);
+		Robot.gear.setOneGear(_on);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		if (Robot.gear.getHaltGear()) {
-			return true;
-		}
-		return false;
+		return true;
 	}
 
 	@Override
@@ -39,7 +36,7 @@ public class OnePiston extends Command{
 
 	@Override
 	protected void interrupted() {
-
+		end();
 	}
 
 }

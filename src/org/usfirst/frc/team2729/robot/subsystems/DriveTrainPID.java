@@ -1,9 +1,6 @@
 package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.RobotMap;
-import org.usfirst.frc.team2729.robot.commands.GyroTurn;
-import org.usfirst.frc.team2729.robot.commands.TankDrive;
-
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
