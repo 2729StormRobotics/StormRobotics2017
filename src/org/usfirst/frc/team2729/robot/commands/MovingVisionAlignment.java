@@ -39,9 +39,19 @@ public class MovingVisionAlignment extends Command{
 		}
 		
 		//if(table.getNumber("est_distance", 0) < 0.75)
-			//base =-75;
+		//	base =-150;
+	
 		
-		Robot.driveTrain.tankDrive(left + base, right + base);
+		double rightEnc = Math.abs(Robot.driveTrain.getRightDistance());
+		int rightSpeed =   Math.abs(Robot.driveTrain.getRightSpeedEnc());
+		int leftSpeed =   Math.abs(Robot.driveTrain.getLeftSpeedEnc());
+		if (rightEnc > 1000 && rightSpeed< 5 && leftSpeed < 5) {
+			Robot.driveTrain.tankDrive(0, 0);
+		}
+		else {
+			Robot.driveTrain.tankDrive(left + base, right + base);
+		}
+		
 		
 	}
 	@Override
@@ -61,10 +71,9 @@ public class MovingVisionAlignment extends Command{
 //			
 //			return true;
 //		}
-		double rightEnc = Math.abs(Robot.driveTrain.getRightDistance());
-		int rightSpeed =   Math.abs(Robot.driveTrain.getRightSpeedEnc());
+
 		
-		if((rightEnc > 1000 && rightSpeed< 5) || !Robot.gear.getHaltGear()){
+		if(/*(rightEnc > 1000 && rightSpeed< 5) || */!Robot.gear.getHaltGear()){
 			
 			return true;
 		}

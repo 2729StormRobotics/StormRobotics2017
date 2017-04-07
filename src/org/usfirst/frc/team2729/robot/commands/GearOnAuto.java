@@ -5,13 +5,13 @@ import org.usfirst.frc.team2729.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
-public class GearOn extends Command {
+public class GearOnAuto extends Command{
 
 	private boolean _on;
 	private boolean _autonomous;
 	NetworkTable table;
 
-	public GearOn(boolean on, boolean autonomous) {
+	public GearOnAuto(boolean on, boolean autonomous) {
 		table = NetworkTable.getTable("GearOn");
 		requires(Robot.gear);
 		_on = on;
@@ -38,13 +38,13 @@ public class GearOn extends Command {
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
 		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
 	//	if (Robot.gear.getHighGear() != _on) {
-			if (_autonomous) {
-				if (!Robot.gear.getHaltGear()) {
-					Robot.gear.setHighGear(_on);
-				}
-			} else {
+		if (_autonomous) {
+			if (!Robot.gear.getHaltGear()) {
 				Robot.gear.setHighGear(_on);
 			}
+		} else {
+			Robot.gear.setHighGear(_on);
+		}
 	//	}
 
 		if (_on) {
@@ -64,11 +64,14 @@ public class GearOn extends Command {
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
 		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
-		if (Robot.gear.getHaltGear()) {
+		if (!Robot.gear.getHaltGear()) {
+			Robot.driveTrain.tankDrive(0, 0);
 			return true;
 		}
-		return false;
-//		return true;
+		else {
+			return false;
+		}
+		
 	}
 
 	@Override
@@ -86,5 +89,6 @@ public class GearOn extends Command {
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
 		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
 	}
+
 
 }

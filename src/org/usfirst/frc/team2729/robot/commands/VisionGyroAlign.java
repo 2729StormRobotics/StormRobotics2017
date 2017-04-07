@@ -15,8 +15,10 @@ public class VisionGyroAlign extends Command {
 	public VisionGyroAlign () {
 		requires(Robot.driveTrain);
 		table = NetworkTable.getTable("Vision");
-		
-		_turnPower = -0.3;
+		Robot.driveTrain.resetLeftEnc();
+		Robot.driveTrain.resetRightEnc();
+		Robot.driveTrain.resetGyro();
+		_turnPower = -125;
 	}
 	
 	@Override
@@ -28,17 +30,17 @@ public class VisionGyroAlign extends Command {
 		Robot.driveTrain.resetGyro();
 		gyroInitAngle = Robot.driveTrain.getGyroAngle();
 		_targetAngle += gyroInitAngle;
-		Robot.driveTrain.percentVbusControl();
+		Robot.driveTrain.speedControl();
 	}
 	
 	protected void execute() {
 		System.err.println("Execute Gyro turn");
 		if (Math.abs(Robot.driveTrain.getGyroAngle() - _targetAngle) <= 3) {
 			if (_turnPower > 0) {
-				_turnPower = 0.15;
+				_turnPower = 125;
 			}
 			if (_turnPower < 0) {
-				_turnPower = -0.15;
+				_turnPower = -125;
 			}
 		}
 		if (_targetAngle > 0) {			
