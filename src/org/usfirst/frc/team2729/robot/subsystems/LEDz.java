@@ -2,6 +2,7 @@ package org.usfirst.frc.team2729.robot.subsystems;
 
 import org.usfirst.frc.team2729.robot.Robot;
 
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,6 +25,8 @@ public class LEDz extends Subsystem {
 	// RDP = 255 - Rainbow
 
 	private boolean ledOff = false;
+	private boolean ledRedAlliance = false;
+	private boolean ledBlueAlliance = false;
 	private boolean ledAuto = false;
 	private int ledGearOn = 0;
 	private boolean ledHang = false;
@@ -55,6 +58,16 @@ public class LEDz extends Subsystem {
 	}
 
 	public void update() {
+		if (Robot.ds.getAlliance().equals(Alliance.Blue)) {
+			ledBlueAlliance = true;
+			ledRedAlliance = false;
+		} else if (Robot.ds.getAlliance().equals(Alliance.Red)) {
+			ledBlueAlliance = false;
+			ledRedAlliance = true;
+		} else {
+			ledBlueAlliance = false;
+			ledRedAlliance = false;
+		}
 		double angle = table.getNumber("p_angle", 0);
 		double targets = table.getNumber("targets", 0);
 		if (targets < 2)
@@ -98,7 +111,13 @@ public class LEDz extends Subsystem {
 		// ledOut.write(ff, 1);
 		// }
 		else if (ledHang) {
-			ff[0] = (byte) 255;
+			ff[0] = (byte) 253;
+			ledOut.write(ff, 1);
+		} else if (ledBlueAlliance) {
+			ff[0] = (byte) 10;
+			ledOut.write(ff, 1);
+		} else if (ledRedAlliance) {
+			ff[0] = (byte) 20;
 			ledOut.write(ff, 1);
 		} else {
 			ff[0] = (byte) 0;

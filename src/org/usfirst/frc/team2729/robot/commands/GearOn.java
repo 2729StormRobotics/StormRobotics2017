@@ -37,15 +37,13 @@ public class GearOn extends Command {
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
 		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
-	//	if (Robot.gear.getHighGear() != _on) {
-			if (_autonomous) {
-				if (!Robot.gear.getHaltGear()) {
-					Robot.gear.setHighGear(_on);
-				}
-			} else {
+		if (_autonomous) {
+			if (!Robot.gear.getHaltGear()) {
 				Robot.gear.setHighGear(_on);
 			}
-	//	}
+		} else {
+			Robot.gear.setHighGear(_on);
+		}
 
 		if (_on) {
 			Robot.leds.setLedGearOn(0);
@@ -64,11 +62,11 @@ public class GearOn extends Command {
 		table.putBoolean("_on", _on);
 		table.putBoolean("Robot.gear.getHaltGear()", Robot.gear.getHaltGear());
 		table.putNumber("Robot.leds.ledGearOn", Robot.leds.getLedGearOn());
-		if (Robot.gear.getHaltGear()) {
-			return true;
-		}
-		return false;
-//		return true;
+//		if (Robot.gear.getHaltGear()) {
+//			return true;
+//		}
+//		return false;
+		return true;
 	}
 
 	@Override

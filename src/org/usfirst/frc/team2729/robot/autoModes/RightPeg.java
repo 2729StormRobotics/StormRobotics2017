@@ -21,7 +21,7 @@ public class RightPeg extends CommandGroup{
 		Robot.driveTrain.resetEnc();
 		table = NetworkTable.getTable("Vision");
 		
-		addSequential(new DFDSpeed(-200, -200, 1.65, 1.65));
+		addSequential(new DFDSpeed(-200, -200, 1.60, 1.60));
 		addSequential(new WaitCommand(0.2));
 		addSequential(new GyroTurn(-150, -50), 2); //CHECK + AND -
 		addSequential(new WaitCommand(0.2));

@@ -46,15 +46,17 @@ public class LeftPegBoiler extends CommandGroup {
 		addSequential(new GearOn(false, false), 1);
 		addSequential(new WaitCommand(0.5));
 		
+		
 		addSequential(new DFDSpeed(440, 520, 1.5, 1.5)); // 220, 260
 		addSequential(new WaitCommand(0.1));
+		addSequential(new ShootFire(4702));
+		addSequential(new ShooterSpin(0.41));
 		addSequential(new DFDSpeed(620, 500, 1, 1),3);  // 310 250
 		addSequential(new WaitCommand(0.1));
-		addSequential(new ShootFire(4702));
+
 		addSequential(new DFDSpeed(200, 200, 0.5, 0.5), 1);
 		
 		addSequential(new WaitCommand(0.3));
-		addSequential(new ShooterSpin(0.41));
 		addSequential(new WaitCommand(8));
 		addSequential(new ShooterSpin(0));
 		addSequential(new ShootFire(0));

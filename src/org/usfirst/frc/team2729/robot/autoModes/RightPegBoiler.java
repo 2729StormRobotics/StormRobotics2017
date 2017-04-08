@@ -21,9 +21,9 @@ public class RightPegBoiler extends CommandGroup{
 		Robot.driveTrain.resetEnc();
 		table = NetworkTable.getTable("Vision");
 		
-		addSequential(new DFDSpeed(-200, -200, 1.65, 1.65));
+		addSequential(new DFDSpeed(-300, -300, 1.40, 1.40));
 		addSequential(new WaitCommand(0.2));
-		addSequential(new GyroTurn(-150, -50), 2); //CHECK + AND -
+		addSequential(new GyroTurn(-180, -60), 2); //CHECK + AND -
 		addSequential(new WaitCommand(0.2));
 		addSequential(new VisionGyroAlign(), 1);
 		addSequential(new WaitCommand(0.2));
@@ -48,12 +48,16 @@ public class RightPegBoiler extends CommandGroup{
 		
 		addSequential(new DFDSpeed(310, 200, 1.5, 1.5));
 		addSequential(new WaitCommand(0.1));
+		
+		addSequential(new ShootFire(4702));
+		addSequential(new ShooterSpin(0.41));
+		
 		addSequential(new DFDSpeed(200, 250, 1, 1), 3);
 		addSequential(new WaitCommand(0.1));
 		addSequential(new DFDSpeed(200, 200, 0.5, 0.5), 3);
-		addSequential(new ShootFire(4702));
+		
 		addSequential(new WaitCommand(0.5));
-		addSequential(new ShooterSpin(0.41));
+		
 		addSequential(new WaitCommand(5));
 		addSequential(new ShooterSpin(0));
 		addSequential(new ShootFire(0));

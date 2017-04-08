@@ -17,6 +17,7 @@ import org.usfirst.frc.team2729.robot.subsystems.ShootingSystem;
 import org.usfirst.frc.team2729.robot.subsystems.VisionSystem;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
@@ -39,6 +40,7 @@ public class Robot extends IterativeRobot {
 	public static VisionSystem vision;
 	public static LEDz leds;
 	public static Preferences preferences;
+	public static DriverStation ds;
 
 	Command teleop;
 	Command autonomousCommand;
@@ -59,6 +61,7 @@ public class Robot extends IterativeRobot {
 		compressor = new Compressor();
 		compressor.start();
 		leds = new LEDz();
+		ds = DriverStation.getInstance();
 		
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Do Nothing", new DriveForwardDistance(0, 0, 0, 0, true));
