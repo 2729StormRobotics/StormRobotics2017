@@ -57,7 +57,7 @@ public class OI {
 		shiftGearOff.whenPressed(new GearOn(false, false));	
 		shootFire.whenPressed(new ShootFire(4702));
 		shootFireOff.whenPressed(new ShootFire(0));
-		shooterSpinOn.whenPressed(new ShooterSpin(0.41));
+		shooterSpinOn.whenPressed(new ShooterSpin(0.205));
 		shooterSpinOnLow.whenPressed(new ShooterSpin(.20));
 		shooterSpinOff.whenPressed(new ShooterSpin(0));
 //		gyroTurn.whenPressed(new GyroTurn(-0.2, 180));

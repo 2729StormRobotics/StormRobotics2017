@@ -89,19 +89,19 @@ public class LEDz extends Subsystem {
 		if (!Robot.gear.getHaltGear()) {
 			ff[0] = (byte) 255;
 			ledOut.write(ff, 1);
-		} else if (vision == 1) {
+		} else if (vision == 1 && Robot.gear.getHighGear()) {
 			ff[0] = (byte) 110;
 			ledOut.write(ff, 1);
-		} else if (vision == 2) {
+		} else if (vision == 2 && Robot.gear.getHighGear()) {
 			ff[0] = (byte) 140;
 			ledOut.write(ff, 1);
-		} else if (vision == 3) {
+		} else if (vision == 3 && Robot.gear.getHighGear()) {
 			ff[0] = (byte) 120;
 			ledOut.write(ff, 1);
-		} else if (ledGearOn == 1) {
+		} /*else if (ledGearOn == 1) {
 			ff[0] = (byte) 130;
 			ledOut.write(ff, 1);
-		}
+		}*/
 		// else if(ledGearOn == 0){
 		// ff[0] = (byte) 255;
 		// ledOut.write(ff, 1);

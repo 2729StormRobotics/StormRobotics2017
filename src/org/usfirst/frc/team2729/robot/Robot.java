@@ -7,6 +7,7 @@ import org.usfirst.frc.team2729.robot.autoModes.LeftPeg;
 import org.usfirst.frc.team2729.robot.autoModes.LeftPegBoiler;
 import org.usfirst.frc.team2729.robot.autoModes.RightPeg;
 import org.usfirst.frc.team2729.robot.autoModes.RightPegBoiler;
+import org.usfirst.frc.team2729.robot.autoModes.SplineTest1;
 import org.usfirst.frc.team2729.robot.commands.DriveForwardDistance;
 import org.usfirst.frc.team2729.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2729.robot.subsystems.GearSystem;
@@ -72,6 +73,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Center Vision", new CenterVision());
 		chooser.addObject("Right Peg Boiler", new RightPegBoiler());
 		chooser.addObject("Left Peg Boiler", new LeftPegBoiler());
+		chooser.addObject("Spline Test", new SplineTest1());
 		
 		SmartDashboard.putData("AutoChooser", chooser);
 		
